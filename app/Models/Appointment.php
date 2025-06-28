@@ -5,9 +5,12 @@ namespace App\Models;
 use App\Enum\AppointmentStatus as EnumAppointmentStatus;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\AppointmentStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Appointment extends Model
 {
+    use  HasFactory;
+
     protected $fillable = [
         'client_id', 'provider_id', 'service_id',
         'date', 'start_time', 'end_time', 'status',

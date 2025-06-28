@@ -50,6 +50,15 @@ class User extends Authenticatable
         ];
     }
 
+    public function isProvider(): bool
+    {
+        return $this->role === Role::Provider;
+    }
+
+    public function isClient(): bool
+    {
+        return $this->role === Role::Client;
+    }
 
         // === Relations ===
 
