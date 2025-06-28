@@ -8,7 +8,8 @@ class StoreServiceRequest extends FormRequest
 {
     public function authorize()
     {
-        // Tylko zalogowany usługodawca może dodawać usługę
+        // return true;
+        // Tylko klient może tworzyć rezerwację
         return auth()->check() && auth()->user()->isProvider();
     }
 

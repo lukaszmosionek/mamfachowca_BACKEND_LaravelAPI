@@ -8,6 +8,7 @@ class StoreAppointmentRequest extends FormRequest
 {
     public function authorize()
     {
+        // return true;
         // Tylko klient może tworzyć rezerwację
         return auth()->check() && auth()->user()->isClient();
     }
