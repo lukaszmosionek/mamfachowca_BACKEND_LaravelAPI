@@ -15,28 +15,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $clients = collect();
+        $providers = collect();
 
-        User::factory()->create([
+         $providers->push(User::factory()->create([
             'email' => 'provider@onet.pl',
             'password' => 'password',
             'role' => 'provider',
-        ]);
+        ]));
 
-        User::factory()->create([
+        $clients->push(User::factory()->create([
             'email' => 'client@onet.pl',
             'password' => 'password',
             'role' => 'client',
-        ]);
+        ]));
 
         // Providerzy
-        $providers = User::factory()->count(3)->create([
+        $providers = $providers->merge(User::factory()->count(3)->create([
             'role' => 'provider',
-        ]);
+        ]));
 
         // Klienci
-        $clients = User::factory()->count(5)->create([
+        $clients = $clients->merge(User::factory()->count(5)->create([
             'role' => 'client',
-        ]);
+        ]));
 
         // Usługi dla każdego provider'a
         $providers->each(function ($provider) {
@@ -50,7 +52,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $clients->each(function ($client) {
-            Appointment::factory()->count(2)->make()->each(function ($appointment) use ($client) {
+            Appointment::factory()->count(20)->make()->each(function ($appointment) use ($client) {
                 $service = Service::inRandomOrder()->first();
 
                 // dd($service);
