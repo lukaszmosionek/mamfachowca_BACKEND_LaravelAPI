@@ -1,21 +1,23 @@
 <?php
 
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/deploy', function () {
-        // Path to the shell script
-        $scriptPath = storage_path('deploy.sh');
-        dump($scriptPath);
-        // $scriptPath = 'deploy.sh';
 
-        // Execute the script
-        $output = shell_exec("bash $scriptPath 2>&1");
+        $gitOutput = shell_exec('git pull 2>&1');
+        $composerOutput = shell_exec('cd .. && composer install 2>&1');
+        Artisan::call('migrate:fresh', [
+            '--seed' => true,
+        ]);
 
-        // Log the output or do something with it
-        \Log::info($output);
+        echo '<h2>Git output</h2>';
+        dump($gitOutput);
 
-        dump($output);
+        echo '<h2>Composer Output</h2>';
+        dump($composerOutput);
 
-        // Return a response to the user
-        return response("Script executed successfully!");
+        echo '<h2>Migrate Output</h2>';
+        dump(Artisan::output());
+
 });
