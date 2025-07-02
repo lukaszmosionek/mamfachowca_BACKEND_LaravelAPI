@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    echo '<a href="/docs/api">API DOCS</a>';
+});
+
 Route::get('/deploy', function () {
 
         $gitOutput = shell_exec('git pull 2>&1');
