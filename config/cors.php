@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_origins' => ['http://localhost:5173'], // port Vue
+    'allowed_origins' => [env('FRONTEND_URL')], // port Vue
 
     'allowed_methods' => ['*'],
 

@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/deploy', function () {
 
         $gitOutput = shell_exec('git pull 2>&1');
-        $composerOutput = shell_exec('cd .. && composer install 2>&1');
+        // $composerOutput = shell_exec('cd .. && php82-cli composer install 2>&1');
+        $composerOutput = shell_exec('cd ../ && composer install 2>&1');
         Artisan::call('migrate:fresh', [
             '--seed' => true,
         ]);
