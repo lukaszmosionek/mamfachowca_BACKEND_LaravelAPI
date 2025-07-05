@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Enum\Role;
 use App\Models\User;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Enum;
 
 class AuthController extends Controller
 {
+    use ApiResponse;
+
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -28,14 +31,10 @@ class AuthController extends Controller
 
         $token = $user->createToken('api_token')->plainTextToken;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User registered successfully.',
-            'data' => [
+        return $this->success([
                 'user' => $user,
                 'token' => $token,
-            ],
-        ], 201);
+            ], 'User registered successfully.', 201);
     }
 
     public function login(Request $request)
@@ -53,23 +52,15 @@ class AuthController extends Controller
 
         $token = $user->createToken('api_token')->plainTextToken;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User logged successfully.',
-            'data' => [
+        return $this->success([
                 'user' => $user,
                 'token' => $token,
-            ],
-        ]);
+            ], 'User logged successfully.');
     }
 
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Logged out'
-        ]);
+        return $this->success(null, 'Logged out');
     }
 }

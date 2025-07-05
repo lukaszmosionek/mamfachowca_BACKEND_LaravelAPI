@@ -4,18 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Models\Appointment;
+use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, ApiResponse;
 
     // Klient widzi swoje rezerwacje
     public function index()
     {
         $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->get();
-        return response()->json($appointments);
+        return $this->success($appointments, 'Appointments retrieved successfully');
     }
 
     public function store(StoreAppointmentRequest $request)
@@ -33,19 +34,19 @@ class AppointmentController extends Controller
             'status' => 'pending',
         ]);
 
-        return response()->json($appointment, 201);
+        return $this->success($appointment, 'Appointment stored successfully', 201);
     }
 
     public function show(Appointment $appointment)
     {
         $this->authorize('view', $appointment);
-        return response()->json($appointment->load('service', 'provider', 'client'));
+        return $this->success($appointment->load('service', 'provider', 'client'), 'Single appointment fetched successfully');
     }
 
     public function destroy(Appointment $appointment)
     {
         $this->authorize('delete', $appointment);
         $appointment->delete();
-        return response()->json(null, 204);
+        return $this->success(null, 'Appointment delete successfully', 204);
     }
 }
