@@ -10,6 +10,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');;
 
+Route::get('services/all', [ServiceController::class, 'all'])->name('services.all');
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('services', ServiceController::class);
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);

@@ -12,6 +12,11 @@ class ServiceController extends Controller
 {
     use AuthorizesRequests;
 
+    public function all(){
+        $services = Service::with('provider:id,name')->get();
+        return response()->json($services);
+    }
+
     public function index()
     {
         // Pokaż usługi zalogowanego usługodawcy
