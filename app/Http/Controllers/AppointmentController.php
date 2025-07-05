@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAppointmentRequest;
+use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -16,6 +17,7 @@ class AppointmentController extends Controller
     public function index()
     {
         $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->get();
+        $appointments = AppointmentResource::collection($appointments);
         return $this->success($appointments, 'Appointments retrieved successfully');
     }
 
@@ -34,12 +36,14 @@ class AppointmentController extends Controller
             'status' => 'pending',
         ]);
 
+        $appointment = AppointmentResource::collection($appointment);
         return $this->success($appointment, 'Appointment stored successfully', 201);
     }
 
     public function show(Appointment $appointment)
     {
         $this->authorize('view', $appointment);
+        $appointment = AppointmentResource::collection($appointment);
         return $this->success($appointment->load('service', 'provider', 'client'), 'Single appointment fetched successfully');
     }
 

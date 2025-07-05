@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -15,6 +16,7 @@ class ServiceController extends Controller
 
     public function all(){
         $services = Service::with('provider:id,name')->get();
+        $services = ServiceResource::collection($services);
         return $this->success($services, 'Services fetched successfully');
     }
 
@@ -22,6 +24,7 @@ class ServiceController extends Controller
     {
         // Pokaż usługi zalogowanego usługodawcy
         $services = auth()->user()->services()->get();
+        $services = ServiceResource::collection($services);
         return $this->success($services, 'Services fetched successfully');
     }
 
@@ -34,6 +37,7 @@ class ServiceController extends Controller
     public function show(Service $service)
     {
         $this->authorize('view', $service);
+        $service = ServiceResource::collection($service);
         return $this->success($service, 'Service fetched successfully');
     }
 
