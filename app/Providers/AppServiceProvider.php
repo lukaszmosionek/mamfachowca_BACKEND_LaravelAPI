@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Policies\ServicePolicy;
 use App\Models\Appointment;
 use App\Policies\AppointmentPolicy;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // JsonResource::withoutWrapping();
     }
 
     protected $policies = [

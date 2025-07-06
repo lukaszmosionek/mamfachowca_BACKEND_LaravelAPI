@@ -15,9 +15,12 @@ class ServiceController extends Controller
     use AuthorizesRequests, ApiResponse;
 
     public function all(){
-        $services = Service::with('provider:id,name')->get();
-        $services = ServiceResource::collection($services);
-        return $this->success($services, 'Services fetched successfully');
+        $services = Service::with('provider:id,name')->paginate(request('per_page', 10))->withQueryString();
+
+        return $this->success(
+            ServiceResource::collection($services)->response()->getData(true),
+            'Services fetched successfully'
+        );
     }
 
     public function index()
@@ -30,7 +33,7 @@ class ServiceController extends Controller
 
     public function store(StoreServiceRequest $request)
     {
-        $service = auth()->user()->services()->create($request->validated());
+        $service = auth()->user()->services()->create($request);
         return $this->success($service, 'Service created successfully', 201);
     }
 
