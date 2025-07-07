@@ -15,11 +15,22 @@ class ServiceController extends Controller
     use AuthorizesRequests, ApiResponse;
 
     public function all(){
-        $services = Service::with('provider:id,name')->paginate(request('per_page', 10))->withQueryString();
+        $search = request('name');
+        $provider_id = request('provider_id');
+
+        $services = Service::with('provider:id,name')
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', "%{$search}%");
+                })
+                ->when($provider_id, function ($query, $provider_id) {
+                    $query->where('user_id', $provider_id);
+                })
+                ->paginate(request('per_page', 10))
+                ->withQueryString();
 
         return $this->success(
-            ServiceResource::collection($services)->response()->getData(true),
-            'Services fetched successfully'
+                ServiceResource::collection($services)->response()->getData(true),
+                'Services fetched successfully'
         );
     }
 
