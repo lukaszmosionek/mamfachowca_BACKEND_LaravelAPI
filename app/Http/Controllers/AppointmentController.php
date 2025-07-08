@@ -22,21 +22,24 @@ class AppointmentController extends Controller
     }
 
     public function store(StoreAppointmentRequest $request)
+    // public function store(Request $request)
     {
-        $data = $request->validated();
-        $service = \App\Models\Service::findOrFail($data['service_id']);
+
+        // return($request->all());
+
+        $service = \App\Models\Service::findOrFail($request->service_id);
 
         $appointment = Appointment::create([
             'client_id' => auth()->id(),
-            'provider_id' => $data['provider_id'],
+            'provider_id' => $service->provider->id,
             'service_id' => $service->id,
-            'date' => $data['date'],
-            'start_time' => $data['start_time'],
-            'end_time' => date('H:i', strtotime($data['start_time'] . " + {$service->duration_minutes} minutes")),
+            'date' => $request->date,
+            'start_time' => $request->start_time,
+            'end_time' => date('H:i', strtotime($request->start_time . " + {$service->duration_minutes} minutes")),
             'status' => 'pending',
         ]);
 
-        $appointment = AppointmentResource::collection($appointment);
+        // $appointment = AppointmentResource::collection($appointment);
         return $this->success($appointment, 'Appointment stored successfully', 201);
     }
 
