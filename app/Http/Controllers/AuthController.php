@@ -2,60 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Enum\Role;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Enum;
+
 
 class AuthController extends Controller
 {
     use ApiResponse;
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:6', 'confirmed'],
-            'role' => ['required', new Enum(Role::class)],
-        ]);
-
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
-        ]);
-
-        $token = $user->createToken('api_token')->plainTextToken;
-
         return $this->success([
-                'user' => $user,
-                'token' => $token,
+                'user' => $user = User::create($request->all()),
+                'token' => $user->createToken('api_token')->plainTextToken,
             ], 'User registered successfully.', 201);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+        $user = User::where('email', $request->email)->first();
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return $this->error('Invalid credentials', 401);
         }
-
-        $token = $user->createToken('api_token')->plainTextToken;
 
         return $this->success([
                 'user' => $user,
-                'token' => $token,
-            ], 'User logged successfully.');
+                'token' => $user->createToken('api_token')->plainTextToken,
+            ], 'User logged in successfully.');
     }
 
     public function logout(Request $request)

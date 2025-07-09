@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ServiceController extends Controller
 {
@@ -25,6 +26,7 @@ class ServiceController extends Controller
                 ->when($provider_id, function ($query, $provider_id) {
                     $query->where('user_id', $provider_id);
                 })
+                ->where('lang', App::getLocale())
                 ->paginate(request('per_page', 10))
                 ->withQueryString();
 
