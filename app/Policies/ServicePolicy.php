@@ -9,16 +9,16 @@ class ServicePolicy
 {
     public function view(User $user, Service $service): bool
     {
-        return $user->id === $service->user_id;
+        return $user->id === $service->provider_id;
     }
 
     public function update(User $user, Service $service): bool
     {
-        return $user->id === $service->user_id;
+        return $user->id === $service->provider_id;
     }
 
     public function delete(User $user, Service $service): bool
     {
-        return $user->id === $service->user_id;
+        return $user->id === $service->provider_id;
     }
 }

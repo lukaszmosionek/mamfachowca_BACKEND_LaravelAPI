@@ -17,7 +17,7 @@ class ServiceSeeder extends Seeder
             // Każdy provider dostaje 3–5 usług
             Service::factory()
                 ->count(rand(3, 5))
-                ->create(['user_id' => $provider->id]);
+                ->create(['provider_id' => $provider->id]);
         }
     }
 }

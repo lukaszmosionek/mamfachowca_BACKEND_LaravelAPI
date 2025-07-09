@@ -46,7 +46,7 @@ class ServiceController extends Controller
 
     public function store(StoreServiceRequest $request)
     {
-        $service = auth()->user()->services()->create($request);
+        $service = auth()->user()->services()->create($request->all());
         return $this->success($service, 'Service created successfully', 201);
     }
 

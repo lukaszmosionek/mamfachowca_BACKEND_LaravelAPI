@@ -13,11 +13,21 @@ return new class extends Migration
     {
         Schema::create('availabilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // provider
-            $table->tinyInteger('day_of_week')->comment('0=Sunday, 6=Saturday'); // 0=Sunday, 6=Saturday
+            $table->foreignId('provider_id')->constrained('users')->onDelete('cascade');
+            $table->enum('day_of_week', [
+                'sunday',
+                'monday',
+                'tuesday',
+                'wednesday',
+                'thursday',
+                'friday',
+                'saturday'
+            ])->comment('Day of the week');
             $table->time('start_time');
             $table->time('end_time');
             $table->timestamps();
+
+            $table->unique(['provider_id', 'day_of_week']);
         });
     }
 

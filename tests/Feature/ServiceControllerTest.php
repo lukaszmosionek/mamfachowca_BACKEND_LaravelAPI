@@ -56,7 +56,7 @@ class ServiceControllerTest extends TestCase
     {
         $owner = User::factory()->create(['role' => 'provider']);
         $attacker = User::factory()->create(['role' => 'provider']);
-        $service = Service::factory()->for($owner)->create();
+        $service = Service::factory()->for($owner, 'provider')->create();
 
         $response = $this->actingAs($attacker, 'sanctum')->putJson("/api/services/{$service->id}", [
             'name' => 'Próba włamania',

@@ -10,12 +10,12 @@ class Service extends Model
     use  HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'description', 'price', 'duration_minutes',
+        'provider_id', 'name', 'description', 'price', 'duration_minutes',
     ];
 
     public function provider()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'provider_id');
     }
 
     public function appointments()

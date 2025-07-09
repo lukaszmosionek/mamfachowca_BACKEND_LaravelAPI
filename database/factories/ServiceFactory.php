@@ -83,7 +83,7 @@ class ServiceFactory extends Factory
         $lang = $this->faker->randomElement(['pl', 'en']);
 
         return [
-            'user_id' => User::factory(),
+            'provider_id' => User::factory(),
             'name' => $this->faker->randomElement($services[$lang]),
             'description' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(0, 50, 300),

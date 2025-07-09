@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Service;
 use App\Models\Appointment;
+use App\Models\Availability;
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,8 +44,9 @@ class DatabaseSeeder extends Seeder
         // Usługi dla każdego provider'a
         $providers->each(function ($provider) {
             Service::factory()->count(3)->create([
-                'user_id' => $provider->id,
+                'provider_id' => $provider->id,
             ]);
+            Availability::factory()->for($provider, 'provider')->create();
         });
 
         $this->call([
@@ -60,7 +62,7 @@ class DatabaseSeeder extends Seeder
                 Appointment::create([
                     'client_id' => $client->id,
                     'service_id' => $service->id,
-                    'provider_id' => $service->user_id,
+                    'provider_id' => $service->provider_id,
                     'date' => $appointment->date,
                     'start_time' => $appointment->start_time,
                     'end_time' => $appointment->end_time,

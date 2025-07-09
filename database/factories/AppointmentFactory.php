@@ -16,7 +16,7 @@ class AppointmentFactory extends Factory
     {
         $provider = User::factory()->create(['role' => 'provider']);
         $client = User::factory()->create(['role' => 'client']);
-        $service = Service::factory()->for($provider)->create();
+        $service = Service::factory()->for($provider, 'provider')->create();
         $date = now()->addDays(rand(1, 10))->toDateString();
         $start = now()->setTime(rand(8, 16), 0)->format('H:i');
         $duration = $service->duration_minutes ?? 30;
@@ -24,7 +24,7 @@ class AppointmentFactory extends Factory
         return [
             'client_id' => $client->id,
             'provider_id' => $provider->id,
-            'service_id' => $service->id,
+            // 'service_id' => $service->id,
             'date' => $date,
             'start_time' => $start,
             'end_time' => date('H:i', strtotime("$start + $duration minutes")),
