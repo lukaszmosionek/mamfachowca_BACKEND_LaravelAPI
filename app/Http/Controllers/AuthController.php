@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateAvailabilityAction;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Availability;
 use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -16,8 +18,12 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
+        $user = User::create( $request->all() );
+
+        app(CreateAvailabilityAction::class)->execute($user, $request->availability);
+
         return $this->success([
-                'user' => $user = User::create($request->all()),
+                'user' => $user,
                 'token' => $user->createToken('api_token')->plainTextToken,
             ], 'User registered successfully.', 201);
     }
