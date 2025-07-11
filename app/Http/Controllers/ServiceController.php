@@ -19,20 +19,21 @@ class ServiceController extends Controller
         $search = request('name');
         $provider_id = request('provider_id');
 
-        $services = Service::with('provider:id,name')
+        $services = Service::with(['provider:id,name','provider.availabilities'])
                 ->when($search, function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
                 })
                 ->when($provider_id, function ($query, $provider_id) {
-                    $query->where('user_id', $provider_id);
+                    $query->where('provider_id', $provider_id);
                 })
                 ->where('lang', App::getLocale())
                 ->paginate(request('per_page', 10))
                 ->withQueryString();
 
-        return $this->success(
-                ServiceResource::collection($services)->response()->getData(true),
-                'Services fetched successfully'
+        return $this->success([
+                    'data' => ServiceResource::collection($services->items()),
+                    'total_pages' => $services->lastPage()
+                ],'Services fetched successfully'
         );
     }
 

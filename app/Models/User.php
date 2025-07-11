@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function availabilities()
     {
-        return $this->hasMany(Availability::class);
+        return $this->hasMany(Availability::class, 'provider_id');
     }
 
     public function appointmentsAsClient()

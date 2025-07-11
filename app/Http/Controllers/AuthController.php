@@ -33,7 +33,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return $this->error('Invalid credentials', 401);
+            return $this->error('Invalid credentials', 401 , ['password' => 'Invalid credentials']);
         }
 
         return $this->success([

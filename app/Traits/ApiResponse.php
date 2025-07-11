@@ -6,8 +6,8 @@ trait ApiResponse {
     protected function success($data = null, $message = '', $code = 200) {
         return response()->json([
             'success' => true,
-            'data' => $data,
             'message' => $message,
+            'data' => $data,
         ], $code);
     }
 

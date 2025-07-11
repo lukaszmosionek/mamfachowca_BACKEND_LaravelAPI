@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
+use App\Models\Service;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -22,12 +23,10 @@ class AppointmentController extends Controller
     }
 
     public function store(StoreAppointmentRequest $request)
-    // public function store(Request $request)
     {
+        $service = Service::with(['provider:id,name','provider.availabilities'])->findOrFail($request->service_id);
 
-        // return($request->all());
-
-        $service = \App\Models\Service::findOrFail($request->service_id);
+        $endTime = $request->validateAvailability($service);
 
         $appointment = Appointment::create([
             'client_id' => auth()->id(),
@@ -35,7 +34,7 @@ class AppointmentController extends Controller
             'service_id' => $service->id,
             'date' => $request->date,
             'start_time' => $request->start_time,
-            'end_time' => date('H:i', strtotime($request->start_time . " + {$service->duration_minutes} minutes")),
+            'end_time' => $endTime,
             'status' => 'pending',
         ]);
 

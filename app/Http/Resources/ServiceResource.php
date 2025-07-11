@@ -16,14 +16,14 @@ class ServiceResource extends JsonResource
     {
         return [
             'id'             => $this->id,
-            'user_id'        => $this->user_id,
+            // 'user_id'        => $this->user_id,
             'provider'       => new UserResource($this->whenLoaded('provider')),
             'name'           => $this->name,
             'description'    => $this->description,
             'price'          => $this->price,
             'duration'       => $this->duration_minutes,
-            'created_at'     => $this->created_at,
-            'updated_at'     => $this->updated_at,
+            // 'created_at'     => $this->created_at,
+            // 'updated_at'     => $this->updated_at,
         ];
     }
 }
