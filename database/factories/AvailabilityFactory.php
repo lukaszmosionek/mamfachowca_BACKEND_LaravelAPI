@@ -12,8 +12,8 @@ class AvailabilityFactory extends Factory
 
     public function definition()
     {
-        $start = $this->faker->time('H:i');
-        $end = \Carbon\Carbon::parse($start)->addHours(1)->format('H:i');
+        $start = $this->faker->time('H:i:s');
+        $end = \Carbon\Carbon::parse($start)->addHours(1)->format('H:i:s');
 
         $day_of_week = [
         'sunday',
