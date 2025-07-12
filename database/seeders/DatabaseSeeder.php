@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
+use Exception;
 
 class DatabaseSeeder extends Seeder
 {
@@ -46,7 +47,11 @@ class DatabaseSeeder extends Seeder
             Service::factory()->count(3)->create([
                 'provider_id' => $provider->id,
             ]);
-            Availability::factory()->for($provider, 'provider')->create();
+            try{
+                Availability::factory()->count(rand(1,5))->for($provider, 'provider')->create();
+            }catch(Exception $e){
+                // echo $e->getMessage();
+            }
         });
 
         $this->call([

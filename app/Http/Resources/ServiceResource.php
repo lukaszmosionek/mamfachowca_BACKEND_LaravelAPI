@@ -20,7 +20,7 @@ class ServiceResource extends JsonResource
             'provider'       => new UserResource($this->whenLoaded('provider')),
             'name'           => $this->name,
             'description'    => $this->description,
-            'price'          => $this->price,
+            'price'          => rtrim(rtrim(number_format($this->price, 2, '.', ''), '0'), '.'), // delete unnecesery .00 from e.g. 12.00 price
             'duration'       => $this->duration_minutes,
             // 'created_at'     => $this->created_at,
             // 'updated_at'     => $this->updated_at,

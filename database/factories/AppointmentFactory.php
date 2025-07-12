@@ -24,7 +24,7 @@ class AppointmentFactory extends Factory
         return [
             'client_id' => $client->id,
             'provider_id' => $provider->id,
-            // 'service_id' => $service->id,
+            'service_id' => $service->id,
             'date' => $date,
             'start_time' => $start,
             'end_time' => date('H:i', strtotime("$start + $duration minutes")),

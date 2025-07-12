@@ -85,7 +85,7 @@ class ServiceFactory extends Factory
         return [
             'provider_id' => User::factory(),
             'name' => $this->faker->randomElement($services[$lang]),
-            'description' => $this->faker->sentence(),
+            'description' => $this->faker->sentence(60),
             'price' => $this->faker->randomFloat(0, 50, 300),
             'duration_minutes' => $this->faker->numberBetween(15, 90),
             'lang' => $lang,

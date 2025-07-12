@@ -12,17 +12,17 @@ class AvailabilityFactory extends Factory
 
     public function definition()
     {
-        $start = $this->faker->time('H:i:s');
-        $end = \Carbon\Carbon::parse($start)->addHours(1)->format('H:i:s');
+        $start = $this->faker->dateTimeBetween('08:00:00', '12:00:00')->format('H:i:s');
+        $end = \Carbon\Carbon::parse($start)->addHours(rand(2,7))->format('H:i:s');
 
         $day_of_week = [
-        'sunday',
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday'
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday',
         ];
 
         return [
