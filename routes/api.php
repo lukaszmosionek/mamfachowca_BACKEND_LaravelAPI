@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');;
@@ -21,8 +23,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user', [UserController::class, 'getUser']);
     Route::put('/user', [UserController::class, 'update']);
+
+    Route::get('/messages/{user}', [ChatController::class, 'index']);
+    Route::post('/messages/{user}', [ChatController::class, 'store']);
 });
 
+
+Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 
 

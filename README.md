@@ -15,4 +15,6 @@ git clone https://github.com/lukaszmosionek/mamfachowca-BACKEND-LaravelAPI.git &
 composer install
 php artisan migrate
 php artisan serve
+
+php artisan queue:work - Run Laravel Queue Worker (for broadcasting events)
 ```
