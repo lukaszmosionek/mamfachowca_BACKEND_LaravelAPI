@@ -17,7 +17,12 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie', 'broadcasting/auth'],
 
-    'allowed_origins' => [env('FRONTEND_URL', 'http://mamfachowca.mosioneklukasz.pl')], // port Vue
+    'allowed_origins' => [
+        env('FRONTEND_URL', 'http://mamfachowca.mosioneklukasz.pl'),
+        env('FRONTEND_URL_2'),
+        env('FRONTEND_URL_3'),
+        env('FRONTEND_URL_4'),
+    ], // port Vue
 
     'allowed_methods' => ['*'],
 
