@@ -50,7 +50,10 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/lukaszmosionek/mamfachowca_BACKEND_LaravelAPI.git && cd mamfachowca_BACKEND_LaravelAPI
+git clone https://github.com/lukaszmosionek/mamfachowca_BACKEND_LaravelAPI.git 
+
+# Navigate into the directory
+cd mamfachowca_BACKEND_LaravelAPI
 
 # Install PHP dependencies
 composer install
