@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Events\MessageSent;
 use App\Models\User;
+use App\Notifications\NewMessageNotification;
+use App\Notifications\NewNotification;
 use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
@@ -31,13 +33,14 @@ class ChatController extends Controller
     }
 
     // Send a new message to a user
-    public function store(Request $request, $receiver_id)
+    public function store(Request $request)
     {
-        $receiver = User::findOrFail($receiver_id);
-
         $request->validate([
             'message' => 'required|string|max:1000',
+            'receiver_id' => 'required|exists:users,id',
         ]);
+
+        $receiver = User::find($request->receiver_id);
 
         $message = Message::create([
             'sender_id' => Auth::id(),
@@ -45,8 +48,11 @@ class ChatController extends Controller
             'body' => $request->message,
         ]);
 
+        // Notify the receiver about the new message
+        $receiver->notify( new NewMessageNotification() );
         broadcast(new MessageSent($message, $receiver->id))->toOthers();
 
         return response()->json($message, 201);
+
     }
 }

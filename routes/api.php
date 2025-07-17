@@ -15,15 +15,15 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');;
 
-Route::get('services/all', [ServiceController::class, 'all'])->name('services.all');
+Route::get('services/all', [ServiceController::class, 'all'])->name('services.all');// /me/services
 Route::get('providers/all', [ProviderController::class, 'index'])->name('providers.all');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('services', ServiceController::class);
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
 
-    Route::get('/user', [UserController::class, 'getUser']);
-    Route::put('/user', [UserController::class, 'update']);
+    Route::get('/user', [UserController::class, 'getUser']); // /me
+    Route::put('/user', [UserController::class, 'update']); // /me
 
     Route::get('/messages/{user}', [ChatController::class, 'index']);
     Route::post('/messages/{user}', [ChatController::class, 'store']);

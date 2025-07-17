@@ -1,7 +1,19 @@
 <?php
 
+use App\Models\User;
+use App\Notifications\NewNotification;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Route;
+
+
+Route::get('/test', function () {
+    $body = 'This is a test message body';
+    $title = 'Test Notification';
+    $path = '/messages/1';
+
+    $notification = new NewNotification($body, $title, $path);
+    User::find(1)->notify($notification);
+});
 
 Route::get('/', function () {
     echo '<a href="/docs/api">API DOCS</a>';

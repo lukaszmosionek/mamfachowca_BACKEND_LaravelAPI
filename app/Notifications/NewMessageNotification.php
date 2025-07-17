@@ -2,13 +2,15 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
-class NewNotification extends Notification
+class NewMessageNotification extends Notification
 {
     use Queueable;
 
@@ -19,11 +21,17 @@ class NewNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct($body = null, $title = null, $path = null)
+    public function __construct()
     {
-        $this->body = $body;
-        $this->title = $title;
-        $this->path = $path;
+        $user = Auth::user();
+
+        if (!$user) {
+            throw new \Exception('User not authenticated');
+        }
+
+        $this->body = __('You have a new message from :name', ['name' => $user->name]);
+        $this->title = __('New Message');
+        $this->path = '/messages/' . $user->id;
     }
 
     /**
