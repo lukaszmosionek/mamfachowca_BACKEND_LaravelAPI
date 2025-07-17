@@ -1,10 +1,16 @@
 <?php
 
-use App\Events\TestMessageSent;
 use Illuminate\Support\Facades\Broadcast;
 
+
+//messages
 Broadcast::channel('private-chat.{receiverId}', function ($user, $receiverId) {
     return (int) $user->id === (int) $receiverId || $user->canChatWith($receiverId);
+});
+
+//notifications
+Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
 });
 
 
