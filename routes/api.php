@@ -25,14 +25,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'getUser']); // /me
     Route::put('/user', [UserController::class, 'update']); // /me
 
-    Route::get('/messages/{user}', [ChatController::class, 'index']);
-    Route::post('/messages/{user}', [ChatController::class, 'store']);
+    Route::apiResource('chats', ChatController::class)->only(['index', 'show', 'store']);
 
     Route::apiResource('notifications', NotificationController::class)->only(['index']);
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::post('/notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 });
-
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
