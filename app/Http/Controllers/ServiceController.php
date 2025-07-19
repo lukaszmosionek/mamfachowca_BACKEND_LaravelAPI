@@ -15,7 +15,7 @@ class ServiceController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    public function all(){
+    public function index(){
         $search = request('name');
         $provider_id = request('provider_id');
 
@@ -37,38 +37,4 @@ class ServiceController extends Controller
         );
     }
 
-    public function index()
-    {
-        // Pokaż usługi zalogowanego usługodawcy
-        $services = auth()->user()->services()->get();
-        $services = ServiceResource::collection($services);
-        return $this->success($services, 'Services fetched successfully');
-    }
-
-    public function store(StoreServiceRequest $request)
-    {
-        $service = auth()->user()->services()->create($request->all());
-        return $this->success($service, 'Service created successfully', 201);
-    }
-
-    public function show(Service $service)
-    {
-        $this->authorize('view', $service);
-        $service = ServiceResource::collection($service);
-        return $this->success($service, 'Service fetched successfully');
-    }
-
-    public function update(UpdateServiceRequest $request, Service $service)
-    {
-        $this->authorize('update', $service);
-        $service->update($request->validated());
-        return $this->success($service, 'Service updated successfully');
-    }
-
-    public function destroy(Service $service)
-    {
-        $this->authorize('delete', $service);
-        $service->delete();
-        return $this->success(null, 'Service deleted successfully', 204);
-    }
 }

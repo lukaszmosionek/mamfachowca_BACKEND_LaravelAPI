@@ -6,7 +6,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     use ApiResponse;
 
