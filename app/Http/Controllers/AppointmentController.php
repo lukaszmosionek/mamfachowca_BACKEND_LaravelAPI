@@ -46,7 +46,7 @@ class AppointmentController extends Controller
     {
         $this->authorize('view', $appointment);
         $appointment = AppointmentResource::collection($appointment);
-        return $this->success($appointment->load('service', 'provider', 'client'), 'Single appointment fetched successfully');
+        return $this->success($appointment->load('service', 'provider', 'client'), 'Appointment fetched successfully');
     }
 
     public function destroy(Appointment $appointment)
