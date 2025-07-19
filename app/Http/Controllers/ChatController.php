@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Events\MessageSent;
+use App\Models\Chat;
 use App\Models\User;
 use App\Notifications\NewMessageNotification;
-use App\Notifications\NewNotification;
+use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,26 +19,23 @@ class ChatController extends Controller
 
     public function index(Request $request)
     {
-        $authId = auth()->id(); // or however you get the auth user ID
-        $users = [];
+        // Fetch all users that the authenticated user has chatted with
+        // This assumes that the authenticated user is the one who is logged in
+        $chatUserIds = Chat::where('user1_id', auth()->id())
+            ->orWhere('user2_id', auth()->id())
+            ->latest('last_message_at')
+            ->get()
+            ->map(function ($chat) {
+                return $chat->user1_id === auth()->id() ? $chat->user2_id : $chat->user1_id;
+            })
+            ->unique()
+            ->values();
 
-        $messages = Message::where('sender_id', $authId)->orWhere('receiver_id', $authId)
-                        ->orderBy('created_at', 'DESC')
-                        ->get(['sender_id', 'receiver_id']);
+        $usersYouChattedWith = User::whereIn('id', $chatUserIds)->get(['id', 'name', 'email'])
+            ->sortBy(fn($user) => array_search( $user->id, $chatUserIds->toArray() ))
+            ->values();
 
-        foreach ($messages as $message) {
-                if ($message->sender_id !== $authId) {
-                    $users[] = $message->sender_id;
-                } elseif ($message->receiver_id !== $authId) {
-                    $users[] = $message->receiver_id;
-                }
-        }
-
-        $users = array_unique($users);
-
-        $users = User::whereIn('id', $users)->get(['id', 'name', 'email']);
-
-        return $this->success($users, 'Users fetched successfully');
+        return $this->success($usersYouChattedWith, 'Users fetched successfully');
     }
 
     // Get all messages between the authenticated user and the target user
@@ -57,7 +55,7 @@ class ChatController extends Controller
             $query->where('sender_id', $receiver->id)
                   ->where('receiver_id', $authId);
         })
-        ->orderBy('created_at')->get();
+        ->orderBy('created_at')->get(['body']);
 
         return response()->json([
             'messages' => $messages,
@@ -75,11 +73,22 @@ class ChatController extends Controller
 
         $receiver = User::find($request->receiver_id);
 
+        $sender_id = Auth::id();
+
+        $chat = Chat::firstOrCreate([
+            'user1_id' => min($sender_id, $receiver->id),
+            'user2_id' => max($sender_id, $receiver->id),
+        ]);
+
         $message = Message::create([
-            'sender_id' => Auth::id(),
+            'chat_id' => $chat->id,
+            'sender_id' => $sender_id,
             'receiver_id' => $receiver->id,
             'body' => $request->message,
         ]);
+
+        $chat->last_message_at = now();
+        $chat->save();
 
         // Notify the receiver about the new message
         $receiver->notify( new NewMessageNotification() );
