@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
+use App\Notifications\NewMessageNotification;
 use Exception;
 
 class DatabaseSeeder extends Seeder
@@ -20,17 +21,20 @@ class DatabaseSeeder extends Seeder
         $clients = collect();
         $providers = collect();
 
-         $providers->push(User::factory()->create([
+        $provider = User::factory()->create([
             'email' => 'provider@onet.pl',
             'password' => 'password',
             'role' => 'provider',
-        ]));
+        ]);
 
-        $clients->push(User::factory()->create([
+        $client = User::factory()->create([
             'email' => 'client@onet.pl',
             'password' => 'password',
             'role' => 'client',
-        ]));
+        ]);
+
+        $providers->push($provider);
+        $clients->push($client);
 
         // Providerzy
         $providers = $providers->merge(User::factory()->count(3)->create([
@@ -41,6 +45,11 @@ class DatabaseSeeder extends Seeder
         $clients = $clients->merge(User::factory()->count(5)->create([
             'role' => 'client',
         ]));
+
+        for($i = 0; $i < 5; $i++) {
+            $provider->notify( new NewMessageNotification($client) );
+            $client->notify( new NewMessageNotification($provider) );
+        }
 
         // Usługi dla każdego provider'a
         $providers->each(function ($provider) {

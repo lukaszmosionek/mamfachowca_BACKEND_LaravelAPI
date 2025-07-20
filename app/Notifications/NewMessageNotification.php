@@ -21,9 +21,8 @@ class NewMessageNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        $user = Auth::user();
 
         if (!$user) {
             throw new \Exception('User not authenticated');
@@ -31,7 +30,7 @@ class NewMessageNotification extends Notification
 
         $this->body = __('You have a new message from :name', ['name' => $user->name]);
         $this->title = __('New Message');
-        $this->path = '/messages/' . $user->id;
+        $this->path = str_replace('{id}', $user->id, config('paths.user_messages'));
     }
 
     /**

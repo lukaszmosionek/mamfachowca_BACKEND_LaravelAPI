@@ -12,15 +12,14 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Auth;
 
-class ChatController extends Controller
+class MessageController extends Controller
 {
 
     use ApiResponse;
 
-    public function index(Request $request)
+    public function fetchMessagedUsers(Request $request)
     {
         // Fetch all users that the authenticated user has chatted with
-        // This assumes that the authenticated user is the one who is logged in
         $chatUserIds = Chat::where('user1_id', auth()->id())
             ->orWhere('user2_id', auth()->id())
             ->latest('last_message_at')
@@ -39,21 +38,17 @@ class ChatController extends Controller
     }
 
     // Get all messages between the authenticated user and the target user
-    public function show($receiverId)
+    public function index(User $user)
     {
-        $authId = Auth::id();
-        $receiver = User::find($receiverId);
+        $authUser = Auth::user();
+        $receiver = $user;
 
-        if (!$receiver) {
-            return $this->error('Chat user not found', 404);
-        }
-
-        $messages = Message::where(function ($query) use ($authId, $receiver) {
-            $query->where('sender_id', $authId)
+        $messages = Message::where(function ($query) use ($authUser, $receiver) {
+            $query->where('sender_id', $authUser->id)
                   ->where('receiver_id', $receiver->id);
-        })->orWhere(function ($query) use ($authId, $receiver) {
+        })->orWhere(function ($query) use ($authUser, $receiver) {
             $query->where('sender_id', $receiver->id)
-                  ->where('receiver_id', $authId);
+                  ->where('receiver_id', $authUser->id);
         })
         ->orderBy('created_at')->get(['body']);
 
@@ -64,25 +59,24 @@ class ChatController extends Controller
     }
 
     // Send a new message to a user
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         $request->validate([
             'message' => 'required|string|max:1000',
-            'receiver_id' => 'required|exists:users,id',
         ]);
 
-        $receiver = User::find($request->receiver_id);
+        $receiver = $user;
 
-        $sender_id = Auth::id();
+        $sender = Auth::user();
 
         $chat = Chat::firstOrCreate([
-            'user1_id' => min($sender_id, $receiver->id),
-            'user2_id' => max($sender_id, $receiver->id),
+            'user1_id' => min($sender->id, $receiver->id),
+            'user2_id' => max($sender->id, $receiver->id),
         ]);
 
         $message = Message::create([
             'chat_id' => $chat->id,
-            'sender_id' => $sender_id,
+            'sender_id' => $sender->id,
             'receiver_id' => $receiver->id,
             'body' => $request->message,
         ]);
@@ -91,10 +85,10 @@ class ChatController extends Controller
         $chat->save();
 
         // Notify the receiver about the new message
-        $receiver->notify( new NewMessageNotification() );
-        broadcast(new MessageSent($message, $receiver->id))->toOthers();
+        $receiver->notify( new NewMessageNotification($sender) );
+        broadcast(new MessageSent($message, $receiver))->toOthers();
 
-        return response()->json($message, 201);
+        return $this->success($message, 'Message sent successfully', 201);
 
     }
 }
