@@ -12,7 +12,7 @@ class MessageSent implements ShouldBroadcast
     use SerializesModels;
 
     public $message;
-    public $receiverId;
+    public $receiver;
 
     public function __construct(string $message, User $receiver)
     {
