@@ -8,6 +8,7 @@ use App\Events\MessageSent;
 use App\Models\Chat;
 use App\Models\User;
 use App\Notifications\NewMessageNotification;
+use App\Services\MessageService;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Auth;
@@ -59,36 +60,17 @@ class MessageController extends Controller
     }
 
     // Send a new message to a user
-    public function store(Request $request, User $user)
+    public function store(Request $request, User $user, MessageService $messageService)
     {
         $request->validate([
             'message' => 'required|string|max:1000',
         ]);
 
         $receiver = $user;
-
         $sender = Auth::user();
 
-        $chat = Chat::firstOrCreate([
-            'user1_id' => min($sender->id, $receiver->id),
-            'user2_id' => max($sender->id, $receiver->id),
-        ]);
-
-        $message = Message::create([
-            'chat_id' => $chat->id,
-            'sender_id' => $sender->id,
-            'receiver_id' => $receiver->id,
-            'body' => $request->message,
-        ]);
-
-        $chat->last_message_at = now();
-        $chat->save();
-
-        // Notify the receiver about the new message
-        $receiver->notify( new NewMessageNotification($sender) );
-        broadcast(new MessageSent($message, $receiver))->toOthers();
+        $message = $messageService->sendMessage($sender, $receiver, $request->message);
 
         return $this->success($message, 'Message sent successfully', 201);
-
     }
 }
