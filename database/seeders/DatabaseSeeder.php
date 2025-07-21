@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
 use App\Notifications\NewMessageNotification;
+use App\Services\MessageService;
 use Exception;
 
 class DatabaseSeeder extends Seeder
@@ -46,9 +47,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'client',
         ]));
 
-        for($i = 0; $i < 5; $i++) {
-            $provider->notify( new NewMessageNotification($client) );
-            $client->notify( new NewMessageNotification($provider) );
+        for($i = 0; $i < 500; $i++) {
+            (new MessageService())->sendMessage(
+                $clients->random(),
+                $providers->random(),
+                'To jest treść testowej wiadomości ' . ($i + 1)
+            );
         }
 
         // Usługi dla każdego provider'a
