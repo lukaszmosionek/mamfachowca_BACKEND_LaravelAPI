@@ -34,5 +34,12 @@ WORKDIR /var/www/html
 #RUN composer install -vvv  --working-dir=/var/www/html --no-interaction --prefer-dist --optimize-autoloader
 RUN php composer.phar install
 
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
