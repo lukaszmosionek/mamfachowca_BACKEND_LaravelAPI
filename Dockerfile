@@ -2,7 +2,7 @@
 FROM php:8.2-apache as web
 
 # Install Additional System Dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y supervisor\
     libzip-dev \
     zip
 
@@ -39,7 +39,10 @@ COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Set the entrypoint
-ENTRYPOINT ["docker-entrypoint.sh"]
+RUN mkdir -p /etc/supervisor/conf.d
+ENTRYPOINT ["docker/docker-entrypoint.sh"]
+COPY ./docker/supervisor/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache

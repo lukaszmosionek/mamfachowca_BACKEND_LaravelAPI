@@ -7,10 +7,10 @@ until php artisan migrate:fresh --seed --force; do
 done
 
 # Wait until queue:work is available
-until php artisan queue:work; do
-  echo "Waiting for queue:work to be ready..."
-  sleep 3
-done
+# until php artisan queue:work; do
+#   echo "Waiting for queue:work to be ready..."
+#   sleep 3
+# done
 
 # Start Apache
 apache2-foreground
