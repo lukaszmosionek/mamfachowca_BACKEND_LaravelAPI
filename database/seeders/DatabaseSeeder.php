@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'client',
         ]));
 
-        for($i = 0; $i < 500; $i++) {
+        for($i = 0; $i < 20; $i++) {
             (new MessageService())->sendMessage(
                 $clients->random(),
                 $providers->random(),

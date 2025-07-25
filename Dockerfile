@@ -35,12 +35,12 @@ WORKDIR /var/www/html
 RUN php composer.phar install
 
 # Copy entrypoint script
-COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY ./docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Set the entrypoint
 RUN mkdir -p /etc/supervisor/conf.d
-ENTRYPOINT ["docker/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 COPY ./docker/supervisor/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
