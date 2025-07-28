@@ -20,8 +20,8 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
 
-Route::get('services', [ServiceController::class, 'index']);
-Route::get('providers', [ProviderController::class, 'index']);
+Route::apiResource('services', ServiceController::class)->only('index', 'show');
+Route::apiResource('providers', ProviderController::class)->only('index');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('me/services', UserServiceController::class);

@@ -8,6 +8,7 @@ use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -15,11 +16,12 @@ class ServiceController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    public function index(){
+    public function index(): JsonResponse
+    {
         $search = request('name');
         $provider_id = request('provider_id');
 
-        $services = Service::with(['provider:id,name','provider.availabilities', 'photos'])
+        $services = Service::with(['provider:id,name', 'photos'])
                 ->when($search, function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
                 })
@@ -35,6 +37,12 @@ class ServiceController extends Controller
                     'total_pages' => $services->lastPage()
                 ],'Services fetched successfully'
         );
+    }
+
+    public function show($id): JsonResponse
+    {
+        $service = Service::with(['provider:id,name','provider.availabilities', 'photos'])->findOrFail($id);
+        return $this->success( new ServiceResource($service),'Service fetched successfully');
     }
 
 }
