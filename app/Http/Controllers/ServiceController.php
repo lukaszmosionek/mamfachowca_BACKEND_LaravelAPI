@@ -19,7 +19,7 @@ class ServiceController extends Controller
         $search = request('name');
         $provider_id = request('provider_id');
 
-        $services = Service::with(['provider:id,name','provider.availabilities'])
+        $services = Service::with(['provider:id,name','provider.availabilities', 'photos'])
                 ->when($search, function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
                 })

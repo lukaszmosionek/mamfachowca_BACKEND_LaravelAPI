@@ -18,6 +18,7 @@ class ServiceResource extends JsonResource
             'id'             => $this->id,
             // 'user_id'        => $this->user_id,
             'provider'       => new UserResource($this->whenLoaded('provider')),
+            'photos'         => PhotoResource::collection($this->whenLoaded('photos')),
             'name'           => $this->name,
             'description'    => $this->description,
             'price'          => rtrim(rtrim(number_format($this->price, 2, '.', ''), '0'), '.'), // delete unnecesery .00 from e.g. 12.00 price
