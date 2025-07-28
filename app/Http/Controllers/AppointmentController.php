@@ -38,7 +38,7 @@ class AppointmentController extends Controller
             'status' => 'pending',
         ]);
 
-        // $appointment = AppointmentResource::collection($appointment);
+        $appointment = new AppointmentResource($appointment);
         return $this->success($appointment, 'Appointment stored successfully', 201);
     }
 
