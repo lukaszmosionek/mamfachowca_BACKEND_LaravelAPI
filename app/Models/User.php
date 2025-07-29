@@ -82,4 +82,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Appointment::class, 'provider_id');
     }
+    public function favorites()
+    {
+        return $this->belongsToMany(Service::class, 'favorites');
+    }
 }

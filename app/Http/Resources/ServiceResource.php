@@ -23,6 +23,7 @@ class ServiceResource extends JsonResource
             'description'    => $this->description,
             'price'          => rtrim(rtrim(number_format($this->price, 2, '.', ''), '0'), '.'), // delete unnecesery .00 from e.g. 12.00 price
             'duration'       => $this->duration_minutes,
+            'is_favorited'   => null,
             // 'created_at'     => $this->created_at,
             // 'updated_at'     => $this->updated_at,
         ];

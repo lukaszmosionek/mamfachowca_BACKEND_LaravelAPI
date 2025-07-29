@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('me', [ProfileController::class, 'getUser'])->name('profile.getUser');
     Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::post('/favorites/{item}', [FavoriteController::class, 'toggle']);
+    Route::get('/favorites/{item}', [FavoriteController::class, 'isFavorited']);
 
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
 

@@ -31,4 +31,7 @@ class Service extends Model
     {
         return $this->morphMany(Photo::class, 'imageable');
     }
+    public function favoritedBy() {
+        return $this->belongsToMany(User::class, 'favorites', 'service_id', 'user_id');
+    }
 }
