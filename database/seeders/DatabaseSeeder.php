@@ -55,6 +55,10 @@ class DatabaseSeeder extends Seeder
             );
         }
 
+        $this->call([
+            ServiceSeeder::class,
+        ]);
+
         // Usługi dla każdego provider'a
         $providers->each(function ($provider) {
             Service::factory()->count(3)->create([
@@ -67,9 +71,6 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-        $this->call([
-            ServiceSeeder::class,
-        ]);
 
         $clients->each(function ($client) {
             Appointment::factory()->count(20)->make()->each(function ($appointment) use ($client) {
