@@ -19,9 +19,9 @@ class AppointmentResource extends JsonResource
             'client' => new UserResource($this->whenLoaded('client')),
             'provider' => new UserResource($this->whenLoaded('provider')),
             'service' => new ServiceResource($this->whenLoaded('service')),
-            'date' => $this->date,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
+            'date' => $this->date->format('Y-m-d'),
+            'start_time' => $this->start_time->format('H:i'),
+            'end_time' => $this->end_time->format('H:i'),
             'status' => $this->status,
             // 'created_at' => $this->created_at,
         ];

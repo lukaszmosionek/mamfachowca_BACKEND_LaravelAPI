@@ -17,7 +17,7 @@ class AppointmentController extends Controller
     // Klient widzi swoje rezerwacje
     public function index()
     {
-        $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->get();
+        $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->latest()->get();
         $appointments = AppointmentResource::collection($appointments);
         return $this->success($appointments, 'Appointments retrieved successfully');
     }
