@@ -30,6 +30,10 @@ class ServiceController extends Controller
                 })
                 ->where('lang', App::getLocale())
                 ->paginate(request('per_page', 10))
+                ->through(function($service){
+                    $service->is_favorited = in_array( request('user_id'), $service->favoritedBy->pluck('id')->toArray() );
+                    return $service;
+                })
                 ->withQueryString();
 
         return $this->success([

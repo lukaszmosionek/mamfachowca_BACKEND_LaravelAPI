@@ -11,7 +11,7 @@ class ProfileController extends Controller
     use ApiResponse;
 
     public function getUser(Request $request){
-        $user = auth()->user();
+        $user = auth()->user()->favorites->pluck('id');
         return $this->success($user, 'User fetched successfully');
     }
 

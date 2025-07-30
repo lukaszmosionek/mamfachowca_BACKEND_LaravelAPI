@@ -3,16 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ServiceResource;
 use App\Models\Service;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class FavoriteController extends Controller
 {
+    use ApiResponse;
+
     public function index()
     {
+        $search = request('name');
+        $provider_id = request('provider_id');
         $user = auth()->user();
-        $favorites = $user->favorites()->get(['services.id'])->pluck('id');
-        return response()->json($favorites);
+
+        $services = Service::with(['provider:id,name', 'photos' ,'favoritedBy:id'])
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', "%{$search}%");
+                })
+                ->when($provider_id, function ($query, $provider_id) {
+                    $query->where('provider_id', $provider_id);
+                })
+                ->whereHas('favoritedBy', function($query) use($user){
+                    $query->where('users.id', $user->id );
+                })
+                ->where('lang', App::getLocale())
+                ->paginate(request('per_page', 10))
+                ->through(function($service){
+                    $service->is_favorited = true;
+                    return $service;
+                })
+                ->withQueryString();
+
+        return $this->success([
+                    'data' => ServiceResource::collection($services->items()),
+                    'total_pages' => $services->lastPage()
+                ],'Favorited services fetched successfully'
+            );
     }
 
     public function toggle(Request $request, $itemId)
