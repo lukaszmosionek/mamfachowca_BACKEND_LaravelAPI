@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
@@ -38,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('fetchMessagedUsers', [MessageController::class, 'fetchMessagedUsers'])->name('fetchMessagedUsers');
     Route::apiResource('users.messages', MessageController::class)->only(['index', 'show', 'store']);
+    Route::apiResource('users', UsersController::class)->only(['show']);
 
     Route::apiResource('notifications', NotificationController::class)->only(['index']);
     Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
