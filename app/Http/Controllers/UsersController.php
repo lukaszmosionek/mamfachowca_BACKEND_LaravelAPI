@@ -13,7 +13,9 @@ class UsersController extends Controller
 
     public function show($userId){
 
-        $user = User::with(['availabilities', 'services.photos'])->findorFail($userId);
+        $user = User::with('availabilities')->findOrFail($userId);
+        $services = $user->services()->with('photos')->paginate(5);
+        $user->services = $services;
 
         return $this->success($user, 'User fetched successfully');
     }

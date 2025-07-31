@@ -29,7 +29,7 @@ class FavoriteController extends Controller
                 ->whereHas('favoritedBy', function($query) use($user){
                     $query->where('users.id', $user->id );
                 })
-                ->where('lang', App::getLocale())
+                // ->where('lang', App::getLocale())
                 ->paginate(request('per_page', 10))
                 ->through(function($service){
                     $service->is_favorited = true;
@@ -39,7 +39,7 @@ class FavoriteController extends Controller
 
         return $this->success([
                     'data' => ServiceResource::collection($services->items()),
-                    'total_pages' => $services->lastPage()
+                    'total_pages' => $services->lastPage(),
                 ],'Favorited services fetched successfully'
             );
     }

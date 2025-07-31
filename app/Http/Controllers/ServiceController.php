@@ -21,6 +21,8 @@ class ServiceController extends Controller
         $search = request('name');
         $provider_id = request('provider_id');
 
+        if( $provider_id OR $search ) request()->merge(['page' => 1]); // Force page 1
+
         $services = Service::with(['provider:id,name', 'photos' ,'favoritedBy:id'])
                 ->when($search, function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
