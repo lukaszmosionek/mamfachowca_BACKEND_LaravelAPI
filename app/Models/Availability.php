@@ -18,20 +18,6 @@ class Availability extends Model
         'date' => 'date'
     ];
 
-    protected function startTime(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => \Carbon\Carbon::createFromFormat('H:i:s', $value)->format('H:i'),
-        );
-    }
-
-    protected function endTime(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => \Carbon\Carbon::createFromFormat('H:i:s', $value)->format('H:i'),
-        );
-    }
-
     // provider
     public function provider()
     {
