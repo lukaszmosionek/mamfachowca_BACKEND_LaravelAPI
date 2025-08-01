@@ -75,3 +75,6 @@ php artisan serve
 
 # (Optional) Seed database
 php artisan queue:work
+
+# (Optional) Generate enums in json and vue3
+php artisan enums:export
