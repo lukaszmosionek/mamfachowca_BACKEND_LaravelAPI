@@ -13,10 +13,15 @@ class UsersController extends Controller
 
     public function show($userId){
 
-        $user = User::with('availabilities')->findOrFail($userId);
-        $services = $user->services()->with('photos')->paginate(5);
-        $user->services = $services;
+        $perPage = request('per_page');
 
-        return $this->success($user, 'User fetched successfully');
+        $user = User::with('availabilities')->findOrFail($userId);
+        $services = $user->services()->with('photos')->paginate($perPage);
+
+        return $this->success([
+            'user' => $user,
+            'services' => $services->items(),
+            'last_page' => $services->lastPage(),
+        ], 'User fetched successfully');
     }
 }

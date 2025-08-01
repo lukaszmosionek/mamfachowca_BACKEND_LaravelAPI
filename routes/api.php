@@ -36,9 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/favorites/{item}', [FavoriteController::class, 'isFavorited']);
 
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
-    Route::post('appointments/{appointment}/accept', [AppointmentController::class, 'accept']);
-    Route::post('appointments/{appointment}/decline', [AppointmentController::class, 'decline']);
-
+    Route::post('appointments/{appointment}/{action}', [AppointmentController::class, 'handleAction'])->where('action', 'accept|decline');
 
     Route::get('fetchMessagedUsers', [MessageController::class, 'fetchMessagedUsers'])->name('fetchMessagedUsers');
     Route::apiResource('users.messages', MessageController::class)->only(['index', 'show', 'store']);

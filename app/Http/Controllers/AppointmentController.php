@@ -19,14 +19,19 @@ class AppointmentController extends Controller
     // Klient widzi swoje rezerwacje
     public function index()
     {
+        $perPage = request('per_page', 10);
+
         if( auth()->user()->role == Role::Client ){
-            $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->latest()->get();
+            $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->latest()->paginate($perPage);
         }elseif( auth()->user()->role == Role::Provider ){
-            $appointments = auth()->user()->appointmentsAsProvider()->with('service', 'client:id,name,role')->latest()->get();
+            $appointments = auth()->user()->appointmentsAsProvider()->with('service', 'client:id,name,role')->latest()->paginate($perPage);
         }
 
-        $appointments = AppointmentResource::collection($appointments);
-        return $this->success($appointments, 'Appointments retrieved successfully');
+        return $this->success([
+            'appointments' => AppointmentResource::collection($appointments),
+            'last_page' => $appointments->lastPage()
+
+        ], 'Appointments retrieved successfully');
     }
 
     public function store(StoreAppointmentRequest $request)
@@ -56,32 +61,21 @@ class AppointmentController extends Controller
         return $this->success($appointment->load('service', 'provider', 'client'), 'Appointment fetched successfully');
     }
 
-    public function accept(Appointment $appointment)
+    public function handleAction(Appointment $appointment, string $action)
     {
-        // $this->authorize('update', $appointment);
+        if ($action === 'accept') {
+            $appointment->status = AppointmentStatus::Confirmed;
+            $message = 'Appointment accepted successfully';
+        } elseif ($action === 'decline') {
+            $appointment->status = AppointmentStatus::Cancelled;
+            $message = 'Appointment declined successfully';
+        }else{
+            abort(404, 'Action not found'); // or return an error response
+        }
 
-        // if ($appointment->status !== AppointmentStatus::Pending) {
-        //     return $this->error('Appointment cannot be accepted', 400);
-        // }
-
-        $appointment->status = AppointmentStatus::Confirmed;
         $appointment->save();
+        return $this->success(null, $message);
 
-        return $this->success(new AppointmentResource($appointment->load('service', 'provider', 'client')), 'Appointment accepted successfully');
-    }
-
-    public function decline(Appointment $appointment)
-    {
-        // $this->authorize('update', $appointment);
-
-        // if ($appointment->status !== AppointmentStatus::Pending) {
-        //     return $this->error('Appointment cannot be accepted', 400);
-        // }
-
-        $appointment->status = AppointmentStatus::Cancelled;
-        $appointment->save();
-
-        return $this->success(new AppointmentResource($appointment->load('service', 'provider', 'client')), 'Appointment declined successfully');
     }
 
     public function destroy(Appointment $appointment)
