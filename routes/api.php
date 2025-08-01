@@ -36,6 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/favorites/{item}', [FavoriteController::class, 'isFavorited']);
 
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
+    Route::post('appointments/{appointment}/accept', [AppointmentController::class, 'accept']);
+    Route::post('appointments/{appointment}/decline', [AppointmentController::class, 'decline']);
+
 
     Route::get('fetchMessagedUsers', [MessageController::class, 'fetchMessagedUsers'])->name('fetchMessagedUsers');
     Route::apiResource('users.messages', MessageController::class)->only(['index', 'show', 'store']);
@@ -47,6 +50,13 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
+// Route::get('/enums', function () {
+//     return response()->json([
+//         'appointment_statuses' => AppointmentStatus::cases(),
+//         'roles' => Role::cases(),
+//     ]);
+// });
 
 
 

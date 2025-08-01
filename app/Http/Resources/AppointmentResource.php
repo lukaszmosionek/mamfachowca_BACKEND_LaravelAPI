@@ -15,7 +15,7 @@ class AppointmentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            // 'id' => $this->id,
+            'id' => $this->id,
             'client' => new UserResource($this->whenLoaded('client')),
             'provider' => new UserResource($this->whenLoaded('provider')),
             'service' => new ServiceResource($this->whenLoaded('service')),
