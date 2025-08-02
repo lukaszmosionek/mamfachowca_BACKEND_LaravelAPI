@@ -1,0 +1,141 @@
+[
+    {
+        "name_en": "Fence Painting",
+        "name_pl": "Malowanie ogrodzenia",
+        "desc_en": "Professional fence painting services to protect and refresh your property’s appearance. We use high-quality paints and tools to ensure long-lasting results, whether it's wood, metal, or vinyl fencing. Our team delivers clean, even finishes tailored to your style and outdoor environment.",
+        "desc_pl": "Profesjonalne malowanie ogrodzeń, aby chronić i odświeżyć wygląd Twojej posesji. Używamy wysokiej jakości farb i narzędzi, zapewniając trwały efekt – drewno, metal czy winyl. Nasz zespół oferuje równe, estetyczne wykończenie dopasowane do Twojego stylu i otoczenia."
+    },
+    {
+        "name_en": "Washing Machine Repair",
+        "name_pl": "Naprawa pralki",
+        "desc_en": "Expert washing machine repair for all major brands and models. We diagnose and fix leaks, drainage issues, and electrical faults quickly. Count on our reliable technicians for prompt service, ensuring your laundry routine isn’t interrupted longer than necessary.",
+        "desc_pl": "Profesjonalna naprawa pralek wszystkich marek i modeli. Szybko diagnozujemy i usuwamy wycieki, problemy z odpływem i usterki elektryczne. Zaufaj naszym technikom, aby szybko przywrócić sprawność urządzenia i nie przerywać Twojej rutyny prania."
+    },
+    {
+        "name_en": "House Cleaning",
+        "name_pl": "Sprzątanie domu",
+        "desc_en": "Thorough house cleaning tailored to your needs. Our services include dusting, vacuuming, kitchen and bathroom sanitizing, and more. We use eco-friendly products and reliable methods to ensure your home stays spotless, safe, and comfortable for everyone.",
+        "desc_pl": "Dokładne sprzątanie domu dopasowane do Twoich potrzeb. Oferujemy odkurzanie, ścieranie kurzu, mycie kuchni i łazienki oraz inne usługi. Używamy ekologicznych środków, zapewniając czystość, bezpieczeństwo i komfort w Twoim domu."
+    },
+
+  {
+    "name_en": "Fence Painting",
+    "name_pl": "Malowanie ogrodzenia",
+    "desc_en": "Painting fences to protect them and enhance appearance.",
+    "desc_pl": "Malowanie ogrodzeń w celu ich ochrony i poprawy wyglądu."
+  },
+  {
+    "name_en": "Washing Machine Repair",
+    "name_pl": "Naprawa pralki",
+    "desc_en": "Repairing all brands of washing machines.",
+    "desc_pl": "Naprawa wszystkich marek pralek."
+  },
+  {
+    "name_en": "House Cleaning",
+    "name_pl": "Sprzątanie domu",
+    "desc_en": "Professional home cleaning services.",
+    "desc_pl": "Profesjonalne usługi sprzątania domów."
+  },
+  {
+    "name_en": "Driveway Sealing",
+    "name_pl": "Uszczelnianie podjazdu",
+    "desc_en": "en desc",
+    "desc_pl": "pl opis"
+  },
+  {
+    "name_en": "Window Washing",
+    "name_pl": "Mycie okien",
+    "desc_en": "Crystal clear window washing inside and out.",
+    "desc_pl": "Mycie okien na błysk, wewnątrz i na zewnątrz."
+  },
+  {
+    "name_en": "Carpet Cleaning",
+    "name_pl": "Czyszczenie dywanów",
+    "desc_en": "Deep cleaning for all types of carpets.",
+    "desc_pl": "Dogłębne czyszczenie wszystkich rodzajów dywanów."
+  },
+  {
+    "name_en": "Gutter Cleaning",
+    "name_pl": "Czyszczenie rynien",
+    "desc_en": "Removing debris and blockages from gutters.",
+    "desc_pl": "Usuwanie zanieczyszczeń i blokad z rynien."
+  },
+  {
+    "name_en": "Lawn Mowing",
+    "name_pl": "Koszenie trawnika",
+    "desc_en": "Regular mowing and lawn maintenance.",
+    "desc_pl": "Regularne koszenie i pielęgnacja trawnika."
+  },
+  {
+    "name_en": "Interior Painting",
+    "name_pl": "Malowanie wnętrz",
+    "desc_en": "Painting walls, ceilings, and trim inside the home.",
+    "desc_pl": "Malowanie ścian, sufitów i listew w domu."
+  },
+  {
+    "name_en": "Furniture Assembly",
+    "name_pl": "Montaż mebli",
+    "desc_en": "Fast and accurate furniture assembly services.",
+    "desc_pl": "Szybki i dokładny montaż mebli."
+  },
+  {
+    "name_en": "TV Mounting",
+    "name_pl": "Montaż telewizora",
+    "desc_en": "Mounting flat-screen TVs securely on walls.",
+    "desc_pl": "Bezpieczny montaż telewizorów na ścianach."
+  },
+  {
+    "name_en": "Air Conditioner Installation",
+    "name_pl": "Instalacja klimatyzacji",
+    "desc_en": "Installing wall and window AC units.",
+    "desc_pl": "Instalacja klimatyzatorów ściennych i okiennych."
+  },
+  {
+    "name_en": "Drywall Repair",
+    "name_pl": "Naprawa płyt gipsowo-kartonowych",
+    "desc_en": "Fixing holes and cracks in drywall.",
+    "desc_pl": "Naprawa dziur i pęknięć w płytach g-k."
+  },
+  {
+    "name_en": "Light Fixture Installation",
+    "name_pl": "Instalacja opraw oświetleniowych",
+    "desc_en": "Replacing or installing ceiling and wall lights.",
+    "desc_pl": "Montaż lub wymiana oświetlenia sufitowego i ściennego."
+  },
+  {
+    "name_en": "Tile and Grout Cleaning",
+    "name_pl": "Czyszczenie płytek i fug",
+    "desc_en": "Restoring tiles and grout to like-new condition.",
+    "desc_pl": "Przywracanie płytek i fug do stanu jak nowy."
+  },
+  {
+    "name_en": "Appliance Installation",
+    "name_pl": "Instalacja urządzeń",
+    "desc_en": "Setting up new home appliances properly.",
+    "desc_pl": "Prawidłowa instalacja nowych urządzeń domowych."
+  },
+  {
+    "name_en": "Pressure Washing",
+    "name_pl": "Mycie ciśnieniowe",
+    "desc_en": "Cleaning exterior surfaces with high pressure.",
+    "desc_pl": "Czyszczenie powierzchni zewnętrznych pod wysokim ciśnieniem."
+  },
+  {
+    "name_en": "Garage Clean-Out",
+    "name_pl": "Czyszczenie garażu",
+    "desc_en": "Organizing and clearing clutter from garages.",
+    "desc_pl": "Organizacja i usuwanie bałaganu z garaży."
+  },
+  {
+    "name_en": "Toilet Repair",
+    "name_pl": "Naprawa toalety",
+    "desc_en": "Fixing leaks, clogs, and flushing issues.",
+    "desc_pl": "Naprawa przecieków, zatorów i problemów ze spłukiwaniem."
+  },
+  {
+    "name_en": "Regrouting Tiles",
+    "name_pl": "Fugowanie płytek",
+    "desc_en": "Removing old grout and applying new for better look and seal.",
+    "desc_pl": "Usuwanie starych fug i nakładanie nowych dla lepszego wyglądu i uszczelnienia."
+  }
+]

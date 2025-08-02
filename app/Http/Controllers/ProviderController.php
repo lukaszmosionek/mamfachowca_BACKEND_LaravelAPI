@@ -14,7 +14,7 @@ class ProviderController extends Controller
     {
         // Pokaż usługi zalogowanego usługodawcy
         // $services = auth()->user()->services()->get();
-        $providers = User::select(['id','name'])->where('role', 'provider')->get();
+        $providers = User::select(['id','name'])->where('role', 'provider')->pluck('name', 'id');
         // $providers = ServiceResource::collection($providers);
         return $this->success($providers, 'Providers fetched successfully');
     }

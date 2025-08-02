@@ -26,7 +26,7 @@ Route::apiResource('services', ServiceController::class)->only('index', 'show');
 Route::apiResource('providers', ProviderController::class)->only('index');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('me/services', UserServiceController::class);
+    Route::apiResource('me/services', UserServiceController::class)->names('me.services');;
 
     Route::get('me', [ProfileController::class, 'getUser'])->name('profile.getUser');
     Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
