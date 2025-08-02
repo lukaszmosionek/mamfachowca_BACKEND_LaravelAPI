@@ -11,10 +11,8 @@ class GoogleImageSearchService
 
     public function __construct()
     {
-        // $this->apiKey = config('services.google.api_key');
-        $this->apiKey = 'AIzaSyBQDOA8i0zzmDe4QyiThFctMxQNeftu2aE';
-        // $this->searchEngineId = config('services.google.search_engine_id');
-        $this->searchEngineId = '3532036a93a7d4c5a';
+        $this->apiKey = config('services.google.api_key');
+        $this->searchEngineId = config('services.google.search_engine_id');
     }
 
     public function searchImages($query, $limit = 2)
