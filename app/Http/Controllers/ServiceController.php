@@ -30,6 +30,7 @@ class ServiceController extends Controller
                 ->when($provider_id, function ($query, $provider_id) {
                     $query->where('provider_id', $provider_id);
                 })
+                ->latest()
                 // ->where('lang', App::getLocale())
                 ->paginate(request('per_page', 10))
                 ->through(function($service){
