@@ -11,7 +11,7 @@ class Photo extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = ['photo_path', 'is_main'];
+    protected $fillable = ['thumbnail', 'medium', 'large', 'is_main'];
 
     public function imageable()
     {

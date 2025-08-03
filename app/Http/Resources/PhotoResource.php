@@ -17,7 +17,10 @@ class PhotoResource extends JsonResource
         return [
             'id' => $this->id,
             'is_main' => $this->is_main,
-            'photo_path' => $this->photo_path,
+
+            'thumbnail' => config('app.url').'/'.$this->thumbnail,
+            'medium' => config('app.url').'/'.$this->medium,
+            'large' => config('app.url').'/'.$this->large
         ];
     }
 }
