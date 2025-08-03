@@ -17,125 +17,236 @@
         "desc_en": "Thorough house cleaning tailored to your needs. Our services include dusting, vacuuming, kitchen and bathroom sanitizing, and more. We use eco-friendly products and reliable methods to ensure your home stays spotless, safe, and comfortable for everyone.",
         "desc_pl": "Dokładne sprzątanie domu dopasowane do Twoich potrzeb. Oferujemy odkurzanie, ścieranie kurzu, mycie kuchni i łazienki oraz inne usługi. Używamy ekologicznych środków, zapewniając czystość, bezpieczeństwo i komfort w Twoim domu."
     },
-
-  {
-    "name_en": "Fence Painting",
-    "name_pl": "Malowanie ogrodzenia",
-    "desc_en": "Painting fences to protect them and enhance appearance.",
-    "desc_pl": "Malowanie ogrodzeń w celu ich ochrony i poprawy wyglądu."
-  },
-  {
-    "name_en": "Washing Machine Repair",
-    "name_pl": "Naprawa pralki",
-    "desc_en": "Repairing all brands of washing machines.",
-    "desc_pl": "Naprawa wszystkich marek pralek."
-  },
-  {
-    "name_en": "House Cleaning",
-    "name_pl": "Sprzątanie domu",
-    "desc_en": "Professional home cleaning services.",
-    "desc_pl": "Profesjonalne usługi sprzątania domów."
-  },
-  {
-    "name_en": "Driveway Sealing",
-    "name_pl": "Uszczelnianie podjazdu",
-    "desc_en": "en desc",
-    "desc_pl": "pl opis"
-  },
-  {
-    "name_en": "Window Washing",
-    "name_pl": "Mycie okien",
-    "desc_en": "Crystal clear window washing inside and out.",
-    "desc_pl": "Mycie okien na błysk, wewnątrz i na zewnątrz."
-  },
-  {
-    "name_en": "Carpet Cleaning",
-    "name_pl": "Czyszczenie dywanów",
-    "desc_en": "Deep cleaning for all types of carpets.",
-    "desc_pl": "Dogłębne czyszczenie wszystkich rodzajów dywanów."
-  },
-  {
-    "name_en": "Gutter Cleaning",
-    "name_pl": "Czyszczenie rynien",
-    "desc_en": "Removing debris and blockages from gutters.",
-    "desc_pl": "Usuwanie zanieczyszczeń i blokad z rynien."
-  },
-  {
-    "name_en": "Lawn Mowing",
-    "name_pl": "Koszenie trawnika",
-    "desc_en": "Regular mowing and lawn maintenance.",
-    "desc_pl": "Regularne koszenie i pielęgnacja trawnika."
-  },
-  {
-    "name_en": "Interior Painting",
-    "name_pl": "Malowanie wnętrz",
-    "desc_en": "Painting walls, ceilings, and trim inside the home.",
-    "desc_pl": "Malowanie ścian, sufitów i listew w domu."
-  },
-  {
-    "name_en": "Furniture Assembly",
-    "name_pl": "Montaż mebli",
-    "desc_en": "Fast and accurate furniture assembly services.",
-    "desc_pl": "Szybki i dokładny montaż mebli."
-  },
-  {
-    "name_en": "TV Mounting",
-    "name_pl": "Montaż telewizora",
-    "desc_en": "Mounting flat-screen TVs securely on walls.",
-    "desc_pl": "Bezpieczny montaż telewizorów na ścianach."
-  },
-  {
-    "name_en": "Air Conditioner Installation",
-    "name_pl": "Instalacja klimatyzacji",
-    "desc_en": "Installing wall and window AC units.",
-    "desc_pl": "Instalacja klimatyzatorów ściennych i okiennych."
-  },
-  {
-    "name_en": "Drywall Repair",
-    "name_pl": "Naprawa płyt gipsowo-kartonowych",
-    "desc_en": "Fixing holes and cracks in drywall.",
-    "desc_pl": "Naprawa dziur i pęknięć w płytach g-k."
-  },
-  {
-    "name_en": "Light Fixture Installation",
-    "name_pl": "Instalacja opraw oświetleniowych",
-    "desc_en": "Replacing or installing ceiling and wall lights.",
-    "desc_pl": "Montaż lub wymiana oświetlenia sufitowego i ściennego."
-  },
-  {
-    "name_en": "Tile and Grout Cleaning",
-    "name_pl": "Czyszczenie płytek i fug",
-    "desc_en": "Restoring tiles and grout to like-new condition.",
-    "desc_pl": "Przywracanie płytek i fug do stanu jak nowy."
-  },
-  {
-    "name_en": "Appliance Installation",
-    "name_pl": "Instalacja urządzeń",
-    "desc_en": "Setting up new home appliances properly.",
-    "desc_pl": "Prawidłowa instalacja nowych urządzeń domowych."
-  },
-  {
-    "name_en": "Pressure Washing",
-    "name_pl": "Mycie ciśnieniowe",
-    "desc_en": "Cleaning exterior surfaces with high pressure.",
-    "desc_pl": "Czyszczenie powierzchni zewnętrznych pod wysokim ciśnieniem."
-  },
-  {
-    "name_en": "Garage Clean-Out",
-    "name_pl": "Czyszczenie garażu",
-    "desc_en": "Organizing and clearing clutter from garages.",
-    "desc_pl": "Organizacja i usuwanie bałaganu z garaży."
-  },
-  {
-    "name_en": "Toilet Repair",
-    "name_pl": "Naprawa toalety",
-    "desc_en": "Fixing leaks, clogs, and flushing issues.",
-    "desc_pl": "Naprawa przecieków, zatorów i problemów ze spłukiwaniem."
-  },
-  {
-    "name_en": "Regrouting Tiles",
-    "name_pl": "Fugowanie płytek",
-    "desc_en": "Removing old grout and applying new for better look and seal.",
-    "desc_pl": "Usuwanie starych fug i nakładanie nowych dla lepszego wyglądu i uszczelnienia."
-  }
+    {
+        "name_en": "Driveway Sealing",
+        "name_pl": "Uszczelnianie podjazdu",
+        "desc_en": "Driveway sealing protects surfaces from water, oil, and weather damage. It enhances appearance and prolongs lifespan by preventing cracks and erosion. Ideal for asphalt or concrete driveways, sealing is a cost-effective maintenance method that keeps your driveway looking clean, smooth, and durable throughout the year.",
+        "desc_pl": "Uszczelnianie podjazdu chroni nawierzchnię przed wodą, olejem i szkodliwym działaniem pogody. Poprawia wygląd i wydłuża żywotność, zapobiegając pęknięciom i erozji. Idealne dla nawierzchni asfaltowych i betonowych, to opłacalna metoda konserwacji zapewniająca estetykę, gładkość i trwałość przez cały rok."
+    },
+    {
+        "name_en": "Window Washing",
+        "name_pl": "Mycie okien",
+        "desc_en": "Crystal clear window washing inside and out.",
+        "desc_pl": "Mycie okien na błysk, wewnątrz i na zewnątrz."
+    },
+    {
+        "name_en": "Carpet Cleaning",
+        "name_pl": "Czyszczenie dywanów",
+        "desc_en": "Deep cleaning for all types of carpets.",
+        "desc_pl": "Dogłębne czyszczenie wszystkich rodzajów dywanów."
+    },
+    {
+        "name_en": "Gutter Cleaning",
+        "name_pl": "Czyszczenie rynien",
+        "desc_en": "Removing debris and blockages from gutters.",
+        "desc_pl": "Usuwanie zanieczyszczeń i blokad z rynien."
+    },
+    {
+        "name_en": "Lawn Mowing",
+        "name_pl": "Koszenie trawnika",
+        "desc_en": "Regular mowing and lawn maintenance.",
+        "desc_pl": "Regularne koszenie i pielęgnacja trawnika."
+    },
+    {
+        "name_en": "Interior Painting",
+        "name_pl": "Malowanie wnętrz",
+        "desc_en": "Painting walls, ceilings, and trim inside the home.",
+        "desc_pl": "Malowanie ścian, sufitów i listew w domu."
+    },
+    {
+        "name_en": "Furniture Assembly",
+        "name_pl": "Montaż mebli",
+        "desc_en": "Fast and accurate furniture assembly services.",
+        "desc_pl": "Szybki i dokładny montaż mebli."
+    },
+    {
+        "name_en": "TV Mounting",
+        "name_pl": "Montaż telewizora",
+        "desc_en": "Mounting flat-screen TVs securely on walls.",
+        "desc_pl": "Bezpieczny montaż telewizorów na ścianach."
+    },
+    {
+        "name_en": "Air Conditioner Installation",
+        "name_pl": "Instalacja klimatyzacji",
+        "desc_en": "Installing wall and window AC units.",
+        "desc_pl": "Instalacja klimatyzatorów ściennych i okiennych."
+    },
+    {
+        "name_en": "Drywall Repair",
+        "name_pl": "Naprawa płyt gipsowo-kartonowych",
+        "desc_en": "Fixing holes and cracks in drywall.",
+        "desc_pl": "Naprawa dziur i pęknięć w płytach g-k."
+    },
+    {
+        "name_en": "Light Fixture Installation",
+        "name_pl": "Instalacja opraw oświetleniowych",
+        "desc_en": "Replacing or installing ceiling and wall lights.",
+        "desc_pl": "Montaż lub wymiana oświetlenia sufitowego i ściennego."
+    },
+    {
+        "name_en": "Tile and Grout Cleaning",
+        "name_pl": "Czyszczenie płytek i fug",
+        "desc_en": "Restoring tiles and grout to like-new condition.",
+        "desc_pl": "Przywracanie płytek i fug do stanu jak nowy."
+    },
+    {
+        "name_en": "Appliance Installation",
+        "name_pl": "Instalacja urządzeń",
+        "desc_en": "Setting up new home appliances properly.",
+        "desc_pl": "Prawidłowa instalacja nowych urządzeń domowych."
+    },
+    {
+        "name_en": "Pressure Washing",
+        "name_pl": "Mycie ciśnieniowe",
+        "desc_en": "Cleaning exterior surfaces with high pressure.",
+        "desc_pl": "Czyszczenie powierzchni zewnętrznych pod wysokim ciśnieniem."
+    },
+    {
+        "name_en": "Garage Clean-Out",
+        "name_pl": "Czyszczenie garażu",
+        "desc_en": "Organizing and clearing clutter from garages.",
+        "desc_pl": "Organizacja i usuwanie bałaganu z garaży."
+    },
+    {
+        "name_en": "Toilet Repair",
+        "name_pl": "Naprawa toalety",
+        "desc_en": "Fixing leaks, clogs, and flushing issues.",
+        "desc_pl": "Naprawa przecieków, zatorów i problemów ze spłukiwaniem."
+    },
+    {
+        "name_en": "Regrouting Tiles",
+        "name_pl": "Fugowanie płytek",
+        "desc_en": "Removing old grout and applying new for better look and seal.",
+        "desc_pl": "Usuwanie starych fug i nakładanie nowych dla lepszego wyglądu i uszczelnienia."
+    },
+    {
+        "name_en": "Fence Painting",
+        "name_pl": "Malowanie płotu",
+        "desc_en": "Fence painting enhances both the appearance and durability of wooden or metal fences. It involves preparing the surface, choosing the right paint or stain, and applying it evenly. This task protects the material from weather damage while giving your outdoor space a fresh and well-maintained look.",
+        "desc_pl": "Malowanie płotu poprawia wygląd i trwałość ogrodzenia drewnianego lub metalowego. Obejmuje przygotowanie powierzchni, dobór odpowiedniej farby lub bejcy oraz równomierne jej nałożenie. Zadanie to chroni materiał przed warunkami atmosferycznymi i nadaje ogrodowi estetyczny, zadbany wygląd."
+    },
+    {
+        "name_en": "Washing Machine Repair",
+        "name_pl": "Naprawa pralki",
+        "desc_en": "We provide fast and reliable washing machine repair services. Our skilled technicians handle all brands and models, fixing leaks, noise issues, and other malfunctions. Enjoy hassle-free service and affordable pricing, whether at home or in your business. Restore your washer’s functionality with our expert assistance today.",
+        "desc_pl": "Oferujemy szybkie i niezawodne usługi naprawy pralek. Nasi doświadczeni technicy naprawiają wszystkie marki i modele – usuwamy przecieki, hałasy i inne usterki. Zapewniamy bezproblemową obsługę i przystępne ceny. Przywróć sprawność swojej pralki z naszą fachową pomocą już dziś."
+    },
+    {
+        "name_en": "House Cleaning",
+        "name_pl": "Sprzątanie domu",
+        "desc_en": "Comprehensive house cleaning services including dusting, vacuuming, mopping, kitchen and bathroom sanitation, and general tidying. Ideal for maintaining a clean, healthy, and organized living space. Suitable for regular or one-time deep cleaning appointments tailored to your schedule and needs.",
+        "desc_pl": "Kompleksowe usługi sprzątania domu: odkurzanie, wycieranie kurzu, mycie podłóg, czyszczenie kuchni i łazienki oraz ogólne porządki. Idealne do utrzymania czystego, zdrowego i uporządkowanego domu. Dostępne jako regularne lub jednorazowe sprzątanie dostosowane do Twojego harmonogramu i potrzeb."
+    },
+    {
+        "name_en": "Window Installation",
+        "name_pl": "Montaż okien"
+    },
+    {
+        "name_en": "Roof Inspection",
+        "name_pl": "Inspekcja dachu"
+    },
+    {
+        "name_en": "Carpet Cleaning",
+        "name_pl": "Czyszczenie dywanów"
+    },
+    {
+        "name_en": "Lawn Mowing",
+        "name_pl": "Koszenie trawnika"
+    },
+    {
+        "name_en": "Gutter Cleaning",
+        "name_pl": "Czyszczenie rynien"
+    },
+    {
+        "name_en": "Plumbing Repair",
+        "name_pl": "Naprawa hydrauliki"
+    },
+    {
+        "name_en": "Electrical Wiring",
+        "name_pl": "Instalacja elektryczna"
+    },
+    {
+        "name_en": "Air Conditioner Servicing",
+        "name_pl": "Serwis klimatyzacji"
+    },
+    {
+        "name_en": "Refrigerator Repair",
+        "name_pl": "Naprawa lodówki"
+    },
+    {
+        "name_en": "Drywall Installation",
+        "name_pl": "Montaż płyt gipsowych"
+    },
+    {
+        "name_en": "Deck Staining",
+        "name_pl": "Malowanie tarasu"
+    },
+    {
+        "name_en": "Garage Door Repair",
+        "name_pl": "Naprawa drzwi garażowych"
+    },
+    {
+        "name_en": "Tile and Grout Cleaning",
+        "name_pl": "Czyszczenie płytek i fug"
+    },
+    {
+        "name_en": "Pest Control",
+        "name_pl": "Zwalczanie szkodników"
+    },
+    {
+        "name_en": "Interior Painting",
+        "name_pl": "Malowanie wnętrz"
+    },
+    {
+        "name_en": "Exterior Painting",
+        "name_pl": "Malowanie elewacji"
+    },
+    {
+        "name_en": "Water Heater Repair",
+        "name_pl": "Naprawa podgrzewacza wody"
+    },
+    {
+        "name_en": "Chimney Sweeping",
+        "name_pl": "Czyszczenie komina"
+    },
+    {
+        "name_en": "Tree Trimming",
+        "name_pl": "Przycinanie drzew"
+    },
+    {
+        "name_en": "Security Camera Installation",
+        "name_pl": "Instalacja kamer bezpieczeństwa",
+        "desc_en": "Professional installation of security cameras for homes and businesses. Enhance safety, deter crime, and monitor your property in real-time. We offer tailored solutions using high-quality equipment, ensuring reliable surveillance and peace of mind. Trust our experienced team for fast, secure, and discreet setup suited to your specific needs.",
+        "desc_pl": "Profesjonalna instalacja kamer bezpieczeństwa dla domów i firm. Zwiększ bezpieczeństwo, odstrasz przestępców i monitoruj swoją posesję w czasie rzeczywistym. Oferujemy indywidualne rozwiązania z wykorzystaniem sprzętu wysokiej jakości. Nasz doświadczony zespół zapewnia szybki, dyskretny i niezawodny montaż dostosowany do Twoich potrzeb."
+    },
+    {
+        "name_en": "Smart Thermostat Setup",
+        "name_pl": "Montaż inteligentnego termostatu"
+    },
+    {
+        "name_en": "Furniture Assembly",
+        "name_pl": "Montaż mebli",
+        "desc_en": "Professional furniture assembly service for homes and offices. We handle flat-pack, modular, and custom furniture quickly and reliably. Perfect for IKEA and other ready-to-assemble brands. Save time and avoid frustration with our expert help.",
+        "desc_pl": "Profesjonalny montaż mebli do domu i biura. Składamy meble z paczek, modułowe i na zamówienie szybko i solidnie. Idealne dla mebli IKEA i innych marek. Oszczędź czas i nerwy dzięki naszej fachowej pomocy."
+    },
+    {
+        "name_en": "Ceiling Fan Installation",
+        "name_pl": "Montaż wentylatora sufitowego"
+    },
+    {
+        "name_en": "Pressure Washing",
+        "name_pl": "Mycie ciśnieniowe"
+    },
+    {
+        "name_en": "Siding Repair",
+        "name_pl": "Naprawa elewacji"
+    },
+    {
+        "name_en": "Basement Waterproofing",
+        "name_pl": "Izolacja przeciwwilgociowa piwnicy"
+    },
+    {
+        "name_en": "Driveway Sealing",
+        "name_pl": "Uszczelnianie podjazdu"
+    }
 ]

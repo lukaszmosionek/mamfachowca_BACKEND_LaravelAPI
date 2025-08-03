@@ -26,7 +26,10 @@ class GoogleImageSearchService
         ]);
 
         if ($response->successful()) {
-            return $response->json()['items'] ?? [];
+            // $data = $response->json()['items'] ?? [];
+           return array_column($response->json()['items'] ?? [], 'link');
+        }else{
+            dump('Google Image search API error'. $response);
         }
 
         return [];

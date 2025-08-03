@@ -55,9 +55,9 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        $this->call([
-            ServiceSeeder::class,
-        ]);
+        // $this->call([
+        //     ServiceSeeder::class,
+        // ]);
 
         // Usługi dla każdego provider'a
         $providers->each(function ($provider) {
