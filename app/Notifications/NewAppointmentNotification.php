@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-class NewMessageNotification extends Notification implements ShouldQueue
+class NewAppointmentNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -28,9 +28,9 @@ class NewMessageNotification extends Notification implements ShouldQueue
             throw new \Exception('User not authenticated');
         }
 
-        $this->body = __('You have a new message from :name', ['name' => $user->name]);
-        $this->title = __('New Message');
-        $this->path = str_replace('{id}', $user->id, config('paths.user_messages'));
+        $this->body = __('You have a new appointment from :name', ['name' => $user->name]);
+        $this->title = __('New Appointment');
+        $this->path = config('paths.appointments');
     }
 
     /**
@@ -49,8 +49,8 @@ class NewMessageNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('You got a new message.')
-            ->action('See message', url( config('paths.frontend_url').$this->path ))
+            ->line('You got a new appointment.')
+            ->action('See appointment', url( config('paths.frontend_url').$this->path ))
             ->line('Thank you for using our application!');
     }
 
