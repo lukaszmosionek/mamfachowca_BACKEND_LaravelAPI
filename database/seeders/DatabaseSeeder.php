@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
+use App\Models\Photo;
 use App\Notifications\NewMessageNotification;
 use App\Services\MessageService;
 use Exception;
@@ -61,13 +62,18 @@ class DatabaseSeeder extends Seeder
 
         // Usługi dla każdego provider'a
         $providers->each(function ($provider) {
-            Service::factory()->count(3)->create([
+            $services = Service::factory()->count(3)->create([
                 'provider_id' => $provider->id,
             ]);
+
+            foreach($services as $service){
+                $service->photos()->createMany( Photo::factory()->count( rand(2, 9) )->make()->toArray() );
+            }
+
             try{
                 Availability::factory()->count(rand(1,5))->for($provider, 'provider')->create();
             }catch(Exception $e){
-                // echo $e->getMessage();
+                dump( $e->getMessage() );
             }
         });
 

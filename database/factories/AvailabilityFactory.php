@@ -30,7 +30,7 @@ class AvailabilityFactory extends Factory
         ];
 
         return [
-            'provider_id' => User::factory(),
+            'provider_id' => $attributes['provider_id'] ?? User::factory(),
             'day_of_week' => $this->faker->randomElement($day_of_week),
             'start_time' => $start,
             'end_time' => $end,

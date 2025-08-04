@@ -14,7 +14,7 @@ class ServiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'provider_id' => User::factory(),
+            'provider_id' => fn(array $attributes) => $attributes['provider_id'] ?? User::factory(),
             'name' => $this->faker->sentence(10),
             'description' => $this->faker->sentence(120),
             'price' => $this->faker->randomFloat(0, 50, 300),

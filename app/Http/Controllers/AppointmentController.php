@@ -8,6 +8,8 @@ use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use App\Models\Service;
+use App\Notifications\NewAppointmentNotification;
+use App\Notifications\NewMessageNotification;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -40,8 +42,10 @@ class AppointmentController extends Controller
 
         $endTime = $request->validateAvailability($service);
 
+        $user = auth()->user();
+
         $appointment = Appointment::create([
-            'client_id' => auth()->id(),
+            'client_id' => $user->id(),
             'provider_id' => $service->provider->id,
             'service_id' => $service->id,
             'date' => $request->date,
@@ -49,6 +53,8 @@ class AppointmentController extends Controller
             'end_time' => $endTime,
             'status' => AppointmentStatus::Pending,
         ]);
+
+        $user->notify(new NewAppointmentNotification($service->provider));
 
         $appointment = new AppointmentResource($appointment);
         return $this->success($appointment, 'Appointment stored successfully', 201);
