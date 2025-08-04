@@ -3,11 +3,11 @@
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
-function generatePlaceholder(int $width = 300, int $height = 300, string $text = 'Photo', string $folder='', string $filename='' ): string
+function generatePlaceholder(int $width = 300, int $height = 300, string $text = '', string $folder='', string $filename='' ): string
 {
     $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
     $image = Image::canvas($width, $height, $randomColor);
-    $text = $text.' '.rand(10,99);
+    $text = $text ? $text : 'Photo '.rand(10,99);
 
     $image->text($text, $width / 2, $height / 2, function ($font) use($randomColor) {
         $font->file(public_path('fonts/arial.ttf'));

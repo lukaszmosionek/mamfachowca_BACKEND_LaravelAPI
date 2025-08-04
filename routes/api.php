@@ -24,12 +24,14 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 
 Route::apiResource('services', ServiceController::class)->only('index', 'show');
 Route::apiResource('providers', ProviderController::class)->only('index');
+Route::apiResource('users', UsersController::class)->only(['show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('me/services', UserServiceController::class)->names('me.services');;
 
     Route::get('me', [ProfileController::class, 'getUser'])->name('profile.getUser');
     Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('me/avatar', [ProfileController::class, 'uploadAvatar']);
 
     Route::get('/favorites', [FavoriteController::class, 'index']);
     Route::post('/favorites/{item}', [FavoriteController::class, 'toggle']);
@@ -40,7 +42,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('fetchMessagedUsers', [MessageController::class, 'fetchMessagedUsers'])->name('fetchMessagedUsers');
     Route::apiResource('users.messages', MessageController::class)->only(['index', 'show', 'store']);
-    Route::apiResource('users', UsersController::class)->only(['show']);
 
     Route::apiResource('notifications', NotificationController::class)->only(['index']);
     Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');

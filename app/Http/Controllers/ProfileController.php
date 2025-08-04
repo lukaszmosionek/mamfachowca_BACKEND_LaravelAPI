@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -12,7 +14,7 @@ class ProfileController extends Controller
 
     public function getUser(Request $request){
         $user = auth()->user();
-        return $this->success($user, 'User fetched successfully');
+        return $this->success( new UserResource($user), 'User fetched successfully');
     }
 
     public function update(UpdateUserRequest $request)
@@ -21,5 +23,25 @@ class ProfileController extends Controller
         $user->update($request->all());
 
         return $this->success($user, 'User updated successfully', 201);
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|max:2048',
+        ]);
+
+        $user = auth()->user();
+        $path = $request->file('avatar')->store('avatars', 'public');
+
+        // Delete old avatar if exists
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+        }
+
+        $user->avatar = 'storage/'.$path;
+        $user->save();
+
+        return response()->json(['avatar_url' => asset("storage/{$path}")]);
     }
 }
