@@ -11,7 +11,13 @@ class ImageService
 {
     public function storeImageFromUrl(string $url)//: Photo
     {
+        ini_set('memory_limit', '512M');
+
         $imageContents = file_get_contents($url);
+
+        if (strlen($imageContents) > 10 * 1024 * 1024) { // 10MB
+            throw new \Exception('Image too large to process. URL:'.$url);
+        }
 
         // $originalName = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_FILENAME);
         $originalName = Str::random(40);
@@ -37,6 +43,8 @@ class ImageService
 
             Storage::disk('public')->makeDirectory($weekFolder);
             Storage::disk('public')->put($path, (string) $resizedImage->encode());
+
+            $resizedImage->destroy(); // Zwolnij zasoby
 
             $paths[$label] = 'storage/'.$path;
         }

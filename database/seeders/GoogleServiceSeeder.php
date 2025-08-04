@@ -52,10 +52,10 @@ class GoogleServiceSeeder extends Seeder
             }
 
             $serviceModel->photos()->createMany($paths);
+            // die();
+            if($index === 5) die();
         }
 
-        die();
-        if($index === 1) die();
 
     }
 }

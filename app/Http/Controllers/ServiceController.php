@@ -24,24 +24,24 @@ class ServiceController extends Controller
         if( $provider_id OR $search ) request()->merge(['page' => 1]); // Force page 1
 
         $services = Service::with(['provider:id,name', 'photos' ,'favoritedBy:id'])
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', "%{$search}%");
-                })
-                ->when($provider_id, function ($query, $provider_id) {
-                    $query->where('provider_id', $provider_id);
-                })
-                ->latest()
-                // ->where('lang', App::getLocale())
-                ->paginate(request('per_page', 10))
-                ->through(function($service){
-                    $service->is_favorited = in_array( request('user_id'), $service->favoritedBy->pluck('id')->toArray() );
-                    return $service;
-                })
-                ->withQueryString();
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->when($provider_id, function ($query, $provider_id) {
+                $query->where('provider_id', $provider_id);
+            })
+            ->latest()
+            // ->where('lang', App::getLocale())
+            ->paginate(10)
+            ->through(function($service){
+                $service->is_favorited = in_array( request('user_id'), $service->favoritedBy->pluck('id')->toArray() );
+                return $service;
+            })
+            ->withQueryString();
 
         return $this->success([
                     'data' => ServiceResource::collection($services->items()),
-                    'total_pages' => $services->lastPage()
+                    'last_page' => $services->lastPage()
                 ],'Services fetched successfully'
         );
     }
