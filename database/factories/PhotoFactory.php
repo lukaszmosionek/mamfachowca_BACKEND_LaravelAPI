@@ -16,8 +16,11 @@ class PhotoFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
-            'photo_path' => 'uploads/photos/' . fake()->image('public/storage/uploads/photos', 640, 480, null, false),
+            'thumbnail' => generatePlaceholder(300,300),
+            'medium' => generatePlaceholder(300,300),
+            'large' => generatePlaceholder(300,300),
             'imageable_id' => null,
             'imageable_type' => null,
         ];
