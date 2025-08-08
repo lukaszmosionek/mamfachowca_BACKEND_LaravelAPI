@@ -78,3 +78,6 @@ php artisan queue:work
 
 # (Optional) Generate enums in json and vue3
 php artisan enums:export
+
+#run for mobile( optional )
+php artisan serve --host=0.0.0.0 --port=8000

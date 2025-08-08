@@ -18,23 +18,17 @@ class ServiceController extends Controller
 
     public function index(): JsonResponse
     {
-        $search = request('name');
-        $provider_id = request('provider_id');
-
-        if( $provider_id OR $search ) request()->merge(['page' => 1]); // Force page 1
-
-        $services = Service::with(['provider:id,name', 'photos' ,'favoritedBy:id'])
-            ->when($search, function ($query, $search) {
-                $query->where('name', 'like', "%{$search}%");
-            })
-            ->when($provider_id, function ($query, $provider_id) {
-                $query->where('provider_id', $provider_id);
-            })
+        $services = Service::with([
+                'provider:id,name',
+                'photos',
+                'favoritedBy:id',
+            ])
+            ->filter()
             ->latest()
             // ->where('lang', App::getLocale())
-            ->paginate(10)
+            ->paginate(10) //end of database query
             ->through(function($service){
-                $service->is_favorited = in_array( request('user_id'), $service->favoritedBy->pluck('id')->toArray() );
+                $service->is_favorited = $service->favoritedBy->pluck('id')->contains( request('user_id') );
                 return $service;
             })
             ->withQueryString();

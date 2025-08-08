@@ -28,7 +28,9 @@ Route::apiResource('providers', ProviderController::class)->only('index');
 Route::apiResource('users', UsersController::class)->only(['show']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('me/services', UserServiceController::class)->names('me.services');;
+    Route::apiResource('me/services', UserServiceController::class)->names('me.services');
+    Route::post('me/services/{service}/photos', [UserServiceController::class, 'storePhotos']);
+    Route::delete('me/services/photos/{id}', [UserServiceController::class, 'destroyPhoto']);
 
     Route::get('me', [ProfileController::class, 'getUser'])->name('profile.getUser');
     Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
