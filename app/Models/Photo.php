@@ -24,9 +24,9 @@ class Photo extends Authenticatable
     ];
 
     public static array $sizes = [
-        'thumbnail' => [150, 150], //['width' => 150, 'height' => 150],
-        'medium'    => [300, 300],
-        'large'     => [800, 600],
+        'thumbnail' => ['width' => 150, 'height' => 150], //['width' => 150, 'height' => 150],
+        'medium'    => ['width' => 300, 'height' => 300],
+        'large'     => ['width' => 800, 'height' => 600],
     ];
     public static function getSizes(): array
     {

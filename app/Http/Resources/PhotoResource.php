@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,13 +15,14 @@ class PhotoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $sizes = [];
+        foreach(Photo::getSizeKeys() as $name){
+            $sizes[$name] = config('app.url').'/'.$this->{$name};
+        }
+
         return [
             'id' => $this->id,
-            'is_main' => $this->is_main,
-
-            'thumbnail' => config('app.url').'/'.$this->thumbnail,
-            'medium' => config('app.url').'/'.$this->medium,
-            'large' => config('app.url').'/'.$this->large
-        ];
+            'is_main' => $this->is_main
+        ]+$sizes;
     }
 }

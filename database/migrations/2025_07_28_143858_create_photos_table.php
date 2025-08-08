@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->morphs('imageable'); // creates imageable_id and imageable_type columns
-            foreach(Photo::getSizes() as $size){
-                $table->string($size);
+            foreach(Photo::getSizeKeys() as $size){
+                $table->string($size)->nullable();
             }
             $table->boolean('is_main')->default(false);
             $table->timestamps();

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Photo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,13 +17,14 @@ class PhotoFactory extends Factory
      */
     public function definition(): array
     {
+        $sizes = [];
+        foreach(Photo::getSizes() as $name => $size){
+            $sizes[$name] = generatePlaceholder($size['width'], $size['height']);
+        }
 
         return [
-            'thumbnail' => generatePlaceholder(300,300),
-            'medium' => generatePlaceholder(300,300),
-            'large' => generatePlaceholder(300,300),
             'imageable_id' => null,
             'imageable_type' => null,
-        ];
+        ]+$sizes;
     }
 }

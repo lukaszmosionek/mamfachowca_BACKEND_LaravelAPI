@@ -46,12 +46,6 @@ class ImageService
             $paths[$label] = 'storage/'.$path;
         }
 
-        // $photo = Photo::create([
-        //     'thumbnail' => $paths['thumbnail'],
-        //     'medium'    => $paths['medium'],
-        //     'large'     => $paths['large'],
-        // ]);
-
         return $paths;
     }
 
@@ -90,12 +84,6 @@ class ImageService
 
             $paths[$label] = 'storage/'.$path;
         }
-
-        // $photo = Photo::create([
-        //     'thumbnail' => $paths['thumbnail'],
-        //     'medium'    => $paths['medium'],
-        //     'large'     => $paths['large'],
-        // ]);
 
         return $paths;
     }
