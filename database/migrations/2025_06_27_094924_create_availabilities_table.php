@@ -14,15 +14,7 @@ return new class extends Migration
         Schema::create('availabilities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('provider_id')->constrained('users')->onDelete('cascade');
-            $table->enum('day_of_week', [
-                'sunday',
-                'monday',
-                'tuesday',
-                'wednesday',
-                'thursday',
-                'friday',
-                'saturday'
-            ])->comment('Day of the week');
+            $table->enum('day_of_week', config('constants.days'))->comment('Day of the week');
             $table->time('start_time');
             $table->time('end_time');
             $table->timestamps();

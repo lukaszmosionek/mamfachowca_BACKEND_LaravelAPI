@@ -19,15 +19,7 @@ class AvailabilityFactory extends Factory
         $start = $startTime->format('H:i:s');
         $end = \Carbon\Carbon::parse($start)->addHours(rand(2,7))->format('H:i:s');
 
-        $day_of_week = [
-            'monday',
-            'tuesday',
-            'wednesday',
-            'thursday',
-            'friday',
-            'saturday',
-            'sunday',
-        ];
+        $day_of_week = config('constants.days');
 
         return [
             'provider_id' => $attributes['provider_id'] ?? User::factory(),

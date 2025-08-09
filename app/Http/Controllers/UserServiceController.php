@@ -21,9 +21,12 @@ class UserServiceController extends Controller
     public function index()
     {
         // Pokaż usługi zalogowanego usługodawcy
-        $services = auth()->user()->services()->with('photos')->latest()->get();
-        $services = ServiceResource::collection($services);
-        return $this->success($services, 'Services fetched successfully');
+        $services = auth()->user()->services()->with('photos')->latest()->paginate(10);
+        return $this->success([
+            'services' => ServiceResource::collection($services),
+            'last_page' => $services->lastPage(),
+
+        ], 'Services fetched successfully');
     }
 
     public function store(StoreServiceRequest $request, ImageService $imageService)

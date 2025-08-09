@@ -34,7 +34,7 @@ class ServiceController extends Controller
             ->withQueryString();
 
         return $this->success([
-                    'data' => ServiceResource::collection($services->items()),
+                    'services' => ServiceResource::collection($services->items()),
                     'last_page' => $services->lastPage()
                 ],'Services fetched successfully'
         );
@@ -43,7 +43,8 @@ class ServiceController extends Controller
     public function show($id): JsonResponse
     {
         $service = Service::with(['provider:id,name','provider.availabilities', 'photos'])->findOrFail($id);
-        return $this->success( new ServiceResource($service),'Service fetched successfully');
+        $service = new ServiceResource($service);
+        return $this->success(compact('service'), 'Service fetched successfully');
     }
 
 }

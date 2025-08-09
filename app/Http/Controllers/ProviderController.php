@@ -16,7 +16,7 @@ class ProviderController extends Controller
         // $services = auth()->user()->services()->get();
         $providers = User::select(['id','name'])->where('role', 'provider')->pluck('name', 'id');
         // $providers = ServiceResource::collection($providers);
-        return $this->success($providers, 'Providers fetched successfully');
+        return $this->success( compact('providers'), 'Providers fetched successfully');
     }
 
 

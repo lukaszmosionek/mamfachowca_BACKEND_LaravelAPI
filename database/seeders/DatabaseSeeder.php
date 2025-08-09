@@ -18,51 +18,63 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+
+    protected $providers;
+    protected $clients;
+
+    function __construct()
+    {
+        $this->createUsers();
+        $this->sendMessages();
+        $this->providerSeeder();
+        $this->clientSeeder();
+    }
+
     public function run(): void
     {
-        $clients = collect();
-        $providers = collect();
-
-        $provider = User::factory()->create([
-            'email' => 'provider@onet.pl',
-            'password' => 'password',
-            'role' => 'provider',
-        ]);
-
-        $client = User::factory()->create([
-            'email' => 'client@onet.pl',
-            'password' => 'password',
-            'role' => 'client',
-        ]);
-
-        $providers->push($provider);
-        $clients->push($client);
-
-        // Providerzy
-        $providers = $providers->merge(User::factory()->count(3)->create([
-            'role' => 'provider',
-        ]));
-
-        // Klienci
-        $clients = $clients->merge(User::factory()->count(5)->create([
-            'role' => 'client',
-        ]));
-
-        for($i = 0; $i < 20; $i++) {
-            (new MessageService())->sendMessage(
-                $clients->random(),
-                $providers->random(),
-                'To jest treść testowej wiadomości ' . ($i + 1)
-            );
-        }
 
         // $this->call([
         //     ServiceSeeder::class,
         // ]);
 
         // Usługi dla każdego provider'a
-        $providers->each(function ($provider) {
-            $services = Service::factory()->count(3)->create([
+    }
+
+    private function createUsers(){
+        $this->providers = collect([
+            User::factory()->create([
+                'email' => 'provider@onet.pl',
+                'password' => 'password',
+                'role' => 'provider',
+            ])
+        ])->merge(
+            User::factory()->count(3)->create(['role' => 'provider'])
+        );
+
+        $this->clients = collect([
+            User::factory()->create([
+                'email' => 'client@onet.pl',
+                'password' => 'password',
+                'role' => 'client',
+            ])
+        ])->merge(
+            User::factory()->count(5)->create(['role' => 'client'])
+        );
+    }
+
+    private function sendMessages(){
+        for($i = 0; $i < 20; $i++) {
+            (new MessageService())->sendMessage(
+                $this->clients->random(),
+                $this->providers->random(),
+                'To jest treść testowej wiadomości ' . ($i + 1)
+            );
+        }
+    }
+
+    private function providerSeeder(){
+        $this->providers->each(function ($provider) {
+            $services = Service::factory()->count(30)->create([
                 'provider_id' => $provider->id,
             ]);
 
@@ -70,19 +82,17 @@ class DatabaseSeeder extends Seeder
                 $service->photos()->createMany( Photo::factory()->count( rand(2, 9) )->make()->toArray() );
             }
 
-            try{
-                Availability::factory()->count(rand(1,5))->for($provider, 'provider')->create();
-            }catch(Exception $e){
-                dump( $e->getMessage() );
+            foreach( config('constants.days') as $day ){
+                if( rand(1,5) == 1 ) continue;
+                Availability::factory()->for($provider, 'provider')->create( ['day_of_week' => $day] );
             }
         });
+    }
 
-
-        $clients->each(function ($client) {
+    private function clientSeeder(){
+        $this->clients->each(function ($client) {
             Appointment::factory()->count(20)->make()->each(function ($appointment) use ($client) {
                 $service = Service::inRandomOrder()->first();
-
-                // dd($service);
 
                 Appointment::create([
                     'client_id' => $client->id,
