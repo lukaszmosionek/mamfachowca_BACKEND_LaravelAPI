@@ -14,7 +14,8 @@ class ProfileController extends Controller
 
     public function getUser(Request $request){
         $user = auth()->user();
-        return $this->success( new UserResource($user), 'User fetched successfully');
+        $user = new UserResource($user);
+        return $this->success( compact('user'), 'User fetched successfully');
     }
 
     public function update(UpdateUserRequest $request)
@@ -22,7 +23,7 @@ class ProfileController extends Controller
         $user = $request->user();
         $user->update($request->all());
 
-        return $this->success($user, 'User updated successfully', 201);
+        return $this->success( compact('user'), 'User updated successfully', 201);
     }
 
     public function uploadAvatar(Request $request)
@@ -42,6 +43,8 @@ class ProfileController extends Controller
         $user->avatar = 'storage/'.$path;
         $user->save();
 
-        return response()->json(['avatar_url' => asset("storage/{$path}")]);
+        return $this->success([
+            'avatar_url' => asset("storage/{$path}")
+        ], 'Avatar Uploaded');
     }
 }

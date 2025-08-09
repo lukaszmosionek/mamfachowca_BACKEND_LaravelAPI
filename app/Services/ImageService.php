@@ -21,8 +21,8 @@ class ImageService
 
         // $originalName = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_FILENAME);
         $originalName = Str::random(40);
-        $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
-        // $extension = 'jpg';
+        // $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
+        $extension = 'jpg';
 
         $sizes = Photo::getSizes();
 

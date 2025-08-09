@@ -35,7 +35,7 @@ class MessageController extends Controller
             ->sortBy(fn($user) => array_search( $user->id, $chatUserIds->toArray() ))
             ->values();
 
-        return $this->success($usersYouChattedWith, 'Users fetched successfully');
+        return $this->success( compact('usersYouChattedWith'), 'Users fetched successfully');
     }
 
     // Get all messages between the authenticated user and the target user
@@ -53,10 +53,10 @@ class MessageController extends Controller
         })
         ->orderBy('created_at')->get(['body']);
 
-        return response()->json([
+        return $this->success([
             'messages' => $messages,
             'receiver' => $receiver,
-        ]);
+        ], 'Messages fetch successfully', 201);
     }
 
     // Send a new message to a user
@@ -71,6 +71,6 @@ class MessageController extends Controller
 
         $message = $messageService->sendMessage($sender, $receiver, $request->message);
 
-        return $this->success($message, 'Message sent successfully', 201);
+        return $this->success( compact('message'), 'Message sent successfully', 201);
     }
 }

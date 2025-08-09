@@ -15,22 +15,15 @@ class FavoriteController extends Controller
 
     public function index()
     {
-        $search = request('name');
-        $provider_id = request('provider_id');
         $user = auth()->user();
 
         $services = Service::with(['provider:id,name', 'photos' ,'favoritedBy:id'])
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', "%{$search}%");
-                })
-                ->when($provider_id, function ($query, $provider_id) {
-                    $query->where('provider_id', $provider_id);
-                })
+                ->filter()
                 ->whereHas('favoritedBy', function($query) use($user){
                     $query->where('users.id', $user->id );
                 })
                 // ->where('lang', App::getLocale())
-                ->paginate(request('per_page', 10))
+                ->paginate(10)
                 ->through(function($service){
                     $service->is_favorited = true;
                     return $service;
@@ -38,8 +31,8 @@ class FavoriteController extends Controller
                 ->withQueryString();
 
         return $this->success([
-                    'data' => ServiceResource::collection($services->items()),
-                    'total_pages' => $services->lastPage(),
+                    'favorites' => ServiceResource::collection($services->items()),
+                    'last_page' => $services->lastPage(),
                 ],'Favorited services fetched successfully'
             );
     }
@@ -51,10 +44,10 @@ class FavoriteController extends Controller
 
         if ($user->favorites()->where('service_id', $itemId)->exists()) {
             $user->favorites()->detach($itemId);
-            return response()->json(['favorited' => false]);
+            return $this->success(['favorited' => false]);
         } else {
             $user->favorites()->attach($itemId);
-            return response()->json(['favorited' => true]);
+            return $this->success(['favorited' => true]);
         }
     }
 

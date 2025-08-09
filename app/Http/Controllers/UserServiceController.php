@@ -72,7 +72,7 @@ class UserServiceController extends Controller
         Storage::disk('public')->delete( Photo::getSizeKeys() );
         $photo->delete();
 
-        return response()->json(['message' => 'Photo deleted']);
+        return $this->success(null , 'Photo deleted');
     }
 
     public function storePhotos(Service $service, Request $request, ImageService $imageService)
@@ -88,10 +88,9 @@ class UserServiceController extends Controller
 
         $photoModel = $service->photos()->createMany($paths);
 
-        return response()->json([
-            'message' => 'Photos uploaded successfully!',
+        return $this->success([
             'photos' => PhotoResource::collection( $photoModel )
-        ]);
+        ], 'Photos uploaded successfully!');
     }
 
 

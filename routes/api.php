@@ -37,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('me/avatar', [ProfileController::class, 'uploadAvatar']);
 
     Route::get('/favorites', [FavoriteController::class, 'index']);
-    Route::post('/favorites/{item}', [FavoriteController::class, 'toggle']);
+    Route::post('/favorites/{item}/toggle', [FavoriteController::class, 'toggle']);
     Route::get('/favorites/{item}', [FavoriteController::class, 'isFavorited']);
 
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
