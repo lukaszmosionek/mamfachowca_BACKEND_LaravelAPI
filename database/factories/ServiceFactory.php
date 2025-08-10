@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Currency;
 use App\Models\Photo;
 use App\Models\Service;
 use App\Models\User;
@@ -20,6 +21,7 @@ class ServiceFactory extends Factory
             'price' => $this->faker->randomFloat(0, 50, 300),
             'duration_minutes' => $this->faker->numberBetween(15, 90),
             'lang' => 'en',
+            'currency_id' => Currency::inRandomOrder()->first()->id,
         ];
 
     }

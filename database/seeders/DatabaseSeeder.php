@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
+use App\Models\Currency;
 use App\Models\Photo;
 use App\Notifications\NewMessageNotification;
 use App\Services\MessageService;
@@ -23,21 +24,19 @@ class DatabaseSeeder extends Seeder
     protected $providers;
     protected $clients;
 
-    function __construct()
+    public function run(): void
     {
+
+        $this->call([
+            LanguageSeeder::class,
+            CurrencySeeder::class,
+            // ServiceSeeder::class,
+        ]);
+
         $this->createUsers();
         $this->sendMessages();
         $this->providerSeeder();
         $this->clientSeeder();
-    }
-
-    public function run(): void
-    {
-
-        // $this->call([
-        //     ServiceSeeder::class,
-        // ]);
-
         // Usługi dla każdego provider'a
     }
 

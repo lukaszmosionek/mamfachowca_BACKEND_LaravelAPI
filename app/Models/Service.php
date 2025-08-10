@@ -18,12 +18,10 @@ class Service extends Model
     {
         return $this->belongsTo(User::class, 'provider_id');
     }
-
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
     }
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -36,11 +34,16 @@ class Service extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'service_id', 'user_id');
     }
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+    // END relations
+
     public function favoritedByUser($userId)
     {
         return $this->favoritedBy()->where('user_id', $userId);
     }
-    // END relations
 
     public function scopeFilter($query)
     {

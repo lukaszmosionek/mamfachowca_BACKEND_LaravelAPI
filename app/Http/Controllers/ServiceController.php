@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Resources\ServiceResource;
+use App\Models\Language;
 use App\Models\Service;
+use App\Services\CurrencyConversionService;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
@@ -16,25 +18,36 @@ class ServiceController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    public function index(): JsonResponse
+    public function index(CurrencyConversionService $currency)//: JsonResponse
     {
+
+        // return app()->getLocale();
+        // return Language::where('code', app()->getLocale())->with('currency')->first()->currency->code;
+
         $services = Service::with([
                 'provider:id,name',
                 'photos',
                 'favoritedBy:id',
+                'currency',
             ])
             ->filter()
             ->latest()
             // ->where('lang', App::getLocale())
             ->paginate(10) //end of database query
-            ->through(function($service){
+            ->through(function($service) use($currency){
                 $service->is_favorited = $service->favoritedBy->pluck('id')->contains( request('user_id') );
+
+
+                // $currencyForLang = Language::getCurrencyForCurrentLocale();
+                // $service->currency->converte_currency = $currencyForLang;
+                // $service->currency->converted_price = $currency->convert( $service->price, $service->currency->code, $currencyForLang );
                 return $service;
             })
             ->withQueryString();
 
         return $this->success([
-                    'services' => ServiceResource::collection($services->items()),
+                    'services' => $services->items(),
+                    // 'services' => ServiceResource::collection($services->items()),
                     'last_page' => $services->lastPage()
                 ],'Services fetched successfully'
         );
