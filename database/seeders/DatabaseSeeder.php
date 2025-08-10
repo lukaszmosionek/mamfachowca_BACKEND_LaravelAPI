@@ -12,6 +12,7 @@ use App\Models\Photo;
 use App\Notifications\NewMessageNotification;
 use App\Services\MessageService;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -93,6 +94,11 @@ class DatabaseSeeder extends Seeder
         $this->clients->each(function ($client) {
             Appointment::factory()->count(20)->make()->each(function ($appointment) use ($client) {
                 $service = Service::inRandomOrder()->first();
+
+                DB::table('favorites')->insert([
+                    'user_id' => $client->id,
+                    'service_id' => $service->id,
+                ]);
 
                 Appointment::create([
                     'client_id' => $client->id,

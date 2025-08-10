@@ -21,7 +21,7 @@ class ProfileController extends Controller
     public function update(UpdateUserRequest $request)
     {
         $user = $request->user();
-        $user->update($request->all());
+        $user->update($request->except('avatar'));
 
         return $this->success( compact('user'), 'User updated successfully', 201);
     }

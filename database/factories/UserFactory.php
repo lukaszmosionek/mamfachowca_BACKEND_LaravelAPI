@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -32,7 +33,8 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'avatar' => generatePlaceholder(300, 300 , ''.mb_substr($firstname, 0, 1).mb_substr($lastname, 0, 1)),
-            'role' => 'client',
+            'role' => Role::Client,
+            'lang' => fake()->randomElement( config('app.languages') ),
         ];
     }
 

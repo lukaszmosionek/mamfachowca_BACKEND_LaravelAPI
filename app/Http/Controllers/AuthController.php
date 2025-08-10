@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -21,7 +22,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create( $request->all() );
+        $user = User::create( $request->all() + ['lang' => App::getLocale()] );
 
         app(CreateAvailabilityAction::class)->execute($user, $request->availability);
 
