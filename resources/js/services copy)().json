@@ -1,0 +1,15 @@
+[
+    {
+        "name_en": "Driveway Sealing",
+        "name_pl": "Uszczelnianie podjazdu",
+        "desc_en": "Driveway sealing is a professional service designed to protect and extend the lifespan of your driveway surface, whether it is made of asphalt, concrete, or paving stones. Over time, exposure to sunlight, rain, snow, oil spills, and everyday wear can cause cracks, fading, and structural damage. Sealing creates a protective barrier that prevents water penetration, reduces the impact of weather extremes, and resists stains. It also enhances the driveway’s appearance, restoring its original color and giving it a fresh, clean finish. Regular sealing not only improves curb appeal but also helps avoid costly repairs, making it a smart long-term investment for homeowners.",
+        "desc_pl": "Uszczelnianie podjazdu to profesjonalna usługa mająca na celu ochronę i przedłużenie żywotności nawierzchni podjazdu, niezależnie od tego, czy jest on wykonany z asfaltu, betonu czy kostki brukowej. Z biegiem czasu ekspozycja na słońce, deszcz, śnieg, plamy z oleju oraz codzienne użytkowanie mogą powodować pęknięcia, blaknięcie i uszkodzenia strukturalne. Uszczelnienie tworzy ochronną warstwę, która zapobiega wnikaniu wody, zmniejsza wpływ skrajnych warunków pogodowych i chroni przed plamami. Poprawia również wygląd podjazdu, przywracając jego pierwotny kolor i nadając mu świeży, zadbany wygląd. Regularne uszczelnianie zwiększa estetykę posesji i pozwala uniknąć kosztownych napraw, co czyni je opłacalną inwestycją na długie lata.",
+        "photos" : [
+            "servicePhotos/sealcoating-for-driveways-1200x800.webp",
+            "servicePhotos/Feature-sealing-driveway-diy-vs-professional.jpg",
+            "servicePhotos/driveay-seal-coating-GettyImages-1493204397.webp",
+            "servicePhotos/maxresdefault.jpg",
+            "servicePhotos/driveway-asphalt-sealer.jpg"
+        ]
+    }
+]

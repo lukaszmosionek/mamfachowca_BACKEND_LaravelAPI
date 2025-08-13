@@ -171,47 +171,69 @@
     },
     {
         "name_en": "Refrigerator Repair",
-        "name_pl": "Naprawa lodówki"
+        "name_pl": "Naprawa lodówki",
+        "desc_en": "Our refrigerator repair service offers comprehensive solutions to fix all types of refrigerator issues, ensuring your appliance works efficiently and reliably. Whether it’s a cooling problem, unusual noises, leaks, or electrical faults, our experienced technicians diagnose and repair the problem quickly. We service all major brands and models, using high-quality parts to guarantee long-lasting performance. Our goal is to restore your refrigerator to optimal condition, helping you avoid food spoilage and costly replacements. We provide timely, affordable, and professional repair services to keep your kitchen running smoothly.",
+        "desc_pl": "Nasza usługa naprawy lodówek obejmuje kompleksowe rozwiązania, które pozwalają szybko i skutecznie usunąć wszelkie problemy z urządzeniem. Niezależnie od tego, czy lodówka nie chłodzi odpowiednio, wydaje niepokojące dźwięki, cieknie czy ma usterki elektryczne, nasi doświadczeni technicy zdiagnozują i naprawią usterkę. Obsługujemy wszystkie popularne marki i modele, stosując wysokiej jakości części, aby zapewnić trwałość naprawy. Naszym celem jest przywrócenie pełnej sprawności lodówki, co pozwoli uniknąć psucia się jedzenia i kosztownych wymian. Gwarantujemy szybką, profesjonalną i przystępną cenowo obsługę."
     },
     {
         "name_en": "Drywall Installation",
-        "name_pl": "Montaż płyt gipsowych"
+        "desc_en": "Drywall installation is a crucial step in modern construction and remodeling projects. This service involves securely attaching gypsum boards to wall frames or ceilings to create smooth, durable surfaces ready for painting or finishing. Professional drywall installers ensure precise measurements, proper alignment, and secure fastening, which help in achieving clean, seamless walls. Additionally, drywall installation can improve insulation, soundproofing, and fire resistance of a building. Whether for new homes, commercial spaces, or renovation projects, expert drywall installation enhances both the structural integrity and aesthetic appeal of interiors. The process includes cutting, fitting, fastening, and initial taping or mudding to prepare for finishing touches.",
+        "name_pl": "Montaż płyt gipsowych",
+        "desc_pl": "Montaż płyt gipsowych to kluczowy etap w nowoczesnym budownictwie oraz pracach remontowych. Usługa ta polega na profesjonalnym przytwierdzeniu płyt gipsowo-kartonowych do konstrukcji ścian lub sufitów, tworząc gładkie, trwałe powierzchnie gotowe do malowania lub dalszego wykończenia. Doświadczeni monterzy dbają o dokładne pomiary, prawidłowe dopasowanie oraz solidne mocowanie, co gwarantuje estetyczny i trwały efekt. Montaż płyt gipsowych poprawia także izolację termiczną i akustyczną oraz zwiększa odporność ogniową budynków. Niezależnie od tego, czy chodzi o nowo wybudowany dom, przestrzeń komercyjną czy remont, fachowy montaż wpływa na trwałość konstrukcji oraz estetykę wnętrz."
     },
     {
         "name_en": "Deck Staining",
-        "name_pl": "Malowanie tarasu"
+        "desc_en": "Deck staining is a professional service that involves applying a protective and decorative finish to wooden decks. This process helps to enhance the natural beauty of the wood while providing long-lasting protection against weather elements such as UV rays, moisture, and mildew. Proper staining not only improves the aesthetic appeal of your outdoor space but also extends the lifespan of the deck by preventing cracking, warping, and decay. Our experts carefully prepare the surface, selecting the right stain for your wood type and environment, ensuring even coverage and a durable finish that revitalizes your deck and keeps it looking fresh year-round.",
+        "name_pl": "Malowanie tarasu",
+        "desc_pl": "Malowanie tarasu to profesjonalna usługa polegająca na nałożeniu ochronnej i dekoracyjnej powłoki na drewniany taras. Proces ten podkreśla naturalne piękno drewna oraz zapewnia długotrwałą ochronę przed niekorzystnymi warunkami atmosferycznymi, takimi jak promieniowanie UV, wilgoć czy pleśń. Odpowiednie malowanie nie tylko poprawia estetykę przestrzeni na zewnątrz, ale także wydłuża żywotność tarasu, zapobiegając pękaniu, odkształceniom i niszczeniu drewna. Nasi specjaliści dokładnie przygotowują powierzchnię, dobierają odpowiednią farbę do rodzaju drewna i warunków otoczenia, gwarantując równomierne pokrycie i trwały efekt, który odświeża taras przez cały rok."
     },
     {
         "name_en": "Garage Door Repair",
-        "name_pl": "Naprawa drzwi garażowych"
+        "name_pl": "Naprawa drzwi garażowych",
+        "desc_en": "Our Garage Door Repair service provides comprehensive solutions to ensure your garage door operates smoothly and securely. Whether you’re dealing with broken springs, malfunctioning openers, damaged panels, or misaligned tracks, our skilled technicians will diagnose and fix the problem efficiently. We handle both residential and commercial garage doors of all types and brands. We prioritize safety, reliability, and quick turnaround times to minimize your inconvenience. With our expert repair service, you can extend the life of your garage door and avoid costly replacements. Contact us anytime for fast, dependable garage door repairs you can trust.",
+        "desc_pl": "Usługa Naprawa drzwi garażowych oferuje kompleksowe rozwiązania, które zapewniają płynne i bezpieczne działanie Twoich drzwi garażowych. Niezależnie od tego, czy masz problem z zerwanymi sprężynami, uszkodzonymi panelami, wadliwym otwieraczem czy źle ustawionymi prowadnicami, nasi wykwalifikowani technicy szybko zdiagnozują i naprawią usterkę. Obsługujemy drzwi garażowe zarówno w domach, jak i w firmach, różnych marek i typów. Priorytetem jest dla nas bezpieczeństwo, niezawodność oraz szybka realizacja usługi, aby ograniczyć Twoje niedogodności. Skontaktuj się z nami, aby skorzystać z fachowej naprawy drzwi garażowych, na którą możesz liczyć."
     },
     {
         "name_en": "Tile and Grout Cleaning",
-        "name_pl": "Czyszczenie płytek i fug"
+        "name_pl": "Czyszczenie płytek i fug",
+        "desc_en": "Our professional tile and grout cleaning service restores the original shine and cleanliness to your tiled surfaces. Over time, grout can become stained and tiles may accumulate dirt, mold, and mildew that regular cleaning can’t remove. Using specialized equipment and eco-friendly cleaning solutions, we deep clean your tiles and grout lines to remove built-up grime, bacteria, and discoloration. This not only improves the appearance of your floors and walls but also extends their lifespan. Perfect for kitchens, bathrooms, entryways, and commercial spaces, our service ensures a healthier, fresher environment for your home or business.",
+        "desc_pl": "Nasza profesjonalna usługa czyszczenia płytek i fug przywraca ich oryginalny blask i czystość. Z czasem fugi mogą się brudzić, a płytki gromadzić zabrudzenia, pleśń oraz grzyb, których zwykłe sprzątanie nie usuwa. Dzięki specjalistycznemu sprzętowi i ekologicznym środkom czyszczącym dokładnie usuwamy nagromadzony brud, bakterie i przebarwienia z płytek i fug. Usługa ta nie tylko poprawia wygląd podłóg i ścian, ale także przedłuża ich trwałość. Idealna do kuchni, łazienek, przedpokojów oraz przestrzeni komercyjnych, zapewnia zdrowsze i świeższe otoczenie w domu lub firmie."
     },
     {
         "name_en": "Pest Control",
-        "name_pl": "Zwalczanie szkodników"
+        "name_pl": "Zwalczanie szkodników",
+        "desc_en": "Our Pest Control service offers comprehensive solutions to eliminate and prevent infestations of unwanted pests such as insects, rodents, and other harmful creatures. We use safe, effective, and environmentally friendly methods to protect your home or business from damage and health risks associated with pests. Our experienced technicians conduct thorough inspections, identify the source of infestation, and tailor a treatment plan to suit your specific needs. We also provide ongoing monitoring and maintenance to ensure long-term protection. Whether you face ants, cockroaches, termites, or mice, our service guarantees reliable results and peace of mind.",
+        "desc_pl": "Nasza usługa Zwalczania szkodników oferuje kompleksowe rozwiązania mające na celu eliminację i zapobieganie infestacjom niepożądanych szkodników, takich jak owady, gryzonie i inne szkodliwe stworzenia. Stosujemy bezpieczne, skuteczne oraz przyjazne dla środowiska metody ochrony Twojego domu lub firmy przed szkodami i zagrożeniami zdrowotnymi związanymi z obecnością szkodników. Nasi doświadczeni technicy przeprowadzają dokładne inspekcje, identyfikują źródło infestacji oraz dopasowują plan działania do indywidualnych potrzeb klienta. Oferujemy również stały monitoring i utrzymanie ochrony, zapewniając długotrwały efekt i spokój."
     },
     {
         "name_en": "Interior Painting",
-        "name_pl": "Malowanie wnętrz"
+        "name_pl": "Malowanie wnętrz",
+        "desc_en": "Our Interior Painting service transforms your living and working spaces with a fresh, professional touch. We use high-quality paints and materials to ensure a smooth, durable finish that enhances the aesthetic appeal of any room. Whether you're looking to refresh a single room or repaint an entire home or office, our experienced painters handle all types of surfaces including walls, ceilings, and trim with precision and care. We prioritize clean, timely work with minimal disruption to your daily routine. From color consultation to final touch-ups, we are committed to delivering excellent results that match your style and preferences.",
+        "desc_pl": "Nasza usługa Malowania wnętrz odświeża i przekształca Twoje przestrzenie mieszkalne i biurowe, nadając im profesjonalny i estetyczny wygląd. Używamy wysokiej jakości farb oraz materiałów, które zapewniają gładkie i trwałe wykończenie. Niezależnie od tego, czy chcesz odmalować pojedynczy pokój, czy całe mieszkanie lub biuro, nasi doświadczeni malarze wykonują prace na różnych powierzchniach, takich jak ściany, sufity i listwy przypodłogowe, z dużą precyzją i dbałością. Dbamy o czystość, terminowość i minimalne zakłócenia w codziennym funkcjonowaniu. Od doradztwa kolorystycznego po końcowe poprawki – gwarantujemy efekty, które spełnią Twoje oczekiwania."
     },
     {
         "name_en": "Exterior Painting",
-        "name_pl": "Malowanie elewacji"
+        "name_pl": "Malowanie elewacji",
+        "desc_en": "Exterior painting is a professional service focused on applying high-quality paint coatings to the outer surfaces of buildings. This service not only enhances the aesthetic appeal of homes and commercial properties but also protects the exterior walls from harsh weather conditions, such as rain, sunlight, wind, and temperature fluctuations. Skilled painters prepare surfaces by cleaning, sanding, and repairing any damages to ensure a smooth, durable finish. Using weather-resistant paints and advanced techniques, the service increases the lifespan of the building's facade, boosts curb appeal, and adds value to the property. It is ideal for both renovation projects and new constructions.",
+        "desc_pl": "Malowanie elewacji to profesjonalna usługa polegająca na nakładaniu wysokiej jakości powłok malarskich na zewnętrzne powierzchnie budynków. Usługa ta nie tylko poprawia estetykę domów i obiektów komercyjnych, ale także chroni ściany zewnętrzne przed niekorzystnymi warunkami atmosferycznymi, takimi jak deszcz, słońce, wiatr oraz zmiany temperatur. Wykwalifikowani malarze przygotowują powierzchnie poprzez ich oczyszczenie, szlifowanie i naprawę uszkodzeń, aby uzyskać gładkie i trwałe wykończenie. Dzięki zastosowaniu farb odpornych na warunki pogodowe i nowoczesnych technik, usługa wydłuża żywotność elewacji, poprawia wygląd budynku i zwiększa wartość nieruchomości. Idealna zarówno przy remontach, jak i nowych inwestycjach."
     },
     {
         "name_en": "Water Heater Repair",
-        "name_pl": "Naprawa podgrzewacza wody"
+        "name_pl": "Naprawa podgrzewacza wody",
+        "desc_en": "Our Water Heater Repair service offers comprehensive diagnostics and repairs for all types of water heaters, including electric, gas, and tankless models. Whether your water heater is leaking, not heating properly, making unusual noises, or experiencing other malfunctions, our skilled technicians will quickly identify the problem and provide efficient solutions. We use high-quality replacement parts and ensure that your water heater operates safely and efficiently. Our goal is to restore your hot water supply with minimal disruption, improving your comfort and saving you money on energy bills. We also provide maintenance tips to extend the lifespan of your unit.",
+        "desc_pl": "Nasza usługa Naprawy podgrzewacza wody obejmuje kompleksową diagnostykę oraz naprawy wszelkiego rodzaju podgrzewaczy, w tym elektrycznych, gazowych oraz bezzbiornikowych. Jeśli Twój podgrzewacz cieknie, nie nagrzewa się prawidłowo, wydaje nietypowe dźwięki lub ma inne usterki, nasi doświadczeni technicy szybko zidentyfikują problem i zaproponują skuteczne rozwiązania. Stosujemy wysokiej jakości części zamienne, dbając o bezpieczne i efektywne działanie urządzenia. Naszym celem jest szybkie przywrócenie dostępu do ciepłej wody przy minimalnym zakłóceniu, co zwiększa komfort oraz pozwala zaoszczędzić na rachunkach za energię. Oferujemy również porady dotyczące konserwacji, które wydłużają żywotność podgrzewacza."
     },
     {
         "name_en": "Chimney Sweeping",
-        "name_pl": "Czyszczenie komina"
+        "name_pl": "Czyszczenie komina",
+        "desc_en": "Chimney sweeping is an essential maintenance service that ensures the safe and efficient operation of fireplaces, stoves, and other heating systems. Over time, soot, creosote, and other debris accumulate inside the chimney, which can lead to reduced airflow, poor heating performance, and even dangerous chimney fires. Professional chimney sweeping involves inspecting the chimney structure, removing blockages, cleaning the flue, and checking for any signs of damage or wear. This service not only improves heating efficiency but also enhances indoor air quality and reduces the risk of carbon monoxide buildup. Regular chimney sweeping is recommended at least once a year to maintain safety and comfort in your home.",
+        "desc_pl": "Czyszczenie komina to niezbędna usługa konserwacyjna, która zapewnia bezpieczne i wydajne działanie kominków, pieców oraz innych systemów grzewczych. Z biegiem czasu wewnątrz komina gromadzą się sadza, kreozot i inne zanieczyszczenia, które mogą powodować zmniejszenie przepływu powietrza, obniżenie wydajności ogrzewania, a nawet groźne pożary kominów. Profesjonalne czyszczenie komina obejmuje inspekcję konstrukcji komina, usuwanie zatorów, czyszczenie przewodu dymowego oraz sprawdzenie ewentualnych uszkodzeń. Usługa ta nie tylko poprawia efektywność ogrzewania, ale także wpływa korzystnie na jakość powietrza w pomieszczeniach i zmniejsza ryzyko zatrucia tlenkiem węgla. Zaleca się wykonywanie czyszczenia komina co najmniej raz w roku, aby utrzymać bezpieczeństwo i komfort w domu."
     },
     {
         "name_en": "Tree Trimming",
-        "name_pl": "Przycinanie drzew"
+        "name_pl": "Przycinanie drzew",
+        "desc_en": "Our professional tree trimming service is designed to keep your trees healthy, beautiful, and safe all year round. We carefully remove dead, diseased, or overgrown branches to encourage proper growth and maintain the natural shape of the tree. Regular trimming not only enhances the appearance of your property but also reduces the risk of damage from falling limbs during storms. Our trained specialists use safe, efficient techniques and modern equipment to protect your trees and surrounding landscape. Whether for residential or commercial spaces, we ensure your greenery thrives while adding value and safety to your outdoor environment.",
+        "desc_pl": "Nasza profesjonalna usługa przycinania drzew ma na celu utrzymanie drzew w zdrowiu, pięknym wyglądzie oraz w pełnym bezpieczeństwie przez cały rok. Starannie usuwamy martwe, chore lub zbyt rozrośnięte gałęzie, aby wspomóc prawidłowy rozwój i zachować naturalny kształt drzewa. Regularne przycinanie nie tylko poprawia estetykę posesji, ale również zmniejsza ryzyko uszkodzeń spowodowanych spadającymi gałęziami podczas burz. Nasi wykwalifikowani specjaliści stosują bezpieczne i skuteczne techniki oraz nowoczesny sprzęt, aby chronić drzewa i otaczający krajobraz. Niezależnie od tego, czy obsługujemy teren prywatny, czy komercyjny, dbamy o to, aby zieleń rozwijała się zdrowo, dodając wartości i bezpieczeństwa otoczeniu."
     },
     {
         "name_en": "Security Camera Installation",
@@ -221,7 +243,9 @@
     },
     {
         "name_en": "Smart Thermostat Setup",
-        "name_pl": "Montaż inteligentnego termostatu"
+        "name_pl": "Montaż inteligentnego termostatu",
+        "desc_en": "Our Smart Thermostat Setup service ensures your home or business enjoys optimal comfort, improved energy efficiency, and full control over your heating and cooling systems. We handle everything from installation to configuration, ensuring your smart thermostat is properly connected to your HVAC system and Wi-Fi network. Our technicians will guide you through the app setup, explain key features such as scheduling, remote control, and energy usage monitoring, and make sure it’s calibrated for your comfort preferences. We also provide tips on how to maximize savings while keeping your environment pleasant year-round. Ideal for both new and existing systems.",
+        "desc_pl": "Nasz serwis montażu inteligentnego termostatu zapewnia Twojemu domowi lub firmie optymalny komfort, lepszą efektywność energetyczną oraz pełną kontrolę nad systemami ogrzewania i chłodzenia. Zajmujemy się całym procesem – od instalacji, poprzez konfigurację, aż po pełne podłączenie termostatu do systemu HVAC oraz sieci Wi-Fi. Nasi technicy pomogą w uruchomieniu aplikacji, wyjaśnią funkcje takie jak harmonogramy, zdalne sterowanie czy monitorowanie zużycia energii, oraz dopasują ustawienia do Twoich preferencji. Dodatkowo otrzymasz praktyczne wskazówki, jak oszczędzać energię, zachowując komfort przez cały rok. Usługa odpowiednia zarówno dla nowych, jak i istniejących instalacji."
     },
     {
         "name_en": "Furniture Assembly",
@@ -231,22 +255,53 @@
     },
     {
         "name_en": "Ceiling Fan Installation",
-        "name_pl": "Montaż wentylatora sufitowego"
+        "name_pl": "Montaż wentylatora sufitowego",
+        "desc_en": "Our Ceiling Fan Installation service provides a professional, safe, and efficient way to improve the comfort and energy efficiency of your home or office. We handle the entire process from start to finish, including removing old fixtures if necessary, securely mounting the fan, wiring it correctly, and testing for optimal performance. Whether you want to upgrade an existing ceiling fan or install one in a new location, our skilled technicians ensure everything is done according to electrical safety standards. Proper installation not only enhances air circulation but can also help reduce your cooling and heating costs throughout the year.",
+        "desc_pl": "Nasz serwis Montażu Wentylatora Sufitowego oferuje profesjonalne, bezpieczne i sprawne wykonanie usługi, aby poprawić komfort oraz efektywność energetyczną Twojego domu lub biura. Zajmujemy się całym procesem od początku do końca, w tym demontażem starego oświetlenia lub wentylatora, solidnym zamocowaniem nowego urządzenia, prawidłowym podłączeniem instalacji elektrycznej oraz dokładnym sprawdzeniem działania. Niezależnie od tego, czy chcesz wymienić dotychczasowy wentylator, czy zamontować nowy w innym miejscu, nasi doświadczeni technicy wykonają pracę zgodnie z obowiązującymi normami bezpieczeństwa. Poprawny montaż zapewnia lepszą cyrkulację powietrza oraz może obniżyć koszty chłodzenia i ogrzewania przez cały rok."
     },
     {
         "name_en": "Pressure Washing",
-        "name_pl": "Mycie ciśnieniowe"
+        "name_pl": "Mycie ciśnieniowe",
+        "desc_en": "Pressure washing is a highly effective cleaning service that uses high-pressure water spray to remove dirt, grime, mold, mildew, loose paint, and other contaminants from various surfaces. This service is ideal for cleaning driveways, patios, decks, siding, fences, roofs, and other exterior areas of residential, commercial, and industrial properties. By using specialized equipment and techniques, pressure washing can restore the original appearance of surfaces, improve curb appeal, and even extend the lifespan of building materials. It is an environmentally friendly option when performed correctly, as it uses less water than traditional cleaning methods and requires fewer harsh chemicals.",
+        "desc_pl": "Mycie ciśnieniowe to bardzo skuteczna usługa czyszczenia, polegająca na użyciu strumienia wody pod wysokim ciśnieniem w celu usunięcia brudu, kurzu, pleśni, mchu, łuszczącej się farby oraz innych zanieczyszczeń z różnych powierzchni. Usługa ta doskonale sprawdza się przy czyszczeniu podjazdów_"
     },
     {
         "name_en": "Siding Repair",
-        "name_pl": "Naprawa elewacji"
+        "name_pl": "Naprawa elewacji",
+        "desc_en": "Our professional siding repair service is dedicated to restoring the appearance, durability, and weather resistance of your building’s exterior. Whether your siding has been damaged by storms, moisture, pests, or simply worn down over time, our skilled team uses high-quality materials and proven repair techniques to bring it back to its best condition. We handle all types of siding, including vinyl, wood, fiber cement, and metal, ensuring a perfect match with your existing exterior. By repairing cracks, holes, and loose panels, we help improve energy efficiency and prevent further structural damage. We pride ourselves on delivering timely, affordable, and long-lasting results that enhance your property’s curb appeal and value.",
+        "desc_pl": "Nasza profesjonalna usługa naprawy elewacji ma na celu przywrócenie wyglądu, trwałości oraz odporności Twojego budynku na warunki atmosferyczne. Niezależnie od tego, czy elewacja została uszkodzona przez burze, wilgoć, szkodniki, czy też uległa naturalnemu zużyciu, nasz wykwalifikowany zespół stosuje wysokiej jakości materiały i sprawdzone techniki naprawcze, aby przywrócić jej pierwotny stan. Zajmujemy się wszystkimi rodzajami elewacji, w tym winylowymi, drewnianymi, z cementu włóknistego oraz metalowymi, dbając_",
+        "photos" : [
+            "servicePhotos/house-siding-repair.jpg",
+            "servicePhotos/vinyl-siding-maintenance.jpg",
+            "servicePhotos/Guide-on-Wood-Siding-Repair-and-Replacement_FH98SEP_01418lead_FT_PKedit.webp",
+            "servicePhotos/Siding_0919-Idea-House-Preview_money-lion_Capture-0776.0-1-scaled.jpg.optimal.jpg",
+            "servicePhotos/maxresdefault1.jpg"
+        ]
     },
     {
         "name_en": "Basement Waterproofing",
-        "name_pl": "Izolacja przeciwwilgociowa piwnicy"
+        "name_pl": "Izolacja przeciwwilgociowa piwnicy",
+        "desc_en": "Basement waterproofing is a professional service designed to protect your home’s foundation and basement area from water infiltration, dampness, and mold growth. Over time, water can seep through cracks in walls, floors, and joints, causing structural damage, unpleasant odors, and health hazards. Our comprehensive approach includes assessing the source of moisture, sealing cracks, applying waterproof membranes, and installing drainage systems when necessary. By creating a strong barrier against water, basement waterproofing not only extends the lifespan of your property but also improves indoor air quality and prevents costly repairs. This service is essential for both new constructions and existing buildings.",
+        "desc_pl": "Izolacja przeciwwilgociowa piwnicy to profesjonalna usługa mająca na celu ochronę fundamentów i przestrzeni piwnicznej przed przenikaniem wody, wilgocią i rozwojem pleśni. Z biegiem czasu woda może przedostawać się przez pęknięcia w ścianach, podłogach i spoinach, powodując uszkodzenia konstrukcji, nieprzyjemne zapachy oraz zagrożenie dla zdrowia. Nasze kompleksowe podejście obejmuje ocenę źródła wilgoci, uszczelnienie pęknięć, zastosowanie membran przeciwwilgociowych oraz w razie potrzeby montaż systemów drenażowych. Tworząc skuteczną barierę przed wodą, izolacja przeciwwilgociowa wydłuża żywotność budynku, poprawia jakość powietrza wewnątrz i zapobiega kosztownym naprawom. Usługa ta jest istotna zarówno w nowych, jak i istniejących obiektach.",
+        "photos" : [
+            "servicePhotos/6777774f47b20676bb443c81_674b9e3db14bdea2704f394e_6745b7720ffbb4e11ea4c6b7_10-PourConcrete-2-e1624880495766.webp",
+            "servicePhotos/Basement-waterproofing-company.jpg",
+            "servicePhotos/Basement-Waterproofing-options-How-to-inside-blue-sealant-diy.webp",
+            "servicePhotos/images.jpeg",
+            "servicePhotos/images1.jpeg"
+        ]
     },
     {
         "name_en": "Driveway Sealing",
-        "name_pl": "Uszczelnianie podjazdu"
+        "name_pl": "Uszczelnianie podjazdu",
+        "desc_en": "Driveway sealing is a professional service designed to protect and extend the lifespan of your driveway surface, whether it is made of asphalt, concrete, or paving stones. Over time, exposure to sunlight, rain, snow, oil spills, and everyday wear can cause cracks, fading, and structural damage. Sealing creates a protective barrier that prevents water penetration, reduces the impact of weather extremes, and resists stains. It also enhances the driveway’s appearance, restoring its original color and giving it a fresh, clean finish. Regular sealing not only improves curb appeal but also helps avoid costly repairs, making it a smart long-term investment for homeowners.",
+        "desc_pl": "Uszczelnianie podjazdu to profesjonalna usługa mająca na celu ochronę i przedłużenie żywotności nawierzchni podjazdu, niezależnie od tego, czy jest on wykonany z asfaltu, betonu czy kostki brukowej. Z biegiem czasu ekspozycja na słońce, deszcz, śnieg, plamy z oleju oraz codzienne użytkowanie mogą powodować pęknięcia, blaknięcie i uszkodzenia strukturalne. Uszczelnienie tworzy ochronną warstwę, która zapobiega wnikaniu wody, zmniejsza wpływ skrajnych warunków pogodowych i chroni przed plamami. Poprawia również wygląd podjazdu, przywracając jego pierwotny kolor i nadając mu świeży, zadbany wygląd. Regularne uszczelnianie zwiększa estetykę posesji i pozwala uniknąć kosztownych napraw, co czyni je opłacalną inwestycją na długie lata.",
+        "photos" : [
+            "servicePhotos/sealcoating-for-driveways-1200x800.webp",
+            "servicePhotos/Feature-sealing-driveway-diy-vs-professional.jpg",
+            "servicePhotos/driveay-seal-coating-GettyImages-1493204397.webp",
+            "servicePhotos/maxresdefault.jpg",
+            "servicePhotos/driveway-asphalt-sealer.jpg"
+        ]
     }
 ]

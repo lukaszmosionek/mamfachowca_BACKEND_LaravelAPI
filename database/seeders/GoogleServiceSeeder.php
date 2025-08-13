@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Language;
 use App\Models\User;
 use App\Models\Service;
+use App\Models\ServiceTranslation;
 use App\Services\GoogleImageSearchService;
 use App\Services\ImageService;
 use Exception;
@@ -31,18 +33,36 @@ class GoogleServiceSeeder extends Seeder
         $randomProvider = User::where('role', 'provider')->inRandomOrder()->first();
 
         foreach ($services as $index => $service) {
+            if( !isset($service['photos']) ) continue;
+
 
             $serviceModel = Service::factory()->create([
                 'provider_id' => $randomProvider->id,
-                'name' => $service['name_en'],
-                'description' => $service['desc_en'] ?? '',
             ]);
 
-            $photos = (new GoogleImageSearchService)->searchImages( $service['name_en'], rand(2,5) );
+            foreach (Language::all() as $language) {
+                ServiceTranslation::factory()->create([
+                    'service_id' => $serviceModel->id,
+                    'language_id' => $language->id,
+                    'name' => $service['name_'.$language->code],
+                    'description' => $service['desc_'.$language->code] ?? '',
+                ]);
+            }
+
+            if( isset($service['photos']) ) {
+                $photos = $service['photos'];
+                $isLocalPhoto = true;
+            }else{
+                $photos = (new GoogleImageSearchService)->searchImages( $service['name_en'], rand(2,5) );
+                $isLocalPhoto = false;
+            }
+
 
             if( !$photos ) continue;
 
+            $paths = [];
             foreach($photos as $index => $photo){
+                if( $isLocalPhoto ) $photo = config('app.url').'/'.$photo;
                 try{
                     $paths[$index] = ( new ImageService() )->storeImageFromUrl($photo);
                     $paths[$index]['is_main'] =  $index === 0 ? true : false;
