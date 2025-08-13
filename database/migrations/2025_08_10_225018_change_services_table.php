@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('services', function (Blueprint $table) {
-           $table->foreignId('currency_id')->after('price')->default(1)->nullable()->constrained()->onDelete('set null');
+            $table->dropColumn('name');
+            $table->dropColumn('description');
+            $table->dropColumn('lang');
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('services', function (Blueprint $table) {
-            $table->dropColumn('lang');
-        });
+        Schema::dropIfExists('services');
     }
 };

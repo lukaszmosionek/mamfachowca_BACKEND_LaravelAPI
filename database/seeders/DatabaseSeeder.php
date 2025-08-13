@@ -9,7 +9,9 @@ use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
 use App\Models\Currency;
+use App\Models\Language;
 use App\Models\Photo;
+use App\Models\ServiceTranslation;
 use App\Notifications\NewMessageNotification;
 use App\Services\MessageService;
 use Exception;
@@ -76,7 +78,14 @@ class DatabaseSeeder extends Seeder
         $this->providers->each(function ($provider) {
             $services = Service::factory()->count(30)->create([
                 'provider_id' => $provider->id,
-            ]);
+            ])->each(function ($service) {
+                foreach (Language::all() as $language) {
+                    ServiceTranslation::factory()->create([
+                        'service_id' => $service->id,
+                        'language_id' => $language->id,
+                    ]);
+                }
+            });
 
             foreach($services as $service){
                 $service->photos()->createMany( Photo::factory()->count( rand(2, 9) )->make()->toArray() );
