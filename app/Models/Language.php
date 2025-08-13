@@ -9,9 +9,17 @@ class Language extends Model
 {
     use  HasFactory;
 
+    //relationships
     public function currency()
     {
         return $this->hasOne(Currency::class);
+    }
+    // end of relationships
+
+    // static methods
+    public static function codeIdMap()
+    {
+        return self::pluck('id', 'code');
     }
 
     public static function getCurrencyForCurrentLocale(bool $getCurrencyCode = true): ?string
@@ -22,4 +30,5 @@ class Language extends Model
 
         return $getCurrencyCode ? $language?->currency?->code : $language;
     }
+    // end of static methods
 }

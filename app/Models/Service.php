@@ -38,6 +38,10 @@ class Service extends Model
     {
         return $this->belongsTo(Currency::class);
     }
+    public function translations()
+    {
+        return $this->hasMany(ServiceTranslation::class);
+    }
     // END relations
 
     public function favoritedByUser($userId)

@@ -42,3 +42,8 @@ function invertColor($hexColor) {
     // Convert back to hex and return
     return sprintf("#%02X%02X%02X", $r, $g, $b);
 }
+
+function arrayToObject(array $array): object
+{
+    return json_decode(json_encode($array));
+}

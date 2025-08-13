@@ -20,34 +20,25 @@ class ServiceController extends Controller
 
     public function index(CurrencyConversionService $currency)//: JsonResponse
     {
-
-        // return app()->getLocale();
-        // return Language::where('code', app()->getLocale())->with('currency')->first()->currency->code;
-
         $services = Service::with([
                 'provider:id,name',
                 'photos',
                 'favoritedBy:id',
                 'currency',
+                'translations.language:id,code',
             ])
             ->filter()
             ->latest()
-            // ->where('lang', App::getLocale())
             ->paginate(10) //end of database query
             ->through(function($service) use($currency){
                 $service->is_favorited = $service->favoritedBy->pluck('id')->contains( request('user_id') );
-
-
-                // $currencyForLang = Language::getCurrencyForCurrentLocale();
-                // $service->currency->converte_currency = $currencyForLang;
-                // $service->currency->converted_price = $currency->convert( $service->price, $service->currency->code, $currencyForLang );
                 return $service;
             })
             ->withQueryString();
 
         return $this->success([
-                    'services' => $services->items(),
-                    // 'services' => ServiceResource::collection($services->items()),
+                    // 'services' => $services->items(),
+                    'services' => ServiceResource::collection($services->items()),
                     'last_page' => $services->lastPage()
                 ],'Services fetched successfully'
         );
@@ -55,7 +46,13 @@ class ServiceController extends Controller
 
     public function show($id): JsonResponse
     {
-        $service = Service::with(['provider:id,name','provider.availabilities', 'photos'])->findOrFail($id);
+        $service = Service::with([
+            'provider:id,name',
+            'provider.availabilities',
+            'photos',
+            'translations.language:id,code'
+        ])->findOrFail($id);
+
         $service = new ServiceResource($service);
         return $this->success(compact('service'), 'Service fetched successfully');
     }
