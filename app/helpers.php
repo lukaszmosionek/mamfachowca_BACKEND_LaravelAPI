@@ -17,12 +17,12 @@ function generatePlaceholder(int $width = 300, int $height = 300, string $text =
         $font->valign('middle');
     });
 
-    $filename = $filename ?: "placeholder".Str::random(30)."_{$width}x{$height}.png";
+    $filename = $filename ?: "placeholder".Str::random(10)."_{$width}x{$height}.png";
     $folder = $folder ?: 'photos/'.now()->format('o-\WW');
 
     $image->save( storage_path("app/public/").$folder.'/'.$filename );
 
-    return 'storage/'.$folder.'/'.$filename;
+    return $folder.'/'.$filename;
 }
 
 function invertColor($hexColor) {
