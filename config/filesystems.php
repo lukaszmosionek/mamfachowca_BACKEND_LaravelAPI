@@ -60,6 +60,15 @@ return [
             'report' => false,
         ],
 
+        //custom disk for photos
+        // 'public_photos' => [
+        //     'driver' => 'local',
+        //     'root'   => public_path('photos'),
+        //     'base_path' => 'photos',
+        //     'url'    => env('APP_URL').'/photos/',
+        //     'visibility' => 'public',
+        // ],
+
     ],
 
     /*

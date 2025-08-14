@@ -17,7 +17,7 @@ class PhotoResource extends JsonResource
     {
         $sizes = [];
         foreach(Photo::getSizeKeys() as $name){
-            $sizes[$name] = config('app.url').'/'.$this->{$name};
+            $sizes[$name] = $this->{$name} ? Photo::getUrl($this->{$name}) : Photo::getUrl($this->original);
         }
 
         return [

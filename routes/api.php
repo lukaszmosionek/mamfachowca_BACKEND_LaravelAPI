@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register'])->name('register');;
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
+Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
 
 Route::apiResource('services', ServiceController::class)->only('index', 'show');
 Route::apiResource('providers', ProviderController::class)->only('index');
@@ -36,9 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('me/avatar', [ProfileController::class, 'uploadAvatar']);
 
-    Route::get('/favorites', [FavoriteController::class, 'index']);
-    Route::post('/favorites/{item}/toggle', [FavoriteController::class, 'toggle']);
-    Route::get('/favorites/{item}', [FavoriteController::class, 'isFavorited']);
+    Route::get('favorites', [FavoriteController::class, 'index']);
+    Route::post('favorites/{item}/toggle', [FavoriteController::class, 'toggle']);
+    Route::get('favorites/{item}', [FavoriteController::class, 'isFavorited']);
 
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
     Route::post('appointments/{appointment}/{action}', [AppointmentController::class, 'handleAction'])->where('action', 'accept|decline');
@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-Route::post('/contact', [ContactController::class, 'send']);
+Route::post('contact', [ContactController::class, 'send']);
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 // Route::get('/enums', function () {

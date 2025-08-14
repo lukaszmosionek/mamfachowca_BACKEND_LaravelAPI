@@ -6,6 +6,7 @@ use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Resources\PhotoResource;
 use App\Http\Resources\ServiceResource;
+use Illuminate\Support\Str;
 use App\Http\Resources\UserServiceResource;
 use App\Models\Language;
 use App\Models\Photo;
@@ -22,7 +23,6 @@ class UserServiceController extends Controller
 
     public function index()
     {
-        // Pokaż usługi zalogowanego usługodawcy
         $services = auth()->user()->services()->with('photos','translations.language')->latest()->paginate(10);
         return $this->success([
             'services' => UserServiceResource::collection( $services->items() ),
@@ -36,12 +36,21 @@ class UserServiceController extends Controller
     {
         $service = auth()->user()->services()->create($request->all());
 
+        // var_dump($request->file('photos'));
         if( $request->photos ){
-            foreach ( $request->photos as $photo) {
-                $paths[] = $imageService->storeImageFromUrl( $photo['file'] );
+            // foreach ( $request->photos as $photo) {
+            foreach ( $request->file('photos') as $photo) {
+                // $paths[] = $imageService->storeImageFromUrl( $photo['file'] );
+                $paths[] = [
+                    // 'original' => $photo['file']->store(Photo::savePath(), 'public'),
+                    'original' => Photo::storeFile($photo['file']),
+                    'original_filename' => Str::limit( $photo['file']->getClientOriginalName(), 255, '')
+                ];
             }
+            // var_dump($paths); // Debugging line
             $service->photos()->createMany( $paths );
         }
+        // $path = $request->file('photo')->store('photos', 'public');
 
         $languages = $language::codeIdMap();
         foreach ( $request->translations as $translation) {
@@ -68,7 +77,7 @@ class UserServiceController extends Controller
     public function update(UpdateServiceRequest $request, Service $service, Language $language)
     {
         $this->authorize('update', $service);
-        $service->update($request->except('translation'));
+        $service->update($request->except('photos', 'translations', 'provider_id'));
 
         $languages = $language->pluck('id', 'code');
         foreach ($request->translations as $translation) {

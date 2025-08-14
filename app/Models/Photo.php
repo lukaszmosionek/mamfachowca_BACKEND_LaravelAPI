@@ -6,12 +6,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 class Photo extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = ['thumbnail', 'medium', 'large', 'is_main'];
+    protected $fillable = ['original_filename','original', 'thumbnail', 'medium', 'large', 'is_main'];
 
     //relations
     public function imageable()
@@ -40,4 +41,19 @@ class Photo extends Authenticatable
     {
         return array_keys(self::$sizes);
     }
+    public static function storeFile($file): string
+    {
+        // $basePath = config('filesystems.disks.public_photos.base_path');
+
+        $path = Storage::disk('public')->putFile('photos/'.now()->format('o-\WW'), $file);
+
+        return $path;
+    }
+    public static function getUrl(string $path): string
+    {
+        return Storage::disk('public')->url($path);
+        // return env('APP_URL').'/'.$path;
+    }
+
+
 }

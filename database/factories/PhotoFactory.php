@@ -25,6 +25,8 @@ class PhotoFactory extends Factory
         return [
             'imageable_id' => null,
             'imageable_type' => null,
+            'original' => generatePlaceholder(1000, 800),
+            'original_filename' => 'file.jpg',
         ]+$sizes;
     }
 }
