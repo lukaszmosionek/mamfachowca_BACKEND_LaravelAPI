@@ -13,15 +13,18 @@ class ImageService
     {
         ini_set('memory_limit', '512M');
 
-        $imageContents = file_get_contents($url);
+        try{
+            $imageContents = file_get_contents($url);
+        }catch(\Exception $e){
+            return ('Failed to fetch image from Url: '.$url);
+        }
 
         if (strlen($imageContents) > Photo::$uploadLimits['max_size'] ) { // 10MB
             throw new \Exception('Image too large to process. URL:'.$url);
         }
-
         $originalName = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_FILENAME);
-        // $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
-        $extension = 'jpg';
+        $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
+        // $extension = 'jpg';
 
         $sizes = Photo::getSizes();
 
@@ -33,22 +36,23 @@ class ImageService
                 $constraint->upsize();
             });
 
-            // $weekFolder = "photos/".now()->format('o-\WW');
-            // $filename = "{$originalName}_{$label}.{$extension}";
-            // $path = "{$weekFolder}/{$filename}";
+            $weekFolder = "photos/".now()->format('o-\WW');
+            $filename = Str::random(10)."_{$label}.{$extension}";
+            $path = "{$weekFolder}/{$filename}";
 
-            // Storage::disk('public')->makeDirectory($weekFolder);
-            // Storage::disk('public')->put($path, (string) $resizedImage->encode());
-
-            $paths[$label] = Photo::storeFile((string) $resizedImage->encode(), false);
+            Storage::disk('public')->makeDirectory($weekFolder);
+            Storage::disk('public')->put($path, (string) $resizedImage->encode() );
 
             $resizedImage->destroy(); // Zwolnij zasoby
 
-            // $paths[$label] = 'storage/'.$path;
+            $paths[$label] = $path;
         }
 
-        $paths['original'] = Photo::storeFile($imageContents, false);
-        $paths['original_filename'] = Str::limit( $originalName, 255, '');
+        $paths['original'] = $weekFolder.'/original-'.Str::random(10).'.jpg';
+        $paths['original_filename'] = Str::limit( $originalName.'.'.$extension, 255, '');
+
+        Storage::disk('public')->put($paths['original'], $imageContents);
+
         return $paths;
     }
 

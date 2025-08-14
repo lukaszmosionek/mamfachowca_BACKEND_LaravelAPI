@@ -57,23 +57,19 @@ class GoogleServiceSeeder extends Seeder
                 $isLocalPhoto = false;
             }
 
-
             if( !$photos ) continue;
 
             $paths = [];
             foreach($photos as $index => $photo){
                 if( $isLocalPhoto ) $photo = config('app.url').'/'.$photo;
-                try{
+                    dump($photo);
                     $paths[$index] = ( new ImageService() )->storeImageFromUrl($photo);
                     $paths[$index]['is_main'] =  $index === 0 ? true : false;
-                }catch(Exception $e){
-                    dump($e->getMessage());
-                }
             }
 
             $serviceModel->photos()->createMany($paths);
             // die();
-            if($index === 5) die();
+            // if($index === 5) die();
         }
 
 

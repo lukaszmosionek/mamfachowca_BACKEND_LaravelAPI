@@ -227,43 +227,80 @@
         "name_en": "Chimney Sweeping",
         "name_pl": "Czyszczenie komina",
         "desc_en": "Chimney sweeping is an essential maintenance service that ensures the safe and efficient operation of fireplaces, stoves, and other heating systems. Over time, soot, creosote, and other debris accumulate inside the chimney, which can lead to reduced airflow, poor heating performance, and even dangerous chimney fires. Professional chimney sweeping involves inspecting the chimney structure, removing blockages, cleaning the flue, and checking for any signs of damage or wear. This service not only improves heating efficiency but also enhances indoor air quality and reduces the risk of carbon monoxide buildup. Regular chimney sweeping is recommended at least once a year to maintain safety and comfort in your home.",
-        "desc_pl": "Czyszczenie komina to niezbędna usługa konserwacyjna, która zapewnia bezpieczne i wydajne działanie kominków, pieców oraz innych systemów grzewczych. Z biegiem czasu wewnątrz komina gromadzą się sadza, kreozot i inne zanieczyszczenia, które mogą powodować zmniejszenie przepływu powietrza, obniżenie wydajności ogrzewania, a nawet groźne pożary kominów. Profesjonalne czyszczenie komina obejmuje inspekcję konstrukcji komina, usuwanie zatorów, czyszczenie przewodu dymowego oraz sprawdzenie ewentualnych uszkodzeń. Usługa ta nie tylko poprawia efektywność ogrzewania, ale także wpływa korzystnie na jakość powietrza w pomieszczeniach i zmniejsza ryzyko zatrucia tlenkiem węgla. Zaleca się wykonywanie czyszczenia komina co najmniej raz w roku, aby utrzymać bezpieczeństwo i komfort w domu."
+        "desc_pl": "Czyszczenie komina to niezbędna usługa konserwacyjna, która zapewnia bezpieczne i wydajne działanie kominków, pieców oraz innych systemów grzewczych. Z biegiem czasu wewnątrz komina gromadzą się sadza, kreozot i inne zanieczyszczenia, które mogą powodować zmniejszenie przepływu powietrza, obniżenie wydajności ogrzewania, a nawet groźne pożary kominów. Profesjonalne czyszczenie komina obejmuje inspekcję konstrukcji komina, usuwanie zatorów, czyszczenie przewodu dymowego oraz sprawdzenie ewentualnych uszkodzeń. Usługa ta nie tylko poprawia efektywność ogrzewania, ale także wpływa korzystnie na jakość powietrza w pomieszczeniach i zmniejsza ryzyko zatrucia tlenkiem węgla. Zaleca się wykonywanie czyszczenia komina co najmniej raz w roku, aby utrzymać bezpieczeństwo i komfort w domu.",
+        "photos": [
+            "servicePhotos/czyszczenie-komina-od-gory.jpg",
+            "servicePhotos/maxresdefault__.jpg",
+            "servicePhotos/000GDKWYHAYY2BF8-C461-F4.jpg"
+        ]
     },
     {
         "name_en": "Tree Trimming",
         "name_pl": "Przycinanie drzew",
         "desc_en": "Our professional tree trimming service is designed to keep your trees healthy, beautiful, and safe all year round. We carefully remove dead, diseased, or overgrown branches to encourage proper growth and maintain the natural shape of the tree. Regular trimming not only enhances the appearance of your property but also reduces the risk of damage from falling limbs during storms. Our trained specialists use safe, efficient techniques and modern equipment to protect your trees and surrounding landscape. Whether for residential or commercial spaces, we ensure your greenery thrives while adding value and safety to your outdoor environment.",
-        "desc_pl": "Nasza profesjonalna usługa przycinania drzew ma na celu utrzymanie drzew w zdrowiu, pięknym wyglądzie oraz w pełnym bezpieczeństwie przez cały rok. Starannie usuwamy martwe, chore lub zbyt rozrośnięte gałęzie, aby wspomóc prawidłowy rozwój i zachować naturalny kształt drzewa. Regularne przycinanie nie tylko poprawia estetykę posesji, ale również zmniejsza ryzyko uszkodzeń spowodowanych spadającymi gałęziami podczas burz. Nasi wykwalifikowani specjaliści stosują bezpieczne i skuteczne techniki oraz nowoczesny sprzęt, aby chronić drzewa i otaczający krajobraz. Niezależnie od tego, czy obsługujemy teren prywatny, czy komercyjny, dbamy o to, aby zieleń rozwijała się zdrowo, dodając wartości i bezpieczeństwa otoczeniu."
+        "desc_pl": "Nasza profesjonalna usługa przycinania drzew ma na celu utrzymanie drzew w zdrowiu, pięknym wyglądzie oraz w pełnym bezpieczeństwie przez cały rok. Starannie usuwamy martwe, chore lub zbyt rozrośnięte gałęzie, aby wspomóc prawidłowy rozwój i zachować naturalny kształt drzewa. Regularne przycinanie nie tylko poprawia estetykę posesji, ale również zmniejsza ryzyko uszkodzeń spowodowanych spadającymi gałęziami podczas burz. Nasi wykwalifikowani specjaliści stosują bezpieczne i skuteczne techniki oraz nowoczesny sprzęt, aby chronić drzewa i otaczający krajobraz. Niezależnie od tego, czy obsługujemy teren prywatny, czy komercyjny, dbamy o to, aby zieleń rozwijała się zdrowo, dodając wartości i bezpieczeństwa otoczeniu.",
+        "photos": [
+            "servicePhotos/how-to-hire-a-tree-removal-service.png",
+            "servicePhotos/chainsaw-tree.webp",
+            "servicePhotos/pic1.webp",
+            "servicePhotos/tree-trimming.avif"
+        ]
     },
     {
         "name_en": "Security Camera Installation",
         "name_pl": "Instalacja kamer bezpieczeństwa",
         "desc_en": "Professional installation of security cameras for homes and businesses. Enhance safety, deter crime, and monitor your property in real-time. We offer tailored solutions using high-quality equipment, ensuring reliable surveillance and peace of mind. Trust our experienced team for fast, secure, and discreet setup suited to your specific needs.",
-        "desc_pl": "Profesjonalna instalacja kamer bezpieczeństwa dla domów i firm. Zwiększ bezpieczeństwo, odstrasz przestępców i monitoruj swoją posesję w czasie rzeczywistym. Oferujemy indywidualne rozwiązania z wykorzystaniem sprzętu wysokiej jakości. Nasz doświadczony zespół zapewnia szybki, dyskretny i niezawodny montaż dostosowany do Twoich potrzeb."
+        "desc_pl": "Profesjonalna instalacja kamer bezpieczeństwa dla domów i firm. Zwiększ bezpieczeństwo, odstrasz przestępców i monitoruj swoją posesję w czasie rzeczywistym. Oferujemy indywidualne rozwiązania z wykorzystaniem sprzętu wysokiej jakości. Nasz doświadczony zespół zapewnia szybki, dyskretny i niezawodny montaż dostosowany do Twoich potrzeb.",
+        "photos": [
+            "servicePhotos/images-12312321adadada.jpeg",
+            "servicePhotos/sadsadasdasd234234weffsdfdsfsd.webp",
+            "servicePhotos/img_cda8d7731a3f71e855e2a62d6f0d9b9d.png"
+        ]
     },
     {
         "name_en": "Smart Thermostat Setup",
         "name_pl": "Montaż inteligentnego termostatu",
         "desc_en": "Our Smart Thermostat Setup service ensures your home or business enjoys optimal comfort, improved energy efficiency, and full control over your heating and cooling systems. We handle everything from installation to configuration, ensuring your smart thermostat is properly connected to your HVAC system and Wi-Fi network. Our technicians will guide you through the app setup, explain key features such as scheduling, remote control, and energy usage monitoring, and make sure it’s calibrated for your comfort preferences. We also provide tips on how to maximize savings while keeping your environment pleasant year-round. Ideal for both new and existing systems.",
-        "desc_pl": "Nasz serwis montażu inteligentnego termostatu zapewnia Twojemu domowi lub firmie optymalny komfort, lepszą efektywność energetyczną oraz pełną kontrolę nad systemami ogrzewania i chłodzenia. Zajmujemy się całym procesem – od instalacji, poprzez konfigurację, aż po pełne podłączenie termostatu do systemu HVAC oraz sieci Wi-Fi. Nasi technicy pomogą w uruchomieniu aplikacji, wyjaśnią funkcje takie jak harmonogramy, zdalne sterowanie czy monitorowanie zużycia energii, oraz dopasują ustawienia do Twoich preferencji. Dodatkowo otrzymasz praktyczne wskazówki, jak oszczędzać energię, zachowując komfort przez cały rok. Usługa odpowiednia zarówno dla nowych, jak i istniejących instalacji."
+        "desc_pl": "Nasz serwis montażu inteligentnego termostatu zapewnia Twojemu domowi lub firmie optymalny komfort, lepszą efektywność energetyczną oraz pełną kontrolę nad systemami ogrzewania i chłodzenia. Zajmujemy się całym procesem – od instalacji, poprzez konfigurację, aż po pełne podłączenie termostatu do systemu HVAC oraz sieci Wi-Fi. Nasi technicy pomogą w uruchomieniu aplikacji, wyjaśnią funkcje takie jak harmonogramy, zdalne sterowanie czy monitorowanie zużycia energii, oraz dopasują ustawienia do Twoich preferencji. Dodatkowo otrzymasz praktyczne wskazówki, jak oszczędzać energię, zachowując komfort przez cały rok. Usługa odpowiednia zarówno dla nowych, jak i istniejących instalacji.",
+        "photos": [
+            "servicePhotos/Smart-T-Stat-Install-Blog-Image.jpg",
+            "servicePhotos/_24871-37656_cms_files_adf7c3c8-c501-47d7-b47c-889abe6a706c.webp"
+        ]
     },
     {
         "name_en": "Furniture Assembly",
         "name_pl": "Montaż mebli",
         "desc_en": "Professional furniture assembly service for homes and offices. We handle flat-pack, modular, and custom furniture quickly and reliably. Perfect for IKEA and other ready-to-assemble brands. Save time and avoid frustration with our expert help.",
-        "desc_pl": "Profesjonalny montaż mebli do domu i biura. Składamy meble z paczek, modułowe i na zamówienie szybko i solidnie. Idealne dla mebli IKEA i innych marek. Oszczędź czas i nerwy dzięki naszej fachowej pomocy."
+        "desc_pl": "Profesjonalny montaż mebli do domu i biura. Składamy meble z paczek, modułowe i na zamówienie szybko i solidnie. Idealne dla mebli IKEA i innych marek. Oszczędź czas i nerwy dzięki naszej fachowej pomocy.",
+        "photos": [
+            "servicePhotos/imageswasadasd.jpeg",
+            "servicePhotos/ready-assemble-furniture-1160x653.jpg",
+            "servicePhotos/images13213213213.jpeg",
+            "servicePhotos/homeguide-furniture-assembly-contractor-putting-together-furniture.jpg"
+        ]
     },
     {
         "name_en": "Ceiling Fan Installation",
         "name_pl": "Montaż wentylatora sufitowego",
         "desc_en": "Our Ceiling Fan Installation service provides a professional, safe, and efficient way to improve the comfort and energy efficiency of your home or office. We handle the entire process from start to finish, including removing old fixtures if necessary, securely mounting the fan, wiring it correctly, and testing for optimal performance. Whether you want to upgrade an existing ceiling fan or install one in a new location, our skilled technicians ensure everything is done according to electrical safety standards. Proper installation not only enhances air circulation but can also help reduce your cooling and heating costs throughout the year.",
-        "desc_pl": "Nasz serwis Montażu Wentylatora Sufitowego oferuje profesjonalne, bezpieczne i sprawne wykonanie usługi, aby poprawić komfort oraz efektywność energetyczną Twojego domu lub biura. Zajmujemy się całym procesem od początku do końca, w tym demontażem starego oświetlenia lub wentylatora, solidnym zamocowaniem nowego urządzenia, prawidłowym podłączeniem instalacji elektrycznej oraz dokładnym sprawdzeniem działania. Niezależnie od tego, czy chcesz wymienić dotychczasowy wentylator, czy zamontować nowy w innym miejscu, nasi doświadczeni technicy wykonają pracę zgodnie z obowiązującymi normami bezpieczeństwa. Poprawny montaż zapewnia lepszą cyrkulację powietrza oraz może obniżyć koszty chłodzenia i ogrzewania przez cały rok."
+        "desc_pl": "Nasz serwis Montażu Wentylatora Sufitowego oferuje profesjonalne, bezpieczne i sprawne wykonanie usługi, aby poprawić komfort oraz efektywność energetyczną Twojego domu lub biura. Zajmujemy się całym procesem od początku do końca, w tym demontażem starego oświetlenia lub wentylatora, solidnym zamocowaniem nowego urządzenia, prawidłowym podłączeniem instalacji elektrycznej oraz dokładnym sprawdzeniem działania. Niezależnie od tego, czy chcesz wymienić dotychczasowy wentylator, czy zamontować nowy w innym miejscu, nasi doświadczeni technicy wykonają pracę zgodnie z obowiązującymi normami bezpieczeństwa. Poprawny montaż zapewnia lepszą cyrkulację powietrza oraz może obniżyć koszty chłodzenia i ogrzewania przez cały rok.",
+        "photos": [
+            "servicePhotos/Fan-installation-1.jpg",
+            "servicePhotos/imageswdasdaasdsa.jpeg",
+            "servicePhotos/ceiling-fans-art.jpg"
+        ]
     },
     {
         "name_en": "Pressure Washing",
         "name_pl": "Mycie ciśnieniowe",
         "desc_en": "Pressure washing is a highly effective cleaning service that uses high-pressure water spray to remove dirt, grime, mold, mildew, loose paint, and other contaminants from various surfaces. This service is ideal for cleaning driveways, patios, decks, siding, fences, roofs, and other exterior areas of residential, commercial, and industrial properties. By using specialized equipment and techniques, pressure washing can restore the original appearance of surfaces, improve curb appeal, and even extend the lifespan of building materials. It is an environmentally friendly option when performed correctly, as it uses less water than traditional cleaning methods and requires fewer harsh chemicals.",
-        "desc_pl": "Mycie ciśnieniowe to bardzo skuteczna usługa czyszczenia, polegająca na użyciu strumienia wody pod wysokim ciśnieniem w celu usunięcia brudu, kurzu, pleśni, mchu, łuszczącej się farby oraz innych zanieczyszczeń z różnych powierzchni. Usługa ta doskonale sprawdza się przy czyszczeniu podjazdów_"
+        "desc_pl": "Mycie ciśnieniowe to bardzo skuteczna usługa czyszczenia, polegająca na użyciu strumienia wody pod wysokim ciśnieniem w celu usunięcia brudu, kurzu, pleśni, mchu, łuszczącej się farby oraz innych zanieczyszczeń z różnych powierzchni. Usługa ta doskonale sprawdza się przy czyszczeniu podjazdów_",
+        "photos": [
+            "servicePhotos/house-siding-powerwashing-copy.jpg",
+            "servicePhotos/powerwashing.jpg",
+            "servicePhotos/power-washing.jpg",
+            "servicePhotos/91C736B7-AD07-4FCE-B2B3-22F63569975B.jpeg"
+        ]
     },
     {
         "name_en": "Siding Repair",
