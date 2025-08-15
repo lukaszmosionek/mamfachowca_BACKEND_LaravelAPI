@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,7 @@ class UserResource extends JsonResource
             'email'             => $this->email,
             // 'email_verified_at' => $this->email_verified_at,
             'role'              => $this->role,
-            'avatar'              => $this->avatar ? config('app.url').'/'.$this->avatar : null,
+            'avatar'            => $this->avatar ? Photo::getUrl($this->avatar) : null,
             'lang'              => $this->lang,
             // 'created_at'        => $this->created_at,
             // 'updated_at'        => $this->updated_at,

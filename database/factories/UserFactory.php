@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use App\Enum\Role;
+use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -24,6 +26,10 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $files = Storage::disk('public')->allFiles('example_avatars');
+        $randomFile = $files[array_rand($files)];
+
+
         $firstname = fake()->firstName();
         $lastname = fake()->lastName();
         return [
@@ -32,7 +38,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'avatar' => generatePlaceholder(300, 300 , ''.mb_substr($firstname, 0, 1).mb_substr($lastname, 0, 1)),
+            'avatar' => (new ImageService)->resizeImage($randomFile, 300, 300),
+            // 'avatar' => generatePlaceholder(300, 300 , ''.mb_substr($firstname, 0, 1).mb_substr($lastname, 0, 1)),
             'role' => Role::Client,
             'lang' => fake()->randomElement( config('app.languages') ),
         ];

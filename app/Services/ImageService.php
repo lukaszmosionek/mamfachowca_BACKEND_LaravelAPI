@@ -58,6 +58,8 @@ class ImageService
 
     public function resizeImage(string $imagePath, int $width = 200, int $height = 200): string
     {
+        ini_set('memory_limit', '512M');
+
         $image = Image::make(Storage::disk('public')->get($imagePath));
 
         $image->resize($width, $height, function ($constraint) {
@@ -65,7 +67,8 @@ class ImageService
             $constraint->upsize();
         });
 
-        $resizedPath = 'resized/' . basename($imagePath);
+        // $resizedPath = 'resized/' . basename($imagePath);
+        $resizedPath = 'resized/' . Str::random(10).'.jpg';
         Storage::disk('public')->put($resizedPath, (string) $image->encode());
 
         return $resizedPath;
