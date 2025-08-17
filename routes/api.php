@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
+
 Route::post('register', [AuthController::class, 'register'])->name('register');;
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout'])->name('logout');
@@ -55,6 +56,13 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('contact', [ContactController::class, 'send']);
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
+
+Route::get('test-api', function(){
+    return [
+        'message' => 'Odpowiedź z test api. Polaczono z API!',
+    ];
+});
+
 // Route::get('/enums', function () {
 //     return response()->json([
 //         'appointment_statuses' => AppointmentStatus::cases(),
@@ -62,7 +70,13 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 //     ]);
 // });
 
-
+Route::fallback(function () {
+    return response()->json([
+        'success' => false,
+        'message' => '[404] API route not found: ' . request()->path(),
+        'error_code' => 'API_ROUTE_NOT_FOUND'
+    ], 404);
+});
 
 
 

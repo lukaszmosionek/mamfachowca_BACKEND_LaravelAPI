@@ -11,11 +11,12 @@ trait ApiResponse {
         ], $code);
     }
 
-    protected function error($message = '', $code = 500, $errors = []) {
+    protected function error($message = '', $code = 500, $errors = [], $errorCode = null) {
         return response()->json([
             'success' => false,
             'message' => $message,
             'errors' => $errors,
+            'error_code' => $errorCode,
         ], $code);
     }
 }
