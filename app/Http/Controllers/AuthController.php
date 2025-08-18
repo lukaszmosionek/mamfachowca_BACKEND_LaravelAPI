@@ -24,7 +24,9 @@ class AuthController extends Controller
     {
         $user = User::create( $request->all() + ['lang' => App::getLocale()] );
 
-        app(CreateAvailabilityAction::class)->execute($user, $request->availability);
+        if($request->availability){
+            app(CreateAvailabilityAction::class)->execute($user, $request->availability);
+        }
 
         return $this->success([
                 'user' => $user,

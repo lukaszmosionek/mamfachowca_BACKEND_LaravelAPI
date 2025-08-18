@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enum\Role;
+use App\Models\User;
 use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,8 @@ class UserFactory extends Factory
      * The current password being used by the factory.
      */
     protected static ?string $password;
+
+    protected $model = User::class;
 
     /**
      * Define the model's default state.

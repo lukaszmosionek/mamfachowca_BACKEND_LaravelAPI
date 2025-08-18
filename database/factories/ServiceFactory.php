@@ -14,11 +14,13 @@ class ServiceFactory extends Factory
 
     public function definition(): array
     {
+        $currency = Currency::inRandomOrder()->first();
+
         return [
-            'provider_id' => fn(array $attributes) => $attributes['provider_id'] ?? User::factory(),
+            'provider_id' => $attributes['provider_id'] ?? User::factory(),
             'price' => $this->faker->randomFloat(0, 50, 300),
             'duration_minutes' => $this->faker->numberBetween(15, 90),
-            'currency_id' => Currency::inRandomOrder()->first()->id,
+            'currency_id' => $currency ? $currency->id : Currency::factory(),
         ];
 
     }

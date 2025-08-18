@@ -9,14 +9,14 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ServiceFactory extends Factory
+class CurrencyFactory extends Factory
 {
-    protected $model = Service::class;
+    protected $model = Currency::class;
 
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->randomElement(Currency::all()->toArray()),
+            'code' => $this->faker->unique()->randomElement(['USD','PLN','EUR']),
             'symbol' => $this->faker->unique()->randomElement(['$','zł','€']),
             'rate' => $this->faker->randomFloat(4, 0.5, 5), // np. kurs od 0.5 do 5
             'language_id' => $attributes['language_id'] ?? Language::factory(),

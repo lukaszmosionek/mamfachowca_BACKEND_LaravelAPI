@@ -73,7 +73,7 @@ Route::get('test-api', function(){
 Route::fallback(function () {
     return response()->json([
         'success' => false,
-        'message' => '[404] API route not found: ' . request()->path(),
+        'message' => '[404] API route not found: ' . request()->path().'.',
         'error_code' => 'API_ROUTE_NOT_FOUND'
     ], 404);
 });

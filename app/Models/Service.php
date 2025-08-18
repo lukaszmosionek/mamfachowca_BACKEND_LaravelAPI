@@ -10,7 +10,7 @@ class Service extends Model
     use  HasFactory;
 
     protected $fillable = [
-        'provider_id', 'name', 'description', 'price', 'duration_minutes',
+        'provider_id', 'price', 'duration_minutes',
     ];
 
     //relations
@@ -22,10 +22,10 @@ class Service extends Model
     {
         return $this->hasMany(Appointment::class);
     }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
     public function photos()
     {
         return $this->morphMany(Photo::class, 'imageable');
