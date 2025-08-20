@@ -94,6 +94,8 @@ return array(
         'password' => 'hasło',
         'name' => 'nazwa',
         'next' => 'next',
+        'start_time' => 'czas rozpoczęcia',
+        'date' => 'data',
 	),
 
 );
