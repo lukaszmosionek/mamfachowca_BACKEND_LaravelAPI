@@ -2,6 +2,7 @@
 
 use App\Enum\AppointmentStatus;
 use App\Enum\Role;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
@@ -56,6 +57,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('notifications', NotificationController::class)->only(['index']);
     Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::post('notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+
+    //add admin guard middleware
+    Route::apiResource('admin/users', AdminUsersController::class)->only(['index', 'destroy']);
 
 });
 
