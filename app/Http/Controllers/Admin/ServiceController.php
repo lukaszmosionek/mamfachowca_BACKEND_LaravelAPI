@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 
 class ServiceController extends Controller
 {
@@ -55,6 +56,18 @@ class ServiceController extends Controller
 
         $service = new ServiceResource($service);
         return $this->success(compact('service'), 'Service fetched successfully');
+    }
+
+    public function destroy($serviceId){
+
+        $service = Service::withTrashed()->findOrFail($serviceId);
+        if ($service->trashed()) {
+            $service->restore();
+            return response()->json(['message' => 'Service restored successfully.']);
+        } else {
+            $service->delete();
+            return response()->json(['message' => 'Service soft-deleted successfully.']);
+        }
     }
 
 }

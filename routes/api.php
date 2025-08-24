@@ -2,6 +2,7 @@
 
 use App\Enum\AppointmentStatus;
 use App\Enum\Role;
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
@@ -59,7 +60,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 
     //add admin guard middleware
-    Route::apiResource('admin/users', AdminUsersController::class)->only(['index', 'destroy']);
+    Route::prefix('admin')->group(function () {
+        Route::apiResource('users', AdminUsersController::class)->only(['index', 'destroy']);
+        Route::apiResource('services', AdminServiceController::class)->only(['index', 'destroy']);
+    });
 
 });
 
