@@ -1,5 +1,7 @@
 <?php
 
+use App\Enum\AppointmentStatus;
+use App\Enum\Role;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
@@ -28,7 +30,11 @@ Route::apiResource('services', ServiceController::class)->only('index', 'show');
 Route::apiResource('providers', ProviderController::class)->only('index');
 Route::apiResource('users', UsersController::class)->only(['show']);
 
+Route::post('contact', [ContactController::class, 'send']);
+Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::apiResource('me/services', UserServiceController::class)->names('me.services');
     Route::post('me/services/{service}/photos', [UserServiceController::class, 'storePhotos']);
     Route::delete('me/services/photos/{id}', [UserServiceController::class, 'destroyPhoto']);
@@ -53,22 +59,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-Route::post('contact', [ContactController::class, 'send']);
-Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 
 Route::get('test-api', function(){
-    return [
-        'message' => 'Odpowiedź z test api. Polaczono z API!',
-    ];
+    return response()->json([
+        'message' => 'Connected to API!',
+        'APPOINTMENT_STATUSES' => AppointmentStatus::cases(),
+        'ROLES' => Role::cases(),
+    ]);
 });
 
-// Route::get('/enums', function () {
-//     return response()->json([
-//         'appointment_statuses' => AppointmentStatus::cases(),
-//         'roles' => Role::cases(),
-//     ]);
-// });
 
 Route::fallback(function () {
     return response()->json([

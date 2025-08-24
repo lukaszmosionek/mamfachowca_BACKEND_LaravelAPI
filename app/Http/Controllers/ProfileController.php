@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Photo;
+use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -33,18 +35,18 @@ class ProfileController extends Controller
         ]);
 
         $user = auth()->user();
-        $path = $request->file('avatar')->store('avatars', 'public');
+        $path = User::storeAvatarFile($request->file('avatar'));
 
         // Delete old avatar if exists
         if ($user->avatar) {
-            Storage::disk('public')->delete($user->avatar);
+            User::deleteAvatarFile($user->avatar);
         }
 
-        $user->avatar = 'storage/'.$path;
+        $user->avatar = $path;
         $user->save();
 
         return $this->success([
-            'avatar_url' => asset("storage/{$path}")
+            'avatar_url' => User::getAvatarUrl($path)
         ], 'Avatar Uploaded');
     }
 }

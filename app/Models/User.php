@@ -8,6 +8,7 @@ use App\Enum\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -87,5 +88,19 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->belongsToMany(Service::class, 'favorites');
+    }
+
+    //store avatar path
+    public static function storeAvatarFile($file): string
+    {
+        return Storage::disk('public')->putFile('avatars/'.now()->format('o-\WW'), $file);
+    }
+    public static function getAvatarUrl(string $path): string
+    {
+        return Storage::disk('public')->url($path);
+    }
+    public static function deleteAvatarFile(string $path): bool
+    {
+        return Storage::disk('public')->delete($path);
     }
 }

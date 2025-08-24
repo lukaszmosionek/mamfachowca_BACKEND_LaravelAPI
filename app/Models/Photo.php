@@ -43,17 +43,10 @@ class Photo extends Authenticatable
     }
     public static function storeFile($file): string
     {
-        // $basePath = config('filesystems.disks.public_photos.base_path');
-
-        $path = Storage::disk('public')->putFile('photos/'.now()->format('o-\WW'), $file);
-
-        return $path;
+        return Storage::disk('public')->putFile('photos/'.now()->format('o-\WW'), $file);
     }
     public static function getUrl(string $path): string
     {
         return Storage::disk('public')->url($path);
-        // return env('APP_URL').'/'.$path;
     }
-
-
 }

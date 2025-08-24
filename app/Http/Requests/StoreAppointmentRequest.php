@@ -27,7 +27,8 @@ class StoreAppointmentRequest extends FormRequest
     public function validateAvailability($service)
     {
         $startTime = $this->start_time;
-        $endTime = date('H:i', strtotime($startTime . " + {$service->duration_minutes} minutes"));
+        $endTime = date('H:i', strtotime(date('Y-m-d') . " $startTime +{$service->duration_minutes} minutes"));
+
 
         $dayName = strtolower(date('l', strtotime($this->date)));
 

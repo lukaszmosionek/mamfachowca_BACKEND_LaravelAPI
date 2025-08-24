@@ -40,7 +40,9 @@ class AppointmentController extends Controller
     {
         $service = Service::with(['provider:id,name','provider.availabilities'])->findOrFail($request->service_id);
 
-        $endTime = $request->validateAvailability($service);
+        $endTime = $endTime = date('H:i', strtotime(date('Y-m-d') . " {$request->start_time} + {$service->duration_minutes} minutes"));
+
+        // $endTime = $request->validateAvailability($service);
 
         $user = auth()->user();
 

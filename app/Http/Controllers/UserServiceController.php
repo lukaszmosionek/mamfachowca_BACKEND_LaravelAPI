@@ -26,9 +26,7 @@ class UserServiceController extends Controller
         $services = auth()->user()->services()->with('photos','translations.language')->latest()->paginate(10);
         return $this->success([
             'services' => UserServiceResource::collection( $services->items() ),
-            // 'services' => $services->items(),
             'last_page' => $services->lastPage(),
-
         ], 'Services fetched successfully');
     }
 
@@ -36,21 +34,15 @@ class UserServiceController extends Controller
     {
         $service = auth()->user()->services()->create($request->all());
 
-        // var_dump($request->file('photos'));
         if( $request->photos ){
-            // foreach ( $request->photos as $photo) {
             foreach ( $request->file('photos') as $photo) {
-                // $paths[] = $imageService->storeImageFromUrl( $photo['file'] );
                 $paths[] = [
-                    // 'original' => $photo['file']->store(Photo::savePath(), 'public'),
                     'original' => Photo::storeFile($photo['file']),
                     'original_filename' => Str::limit( $photo['file']->getClientOriginalName(), 255, '')
                 ];
             }
-            // var_dump($paths); // Debugging line
             $service->photos()->createMany( $paths );
         }
-        // $path = $request->file('photo')->store('photos', 'public');
 
         $languages = $language::codeIdMap();
         foreach ( $request->translations as $translation) {
@@ -70,7 +62,6 @@ class UserServiceController extends Controller
     {
         $service = Service::with('photos')->findOrFail($id);
         $this->authorize('view', $service);
-        // $service = ServiceResource::collection($service);
         return $this->success($service, 'Service fetched successfully');
     }
 
@@ -85,8 +76,8 @@ class UserServiceController extends Controller
                 ->updateOrCreate(
                     ['id' => $translation['id']], // or use ['language_id' => $translation['language']['id']]
                     [
-                        'name' => $translation['name'],
-                        'description' => $translation['description'],
+                        'name' => $translation['name'] ?? '',
+                        'description' => $translation['description'] ?? '',
                         'language_id' => $languages[$translation['language']['code']] ?? null,
                     ]
                 );
@@ -100,16 +91,6 @@ class UserServiceController extends Controller
         $this->authorize('delete', $service);
         $service->delete();
         return $this->success(null, 'Service deleted successfully', 204);
-    }
-
-    public function destroyPhoto($id)
-    {
-        $photo = Photo::findOrFail($id);
-
-        Storage::disk('public')->delete( Photo::getSizeKeys() );
-        $photo->delete();
-
-        return $this->success(null , 'Photo deleted');
     }
 
     public function storePhotos(Service $service, Request $request, ImageService $imageService)
@@ -130,5 +111,14 @@ class UserServiceController extends Controller
         ], 'Photos uploaded successfully!');
     }
 
+    public function destroyPhoto($id)
+    {
+        $photo = Photo::findOrFail($id);
+
+        Storage::disk('public')->delete( Photo::getSizeKeys() );
+        $photo->delete();
+
+        return $this->success(null , 'Photo deleted');
+    }
 
 }
