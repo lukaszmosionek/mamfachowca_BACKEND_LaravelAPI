@@ -23,9 +23,9 @@ class AppointmentController extends Controller
     {
         $perPage = request('per_page', 10);
 
-        if( auth()->user()->role == Role::Client ){
+        if( auth()->user()->role == Role::CLIENT ){
             $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->latest()->paginate($perPage);
-        }elseif( auth()->user()->role == Role::Provider ){
+        }elseif( auth()->user()->role == Role::PROVIDER OR auth()->user()->role == Role::ADMIN ){
             $appointments = auth()->user()->appointmentsAsProvider()->with('service', 'client:id,name,role')->latest()->paginate($perPage);
         }
 

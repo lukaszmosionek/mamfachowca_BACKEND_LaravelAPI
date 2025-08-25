@@ -17,6 +17,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserServiceController;
+use App\Http\Middleware\IsAdminMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -60,7 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 
     //add admin guard middleware
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware([IsAdminMiddleware::class])->group(function () {
         Route::apiResource('users', AdminUsersController::class)->only(['index', 'destroy']);
         Route::apiResource('services', AdminServiceController::class)->only(['index', 'destroy']);
     });
@@ -68,16 +69,15 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-
 Route::get('test-api', function(){
     return response()->json([
         'message' => 'Connected to API!',
-        'APPOINTMENT_STATUSES' => AppointmentStatus::cases(),
-        'ROLES' => Role::cases(),
+        // 'APPOINTMENT_STATUSES' => AppointmentStatus::cases(),
+        // 'ROLES' => Role::cases(),
     ]);
 });
 
-
+//API_ROUTE_NOT_FOUND
 Route::fallback(function () {
     return response()->json([
         'success' => false,

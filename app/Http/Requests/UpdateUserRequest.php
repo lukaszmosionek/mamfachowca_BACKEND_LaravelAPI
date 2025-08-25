@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\Role;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -16,6 +18,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . auth()->user()->id,
+            'role' => [  Rule::in(Role::valuesExceptAdmin()) ],
         ];
     }
 }

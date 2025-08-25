@@ -20,7 +20,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
         'avatar',
         'lang',
     ];
@@ -41,12 +40,12 @@ class User extends Authenticatable
 
     public function isProvider(): bool
     {
-        return $this->role === Role::Provider;
+        return $this->role === Role::PROVIDER;
     }
 
     public function isClient(): bool
     {
-        return $this->role === Role::Client;
+        return $this->role === Role::CLIENT;
     }
 
         // === Relations ===

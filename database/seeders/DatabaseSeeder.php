@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -47,27 +48,27 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'email' => 'admin@onet.pl',
             'password' => 'password',
-            'role' => 'admin',
+            'role' => Role::ADMIN,
         ]);
 
         $this->providers = collect([
             User::factory()->create([
                 'email' => 'provider@onet.pl',
                 'password' => 'password',
-                'role' => 'provider',
+                'role' => Role::PROVIDER,
             ])
         ])->merge(
-            User::factory()->count(3)->create(['role' => 'provider'])
+            User::factory()->count(3)->create(['role' => Role::PROVIDER])
         );
 
         $this->clients = collect([
             User::factory()->create([
                 'email' => 'client@onet.pl',
                 'password' => 'password',
-                'role' => 'client',
+                'role' => Role::CLIENT,
             ])
         ])->merge(
-            User::factory()->count(5)->create(['role' => 'client'])
+            User::factory()->count(5)->create(['role' => Role::CLIENT])
         );
     }
 

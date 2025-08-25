@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enum\Role;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
@@ -40,12 +41,17 @@ class UsersController extends Controller
     public function destroy($userId){
 
         $user = User::withTrashed()->findOrFail($userId);
+
+        if( $user->role == Role::ADMIN ) return $this->error('Admins cannot be deleted', 403);
+
         if ($user->trashed()) {
             $user->restore();
-            return response()->json(['message' => 'User restored successfully.']);
+            $message = 'User restored successfully.';
         } else {
             $user->delete();
-            return response()->json(['message' => 'User soft-deleted successfully.']);
+            $message = 'User soft-deleted successfully';
         }
+
+        return response()->json(['message' => $message]);
     }
 }

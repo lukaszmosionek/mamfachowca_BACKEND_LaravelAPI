@@ -43,7 +43,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'avatar' => (new ImageService)->resizeImage($randomFile, 300, 300),
             // 'avatar' => generatePlaceholder(300, 300 , ''.mb_substr($firstname, 0, 1).mb_substr($lastname, 0, 1)),
-            'role' => Role::Client,
+            'role' => Role::CLIENT,
             'lang' => fake()->randomElement( config('app.languages') ),
         ];
     }

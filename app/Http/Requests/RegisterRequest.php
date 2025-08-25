@@ -19,7 +19,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6', 'confirmed'],
-            'role' => ['required', new Enum(Role::class)],
+            'role' => [  Rule::in(Role::valuesExceptAdmin()) ],
         ];
     }
 }

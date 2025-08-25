@@ -23,6 +23,8 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = User::create( $request->all() + ['lang' => App::getLocale()] );
+        $user->role = $request->role;  //validated in Request that is not ADMIN
+        $user->save();
 
         if($request->availability){
             app(CreateAvailabilityAction::class)->execute($user, $request->availability);
