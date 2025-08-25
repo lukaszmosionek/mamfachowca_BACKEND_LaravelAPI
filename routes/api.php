@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
 Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
 
-Route::apiResource('services', ServiceController::class)->only('index', 'show');
+Route::apiResource('services', ServiceController::class)->only('index', 'show', 'update');
 Route::apiResource('providers', ProviderController::class)->only('index');
 Route::apiResource('users', UsersController::class)->only(['show']);
 

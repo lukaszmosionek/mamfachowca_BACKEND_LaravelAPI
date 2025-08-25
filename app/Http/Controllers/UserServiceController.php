@@ -14,6 +14,7 @@ use App\Models\Service;
 use App\Services\ImageService;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -58,32 +59,17 @@ class UserServiceController extends Controller
         return $this->success(compact('service'), 'Service created successfully', 201);
     }
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        $service = Service::with('photos')->findOrFail($id);
-        $this->authorize('view', $service);
-        return $this->success($service, 'Service fetched successfully');
-    }
+        $service = Service::with([
+            'provider:id,name',
+            'provider.availabilities',
+            'photos',
+            'translations.language:id,code'
+        ])->findOrFail($id);
 
-    public function update(UpdateServiceRequest $request, Service $service, Language $language)
-    {
-        $this->authorize('update', $service);
-        $service->update($request->except('photos', 'translations', 'provider_id'));
-
-        $languages = $language->pluck('id', 'code');
-        foreach ($request->translations as $translation) {
-            $service->translations()
-                ->updateOrCreate(
-                    ['id' => $translation['id']], // or use ['language_id' => $translation['language']['id']]
-                    [
-                        'name' => $translation['name'] ?? '',
-                        'description' => $translation['description'] ?? '',
-                        'language_id' => $languages[$translation['language']['code']] ?? null,
-                    ]
-                );
-        }
-
-        return $this->success($service, 'Service updated successfully');
+        $service = new ServiceResource($service);
+        return $this->success(compact('service'), 'Service fetched successfully');
     }
 
     public function destroy(Service $service)

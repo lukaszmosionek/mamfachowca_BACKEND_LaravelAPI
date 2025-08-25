@@ -57,4 +57,25 @@ class ServiceController extends Controller
         return $this->success(compact('service'), 'Service fetched successfully');
     }
 
+    public function update(UpdateServiceRequest $request, Service $service, Language $language)
+    {
+        $this->authorize('update', $service);
+        $service->update($request->except('photos', 'translations', 'provider_id'));
+
+        $languages = $language->pluck('id', 'code');
+        foreach ($request->translations as $translation) {
+            $service->translations()
+                ->updateOrCreate(
+                    ['id' => $translation['id']], // or use ['language_id' => $translation['language']['id']]
+                    [
+                        'name' => $translation['name'] ?? '',
+                        'description' => $translation['description'] ?? '',
+                        'language_id' => $languages[$translation['language']['code']] ?? null,
+                    ]
+                );
+        }
+
+        return $this->success($service, 'Service updated successfully');
+    }
+
 }

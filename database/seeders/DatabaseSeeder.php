@@ -43,6 +43,13 @@ class DatabaseSeeder extends Seeder
     }
 
     private function createUsers(){
+
+        User::factory()->create([
+            'email' => 'admin@onet.pl',
+            'password' => 'password',
+            'role' => 'admin',
+        ]);
+
         $this->providers = collect([
             User::factory()->create([
                 'email' => 'provider@onet.pl',
