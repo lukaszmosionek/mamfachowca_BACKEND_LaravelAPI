@@ -68,7 +68,7 @@ class ImageService
         });
 
         // $resizedPath = 'resized/' . basename($imagePath);
-        $resizedPath = 'resized/' . Str::random(10).'.jpg';
+        $resizedPath = 'avatars/resized/' . Str::random(10).'.jpg';
         Storage::disk('public')->put($resizedPath, (string) $image->encode());
 
         return $resizedPath;
