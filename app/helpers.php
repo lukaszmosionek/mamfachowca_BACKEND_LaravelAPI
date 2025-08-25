@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -19,6 +20,7 @@ function generatePlaceholder(int $width = 300, int $height = 300, string $text =
 
     $filename = $filename ?: "placeholder".Str::random(10)."_{$width}x{$height}.png";
     $folder = $folder ?: 'photos/'.now()->format('o-\WW');
+    Storage::disk('public')->makeDirectory($folder);
 
     $image->save( storage_path("app/public/").$folder.'/'.$filename );
 

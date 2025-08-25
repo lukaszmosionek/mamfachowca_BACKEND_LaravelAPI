@@ -77,7 +77,9 @@ class User extends Authenticatable
     //store avatar path
     public static function storeAvatarFile($file): string
     {
-        return Storage::disk('public')->putFile('avatars/'.now()->format('o-\WW'), $file);
+        $folder = 'avatars/'.now()->format('o-\WW');
+        Storage::disk('public')->makeDirectory($folder);
+        return Storage::disk('public')->putFile($folder, $file);
     }
     public static function getAvatarUrl(string $path): string
     {
