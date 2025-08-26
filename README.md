@@ -71,9 +71,6 @@ php artisan migrate
 php artisan db:seed
 
 # Laravel Queue Worker (Optional)
-php artisan serve
-
-# (Optional) Seed database
 php artisan queue:work
 
 # (Optional) Generate enums in json and vue3

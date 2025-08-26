@@ -53,7 +53,7 @@ class MessageController extends Controller
         })
         ->orderBy('created_at')->get(['body']);
 
-        return $this->success( compact('messages', 'receiver'), 'Messages fetch successfully', 201);
+        return $this->success( compact('messages', 'receiver'), 'Messages fetch successfully');
     }
 
     // Send a new message to a user

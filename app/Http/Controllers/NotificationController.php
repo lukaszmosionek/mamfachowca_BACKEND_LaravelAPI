@@ -15,7 +15,7 @@ class NotificationController extends Controller
     {
         // Return the authenticated user's notifications
         return $this->success([
-            'data' => NotificationResource::collection($request->user()->notifications->reverse()),
+            'notifications' => NotificationResource::collection($request->user()->notifications->reverse()),
             'read_count' => $request->user()->readNotifications->count(),
             'unread_count' => $request->user()->unreadNotifications->count()
         ], 'Notifications fetched successfully');
