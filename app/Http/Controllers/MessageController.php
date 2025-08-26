@@ -44,14 +44,14 @@ class MessageController extends Controller
         $authUser = Auth::user();
         $receiver = $user;
 
-        $messages = Message::where(function ($query) use ($authUser, $receiver) {
+        $messages = Message::select(['sender_id','receiver_id','body'])->where(function ($query) use ($authUser, $receiver) {
             $query->where('sender_id', $authUser->id)
                   ->where('receiver_id', $receiver->id);
         })->orWhere(function ($query) use ($authUser, $receiver) {
             $query->where('sender_id', $receiver->id)
                   ->where('receiver_id', $authUser->id);
         })
-        ->orderBy('created_at')->get(['body']);
+        ->orderBy('created_at')->get();
 
         return $this->success( compact('messages', 'receiver'), 'Messages fetch successfully');
     }
