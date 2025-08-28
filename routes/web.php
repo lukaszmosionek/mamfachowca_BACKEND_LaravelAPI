@@ -5,6 +5,7 @@ use App\Notifications\NewNotification;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Route;
 
+// /log-viewer -> View LOG
 
 Route::get('/test', function () {
     $body = 'This is a test message body';

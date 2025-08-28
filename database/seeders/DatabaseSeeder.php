@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
     private function createUsers(){
 
         User::factory()->create([
+            'name' => 'Admin Due',
             'email' => 'admin@onet.pl',
             'password' => 'password',
             'role' => Role::ADMIN,
@@ -53,6 +54,7 @@ class DatabaseSeeder extends Seeder
 
         $this->providers = collect([
             User::factory()->create([
+                'name' => 'Provider Due',
                 'email' => 'provider@onet.pl',
                 'password' => 'password',
                 'role' => Role::PROVIDER,
@@ -63,6 +65,7 @@ class DatabaseSeeder extends Seeder
 
         $this->clients = collect([
             User::factory()->create([
+                'name' => 'Client Due',
                 'email' => 'client@onet.pl',
                 'password' => 'password',
                 'role' => Role::CLIENT,
