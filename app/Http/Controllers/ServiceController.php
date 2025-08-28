@@ -59,7 +59,6 @@ class ServiceController extends Controller
 
     public function update(UpdateServiceRequest $request, Service $service, Language $language)
     {
-        // $this->authorize('update', $service); //fix that
         $service->update($request->except('photos', 'translations', 'provider_id'));
 
         $languages = $language->pluck('id', 'code');

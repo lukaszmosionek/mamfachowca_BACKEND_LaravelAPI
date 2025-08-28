@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class UpdateServiceRequest extends FormRequest
 {
@@ -11,16 +12,10 @@ class UpdateServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // return true;
-        // Tylko klient może tworzyć rezerwację
-        return auth()->check() && auth()->user()->isProvider();
+        $service = $this->route('service'); // message failedAuthorization()
+        return $service && auth()->user()->can('update', $service);  //class ServicePolicy update()
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -29,5 +24,10 @@ class UpdateServiceRequest extends FormRequest
             'price' => 'sometimes|required|numeric|min:0',
             'duration_minutes' => 'sometimes|required|integer|min:1',
         ];
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('You are not allowed to update this service.');
     }
 }

@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
 Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
 
-Route::apiResource('services', ServiceController::class)->only('index', 'show', 'update');
+Route::apiResource('services', ServiceController::class)->only('index', 'show');
 Route::apiResource('providers', ProviderController::class)->only('index');
 Route::apiResource('users', UsersController::class)->only(['show']);
 
@@ -61,7 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 
     //add admin guard middleware
-    Route::prefix('admin')->middleware([IsAdminMiddleware::class])->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware([IsAdminMiddleware::class])->group(function () {
         Route::apiResource('users', AdminUsersController::class)->only(['index', 'destroy']);
         Route::apiResource('services', AdminServiceController::class)->only(['index', 'destroy']);
     });
