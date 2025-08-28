@@ -8,6 +8,7 @@ use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use App\Models\Service;
+use App\Models\User;
 use App\Notifications\NewAppointmentNotification;
 use App\Notifications\NewMessageNotification;
 use App\Traits\ApiResponse;
@@ -44,10 +45,11 @@ class AppointmentController extends Controller
 
         // $endTime = $request->validateAvailability($service);
 
-        $user = auth()->user();
+        $client = auth()->user();
+        $provider = User::findorFail($service->provider->id);
 
         $appointment = Appointment::create([
-            'client_id' => $user->id,
+            'client_id' => $client->id,
             'provider_id' => $service->provider->id,
             'service_id' => $service->id,
             'date' => $request->date,
@@ -56,10 +58,10 @@ class AppointmentController extends Controller
             'status' => AppointmentStatus::Pending,
         ]);
 
-        $user->notify(new NewAppointmentNotification($service->provider));
+        $provider->notify(new NewAppointmentNotification($service->provider));
 
         $appointment = new AppointmentResource($appointment);
-        return $this->success($appointment, 'Appointment stored successfully', 201);
+        return $this->success( compact('appointment'), 'Appointment stored successfully', 201);
     }
 
     public function show(Appointment $appointment)
