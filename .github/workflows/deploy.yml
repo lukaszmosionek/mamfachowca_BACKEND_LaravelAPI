@@ -29,7 +29,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          port: ${{ secrets.PORT }}
           script: |
             cd ~/public_html/api.mamfachowca.mosioneklukasz.pl
             git pull origin master
