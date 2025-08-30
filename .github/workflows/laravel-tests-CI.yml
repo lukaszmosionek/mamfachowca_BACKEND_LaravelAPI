@@ -1,13 +1,13 @@
-name: Tests
+name: Tests - Laravel CI
 
 on:
   push:
     branches:
       - master
-      - '*.x'
+      - "*.x"
   pull_request:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 permissions:
   contents: read
