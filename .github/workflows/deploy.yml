@@ -23,18 +23,12 @@ jobs:
       - name: Install dependencies
         run: composer install --no-dev --optimize-autoloader
 
-      - name: Write SSH key to file
-        run: |
-          mkdir -p ${{ github.workspace }}/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ${{ github.workspace }}/.ssh/id_rsa
-          chmod 600 ${{ github.workspace }}/.ssh/id_rsa
-
       - name: Upload to Home.pl via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key_path: ${{ github.workspace }}/.ssh/id_rsa
+          key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           debug: true
           script: |
