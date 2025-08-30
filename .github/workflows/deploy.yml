@@ -25,16 +25,16 @@ jobs:
 
       - name: Write SSH key to file
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          mkdir -p ${{ github.workspace }}/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ${{ github.workspace }}/.ssh/id_rsa
+          chmod 600 ${{ github.workspace }}/.ssh/id_rsa
 
       - name: Upload to Home.pl via SSH
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key_path: ~/.ssh/id_rsa
+          key_path: ${{ github.workspace }}/.ssh/id_rsa
           port: ${{ secrets.PORT }}
           debug: true
           script: |
