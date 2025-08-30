@@ -23,13 +23,20 @@ jobs:
       - name: Install dependencies
         run: composer install --no-dev --optimize-autoloader
 
+      - name: Write SSH key to file
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
       - name: Upload to Home.pl via SSH
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          key_path: ~/.ssh/id_rsa
           port: ${{ secrets.PORT }}
+          debug: true
           script: |
             cd ~/public_html/api.mamfachowca.mosioneklukasz.pl
             git pull origin master
