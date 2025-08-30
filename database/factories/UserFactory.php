@@ -29,20 +29,24 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $files = Storage::disk('public')->allFiles('example_avatars');
-        $randomFile = $files[array_rand($files)];
-
-
         $firstname = fake()->firstName();
         $lastname = fake()->lastName();
+
+        $files = Storage::disk('public')->allFiles('example_avatars');
+        if($files){
+            $randomFile = $files[array_rand($files)];
+            $avatar = (new ImageService)->resizeImage($randomFile, 300, 300);
+        }else{
+            $avatar = generatePlaceholder(300, 300 , ''.mb_substr($firstname, 0, 1).mb_substr($lastname, 0, 1));
+        }
+
         return [
             'name' => $firstname . ' ' . $lastname,
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'avatar' => (new ImageService)->resizeImage($randomFile, 300, 300),
-            // 'avatar' => generatePlaceholder(300, 300 , ''.mb_substr($firstname, 0, 1).mb_substr($lastname, 0, 1)),
+            'avatar' => $avatar,
             'role' => Role::CLIENT,
             'lang' => fake()->randomElement( config('app.languages') ),
         ];
