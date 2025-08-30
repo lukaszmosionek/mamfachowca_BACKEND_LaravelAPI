@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Chat extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasFactory;
 
     /**
      * The attributes that are mass assignable.

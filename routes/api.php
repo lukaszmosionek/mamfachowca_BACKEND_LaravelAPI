@@ -53,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
     Route::post('appointments/{appointment}/{action}', [AppointmentController::class, 'handleAction'])->where('action', 'accept|decline');
 
-    Route::get('fetchMessagedUsers', [MessageController::class, 'fetchMessagedUsers'])->name('fetchMessagedUsers');
+    Route::get('messaged-users', [MessageController::class, 'fetchMessagedUsers'])->name('fetchMessagedUsers');
     Route::apiResource('users.messages', MessageController::class)->only(['index', 'show', 'store']);
 
     Route::apiResource('notifications', NotificationController::class)->only(['index']);
@@ -72,6 +72,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('test-api', function(){
     return response()->json([
         'message' => 'Connected to API!',
+        // 'routes' => app(\App\Services\RouteService::class)->getAllRoutes(),
         // 'APPOINTMENT_STATUSES' => AppointmentStatus::cases(),
         // 'ROLES' => Role::cases(),
     ]);

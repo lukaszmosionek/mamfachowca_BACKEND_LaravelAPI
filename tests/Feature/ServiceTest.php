@@ -19,6 +19,7 @@ class ServiceTest extends TestCase
 
     public function test_it_fetches_services_with_pagination()
     {
+        $startTime = microtime(true);
         // Create a user
         $user = User::factory()->create();
 
@@ -53,6 +54,10 @@ class ServiceTest extends TestCase
         // Assert that the first service is marked as favorited
         $firstService = $response->json('data.services')[0];
         $this->assertTrue($firstService['is_favorited']);
+
+        $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
+        dump('executionTime ' . $executionTime . ' seconds');
     }
 
     // /** @test */
