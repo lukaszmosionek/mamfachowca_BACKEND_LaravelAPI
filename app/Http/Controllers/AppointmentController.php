@@ -37,7 +37,7 @@ class AppointmentController extends Controller
         ], 'Appointments retrieved successfully');
     }
 
-    public function store(StoreAppointmentRequest $request)
+    public function store(StoreAppointmentRequest $request) //book service
     {
         $service = Service::with(['provider:id,name','provider.availabilities'])->findOrFail($request->service_id);
 

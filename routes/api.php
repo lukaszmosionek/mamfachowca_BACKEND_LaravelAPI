@@ -22,12 +22,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
-
-Route::post('register', [AuthController::class, 'register'])->name('register');;
-Route::post('login', [AuthController::class, 'login'])->name('login');
-Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
-Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
+// Route::prefix('auth')->group(function () {
+    Route::post('register', [AuthController::class, 'register'])->name('register');;
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
+    Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+// });
 
 Route::apiResource('services', ServiceController::class)->only('index', 'show');
 Route::apiResource('providers', ProviderController::class)->only('index');
@@ -36,31 +41,51 @@ Route::apiResource('users', UsersController::class)->only(['show']);
 Route::post('contact', [ContactController::class, 'send']);
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::apiResource('me/services', UserServiceController::class)->names('me.services');
-    Route::post('me/services/{service}/photos', [UserServiceController::class, 'storePhotos']);
-    Route::delete('me/services/photos/{id}', [UserServiceController::class, 'destroyPhoto']);
+    // Auth
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('me', [ProfileController::class, 'getUser'])->name('profile.getUser');
-    Route::put('me', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('me/avatar', [ProfileController::class, 'uploadAvatar']);
+    // Profile
+    Route::prefix('me')->group(function () {
+        Route::get('/', [ProfileController::class, 'getUser'])->name('profile.getUser');
+        Route::put('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::post('avatar', [ProfileController::class, 'uploadAvatar']);
 
+        // User Services
+        Route::apiResource('services', UserServiceController::class)->names('me.services');
+        Route::post('services/{service}/photos', [UserServiceController::class, 'storePhotos']);
+        Route::delete('services/photos/{id}', [UserServiceController::class, 'destroyPhoto']);
+    });
+
+    // Favorites
     Route::get('favorites', [FavoriteController::class, 'index']);
     Route::post('favorites/{item}/toggle', [FavoriteController::class, 'toggle']);
     Route::get('favorites/{item}', [FavoriteController::class, 'isFavorited']);
 
+    // Appointments
     Route::apiResource('appointments', AppointmentController::class)->except(['update']);
     Route::post('appointments/{appointment}/{action}', [AppointmentController::class, 'handleAction'])->where('action', 'accept|decline');
 
+    // Messaging
     Route::get('messaged-users', [MessageController::class, 'fetchMessagedUsers'])->name('fetchMessagedUsers');
     Route::apiResource('users.messages', MessageController::class)->only(['index', 'show', 'store']);
 
+    // Notifications
     Route::apiResource('notifications', NotificationController::class)->only(['index']);
     Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::post('notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 
-    //add admin guard middleware
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Routes
+    |--------------------------------------------------------------------------
+    */
     Route::prefix('admin')->name('admin.')->middleware([IsAdminMiddleware::class])->group(function () {
         Route::apiResource('users', AdminUsersController::class)->only(['index', 'destroy']);
         Route::apiResource('services', AdminServiceController::class)->only(['index', 'destroy']);
@@ -69,6 +94,11 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| Test & Fallback
+|--------------------------------------------------------------------------
+*/
 Route::get('test-api', function(){
     return response()->json([
         'message' => 'Connected to API!',
