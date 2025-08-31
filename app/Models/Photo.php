@@ -44,10 +44,13 @@ class Photo extends Authenticatable
     public static function storeFile($file): string
     {
         $folder = 'photos/' . now()->format('o-\WW');
+        Storage::disk('public')->makeDirectory($folder);
 
         // Store file in storage/app/public/photos/...
-        Storage::disk('public')->makeDirectory($folder);
-        $path = Storage::disk('public')->putFile($folder, $file);
+        $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+        $path = Storage::disk('public')->putFileAs($folder, $file, $fileName);
+
+        // var_dump($path);
 
         if( !config('app.is_symlinks_working') ){
             // Full source and destination paths

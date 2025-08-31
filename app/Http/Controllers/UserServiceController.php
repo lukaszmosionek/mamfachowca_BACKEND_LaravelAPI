@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\UpdateServicePhotoRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Resources\PhotoResource;
 use App\Http\Resources\ServiceResource;
@@ -100,21 +101,21 @@ class UserServiceController extends Controller
         return $this->success(null, 'Service deleted successfully', 204);
     }
 
-    public function storePhotos(Service $service, Request $request, ImageService $imageService)
+    public function storePhotos(Service $service, UpdateServicePhotoRequest $request, ImageService $imageService)
     {
-        $request->validate([
-            'photos' => 'required|array',
-            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
 
-        foreach ($request->file('photos') as $photo) {
-            $paths[] = $imageService->storeImageFromUrl($photo);
+        if ($request->hasFile('photos')) {
+            foreach ( $request->file('photos') as $photo) {
+                $paths[] = [
+                    'original' => Photo::storeFile($photo),
+                    'original_filename' => Str::limit( $photo->getClientOriginalName(), 255, '')
+                ];
+            }
+            $photoModel = $service->photos()->createMany( $paths );
         }
 
-        $photoModel = $service->photos()->createMany($paths);
-
         return $this->success([
-            'photos' => PhotoResource::collection( $photoModel )
+            'photos' => PhotoResource::collection( $photoModel ) ?? []
         ], 'Photos uploaded successfully!');
     }
 
