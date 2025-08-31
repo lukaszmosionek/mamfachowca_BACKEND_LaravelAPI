@@ -79,7 +79,23 @@ class User extends Authenticatable
     {
         $folder = 'avatars/'.now()->format('o-\WW');
         Storage::disk('public')->makeDirectory($folder);
-        return Storage::disk('public')->putFile($folder, $file);
+        $path = Storage::disk('public')->putFile($folder, $file);
+
+        if( !config('app.is_symlinks_working') ){
+            // Full source and destination paths
+            $source = storage_path('app/public/' . $path);
+            $destination = public_path('storage/' . $path);
+
+            // Ensure destination directory exists
+            if (!file_exists(dirname($destination))) {
+                mkdir(dirname($destination), 0755, true);
+            }
+
+            // Copy file to public/storage
+            copy($source, $destination);
+        }
+
+        return $path;
     }
     public static function getAvatarUrl(string $path): string
     {

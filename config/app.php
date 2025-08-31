@@ -126,5 +126,7 @@ return [
     'languages' => [
         'en',
         'pl'
-    ]
+    ],
+
+    'is_symlinks_working' => (bool) env('APP_IS_SYMLINKS_WORKING', false),
 ];
