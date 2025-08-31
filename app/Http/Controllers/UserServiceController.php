@@ -103,7 +103,6 @@ class UserServiceController extends Controller
 
     public function storePhotos(Service $service, UpdateServicePhotoRequest $request, ImageService $imageService)
     {
-
         if ($request->hasFile('photos')) {
             foreach ( $request->file('photos') as $photo) {
                 $paths[] = [
