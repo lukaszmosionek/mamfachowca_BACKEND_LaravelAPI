@@ -53,11 +53,23 @@ function arrayToObject(array $array): object
     return json_decode(json_encode($array));
 }
 
-
 if (!function_exists('app_log')) {
     function app_log($message, array $context = [])
     {
         Log::info($message, $context);
         return $message;
+    }
+}
+
+if (!function_exists('getSqlWithBindings')) {
+    function getSqlWithBindings($query)
+    {
+        $sqlWithBindings = vsprintf(
+            str_replace('?', '%s', $query->toSql()),
+            collect($query->getBindings())->map(function ($binding) {
+                return is_numeric($binding) ? $binding : "'{$binding}'";
+            })->toArray()
+        );
+        return $sqlWithBindings;
     }
 }

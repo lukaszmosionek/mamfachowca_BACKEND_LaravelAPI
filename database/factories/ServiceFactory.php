@@ -24,4 +24,12 @@ class ServiceFactory extends Factory
         ];
 
     }
+
+    public function withTranslation(array $attributes = [])
+    {
+        return $this->has(
+            \App\Models\ServiceTranslation::factory()->state($attributes),
+            'translations'
+        );
+    }
 }

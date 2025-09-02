@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Language extends Model
 {
     use  HasFactory;
+
+    protected static ?int $cachedId = null;
 
     //relationships
     public function currency()
@@ -29,6 +32,17 @@ class Language extends Model
             ->first();
 
         return $getCurrencyCode ? $language?->currency?->code : $language;
+    }
+
+    public static function getCurrentLanguageId(): ?int
+    {
+        if (static::$cachedId === null) {
+            static::$cachedId = static::query()
+                ->where('code', app()->getLocale())
+                ->value('id');
+        }
+
+        return static::$cachedId;
     }
     // end of static methods
 }

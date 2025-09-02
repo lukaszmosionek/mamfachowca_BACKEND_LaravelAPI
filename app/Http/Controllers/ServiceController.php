@@ -18,19 +18,20 @@ class ServiceController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    public function index(CurrencyConversionService $currency): JsonResponse
+    public function index(): JsonResponse
     {
-        $services = Service::with([
+        $query = Service::with([
                 'provider:id,name',
                 'photos',
                 'favoritedBy:id',
                 'currency',
-                'translations.language:id,code',
+                'translations.language',
             ])
             ->filter()
             ->latest()
-            ->paginate(10) //end of database query
-            ->through(function($service) use($currency){
+            ->paginate(10); //end of database query
+
+            $services = $query->through(function($service){
                 $service->is_favorited = $service->favoritedBy->pluck('id')->contains( request('user_id') );
                 return $service;
             })
@@ -39,7 +40,9 @@ class ServiceController extends Controller
         return $this->success([
                     // 'services' => $services->items(),
                     'services' => ServiceResource::collection($services->items()),
-                    'last_page' => $services->lastPage()
+                    'last_page' => $services->lastPage(),
+                    // 'lang' => Language::getCurrentLanguageId(),
+                    // 'query' => getSqlWithBindings($query)
                 ],'Services fetched successfully'
         );
     }

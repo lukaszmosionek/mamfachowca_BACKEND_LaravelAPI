@@ -52,18 +52,22 @@ class Service extends Model
 
     public function scopeFilter($query)
     {
-            $search = request('name');
-            $provider_id = request('provider_id');
+        $search = request('name');
+        $provider_id = request('provider_id');
 
-            if( $provider_id OR $search ) request()->merge(['page' => 1]); // Force page 1
+        if( $provider_id OR $search ) request()->merge(['page' => 1]); // Force page 1
 
-            return $query
-            ->when($search, function ($q, $search) {
-                $q->where('name', 'like', "%{$search}%");
-            })
-            ->when($provider_id, function ($q, $provider_id) {
-                $q->where('provider_id', $provider_id);
+        $returnQuery = $query->when($search, function ($q, $search) {
+            // $q->where('name', 'like', "%{$search}%");
+            $q->whereHas('translations', function ($q) use ($search) {
+                    return $q->where('name', 'like', "%{$search}%")->where('language_id', Language::getCurrentLanguageId() );
             });
+        })
+        ->when($provider_id, function ($q, $provider_id) {
+                return $q->where('provider_id', $provider_id);
+        });
+
+        return $returnQuery;
 
     //     return $query
     //         ->when($filters['title'] ?? false, fn($q, $title) => $q->where('title', 'like', "%$title%"))

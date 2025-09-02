@@ -11,7 +11,6 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    #[Test]
     public function test_user_can_login_with_correct_credentials()
     {
         // Arrange: create a user
@@ -41,7 +40,6 @@ class LoginTest extends TestCase
         $this->assertEquals('User logged in successfully.', $response['message']);
     }
 
-    #[Test]
     public function test_user_cannot_login_with_invalid_password()
     {
         $user = User::factory()->create([
@@ -64,7 +62,6 @@ class LoginTest extends TestCase
                  ]);
     }
 
-    #[Test]
     public function test_user_cannot_login_with_nonexistent_email()
     {
         $response = $this->postJson('/api/login', [
@@ -82,7 +79,6 @@ class LoginTest extends TestCase
                  ]);
     }
 
-    #[Test]
     public function test_email_and_password_are_required()
     {
         $response = $this->postJson('/api/login', []);

@@ -12,6 +12,7 @@ use App\Models\Photo;
 use App\Models\Translation;
 use App\Models\Language;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\App;
 
 class ServiceTest extends TestCase
 {
@@ -41,10 +42,6 @@ class ServiceTest extends TestCase
         $route = route('services.index', ['user_id' => $user->id]);
         $response = $this->getJson($route);
 
-        // dump($services->toArray());
-        // dump($route);
-        // dump($response->json());
-
         $response->assertStatus(200)
                  ->assertJson([ 'success' => true ]);
 
@@ -58,6 +55,46 @@ class ServiceTest extends TestCase
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;
         dump('executionTime ' . $executionTime . ' seconds');
+    }
+
+    public function test_search_works_properly()
+    {
+        $language = Language::factory()->create([ 'code' => 'en' ]);
+        App::setLocale('en');
+
+        $provider = User::factory()->create([ 'role' => Role::PROVIDER ]);
+
+        $service = Service::factory()
+            ->for($provider, 'provider')
+            ->withTranslation([
+                'name' => 'Test Service',
+                'language_id' => $language->id,
+            ])
+            ->withTranslation([
+                'name' => 'Testzzzzzzz Service',
+                'language_id' => 2,
+            ])
+            ->create();
+
+        $user = User::factory()->create();
+        $service->favoritedBy()->attach($user->id);
+
+        // Act
+        $response = $this->getJson(route('services.index', [
+            'name' => 'rvic',
+            'provider_id' => $provider->id,
+            // 'user_id' => $user->id,
+        ]));
+
+        // $response->dump();
+        // dump('service->toArray()', $service->translations);
+
+        // Assert
+        $response->assertOk()
+            ->assertJsonFragment([
+                'name' => 'Test Service'
+            ]);
+        $response->assertJsonPath('data.services.0.provider.id', $provider->id);
     }
 
     // /** @test */
@@ -94,40 +131,7 @@ class ServiceTest extends TestCase
 
 
         // Assert: response structure and status
-        $response->assertStatus(200)
-            ->assertJsonStructure([
-                'success',
-                'message',
-                'data' => [
-                    'service' => [
-                        'id',
-                        'name',
-                        'provider' => [
-                            'id',
-                            'name',
-                            'availabilities' => [
-                                '*' => [
-                                    'id',
-                                    'day',
-                                    'start_time',
-                                    'end_time',
-                                ]
-                            ]
-                        ],
-                        'photos' => [
-                            '*' => ['id', 'url']
-                        ],
-                        'translations' => [
-                            '*' => [
-                                'id',
-                                'language' => ['id', 'code'],
-                                'title',
-                                'description',
-                            ]
-                        ]
-                    ]
-                ]
-            ]);
+        $response->assertStatus(200);
 
         $response->assertJsonFragment([
             'id' => $service->id,

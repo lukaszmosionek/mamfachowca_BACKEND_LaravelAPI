@@ -22,6 +22,7 @@ class FavoriteController extends Controller
                 ->whereHas('favoritedBy', function($query) use($user){
                     $query->where('users.id', $user->id );
                 })
+                ->latest()
                 // ->where('lang', App::getLocale())
                 ->paginate(10)
                 ->through(function($service){
