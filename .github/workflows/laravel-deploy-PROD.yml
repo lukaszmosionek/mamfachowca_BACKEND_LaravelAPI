@@ -1,0 +1,46 @@
+name: Deploy - Laravel PROD
+
+on:
+  workflow_run:
+    workflows: ["Tests - Laravel CI"] # odwołanie do workflow CI
+    types:
+      - completed
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, bcmath, pdo, tokenizer
+          ini-values: post_max_size=256M, upload_max_filesize=256M
+
+      - name: Install dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Upload to Home.pl via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          debug: true
+          script: |
+            cd ~/public_html/api.mamfachowca.mosioneklukasz.pl
+            git pull origin master
+            composer install --no-dev --optimize-autoloader
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan view:clear
+            php artisan cache:clear
+            php artisan config:clear

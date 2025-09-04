@@ -19,9 +19,11 @@ return [
 
     'allowed_origins' => [
         env('FRONTEND_URL', 'http://mamfachowca.mosioneklukasz.pl'),
-        env('FRONTEND_URL_2'),
-        env('FRONTEND_URL_3'),
-        env('FRONTEND_URL_4'),
+        env('FRONTEND_URL_2', 'http://www.mamfachowca.mosioneklukasz.pl'),
+        env('FRONTEND_URL_3', 'https://mamfachowca.mosioneklukasz.pl'),
+        env('FRONTEND_URL_4', 'https://www.mamfachowca.mosioneklukasz.pl'),
+        env('FRONTEND_URL_5'),
+        env('FRONTEND_URL_6'),
     ], // port Vue
 
     'allowed_methods' => ['*'],

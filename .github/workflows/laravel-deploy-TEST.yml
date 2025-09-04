@@ -1,14 +1,11 @@
-name: Deploy - Laravel CD
+name: Deploy - Laravel TEST
 
 on:
-  workflow_run:
-    workflows: ["Tests - Laravel CI"] # odwołanie do workflow CI
-    types:
-      - completed
+  push:
+    branches: [master]
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +31,7 @@ jobs:
           port: ${{ secrets.PORT }}
           debug: true
           script: |
-            cd ~/public_html/api.mamfachowca.mosioneklukasz.pl
+            cd ~/public_html/test.api.mamfachowca.mosioneklukasz.pl
             git pull origin master
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
