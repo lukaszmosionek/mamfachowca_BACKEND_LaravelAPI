@@ -57,7 +57,7 @@ class LoginTest extends TestCase
                      'success' => false,
                      'message' => 'Invalid credentials',
                      'errors' => [
-                         'password' => 'Invalid credentials',
+                         'password' => 'validation.invalid-credentials',
                      ],
                  ]);
     }
@@ -74,7 +74,7 @@ class LoginTest extends TestCase
                      'success' => false,
                      'message' => 'Invalid credentials',
                      'errors' => [
-                         'password' => 'Invalid credentials',
+                         'password' => 'validation.invalid-credentials',
                      ],
                  ]);
     }

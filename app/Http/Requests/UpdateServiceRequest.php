@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdateServiceRequest extends FormRequest
 {
@@ -15,19 +18,33 @@ class UpdateServiceRequest extends FormRequest
         $service = $this->route('service'); // message failedAuthorization()
         return $service && auth()->user()->can('update', $service);  //class ServicePolicy update()
     }
-
-    public function rules(): array
-    {
-        return [
-            'name' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'sometimes|required|numeric|min:0',
-            'duration_minutes' => 'sometimes|required|integer|min:1',
-        ];
-    }
-
     protected function failedAuthorization()
     {
         throw new AuthorizationException('You are not allowed to update this service.');
     }
+
+    public function rules(): array
+    {
+        return [
+            'translations.*.name' => 'required|string|max:255',
+            'translations.*.description' => 'required|string',
+            'translations.*.language.code' => 'required|string|min:1|max:4',
+            'price' => 'required|numeric|min:0',
+            'duration_minutes' => 'required|integer|min:1',
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        // Convert flat dot notation to nested array
+        $nestedErrors = Arr::undot($validator->errors()->toArray());
+
+        throw new HttpResponseException(
+            response()->json([
+                'message' => 'The given data was invalid.',
+                'errors'  => $nestedErrors,
+            ], 422)
+        );
+    }
+
 }
