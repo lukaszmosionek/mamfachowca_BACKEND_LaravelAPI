@@ -13,14 +13,14 @@ Route::get('/', function () {
 });
 
 Route::get('/migrate', function () {
-    if (app()->environment('production')) {
+    if (app()->environment('production') AND request('key') !== env('MIGRATE_KEY')) {
         abort(403, "Forbidden in production!");
     }
 
-    Artisan::call('migrate:fresh', [
+    Artisan::queue('migrate:fresh', [
         '--seed' => true, // optional, if you want to run seeders too
     ]);
 
-    return "Database migrated fresh!";
+    return "Migrated!";
 });
 
