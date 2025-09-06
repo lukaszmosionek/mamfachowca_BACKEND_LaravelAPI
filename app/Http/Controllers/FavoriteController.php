@@ -17,7 +17,13 @@ class FavoriteController extends Controller
     {
         $user = auth()->user();
 
-        $services = Service::with(['provider:id,name', 'photos' ,'favoritedBy:id'])
+        $services = Service::with([
+                    'provider:id,name',
+                    'photos',
+                    'favoritedBy:id',
+                    'currency',
+                    'translations.language',
+                ])
                 ->filter()
                 ->whereHas('favoritedBy', function($query) use($user){
                     $query->where('users.id', $user->id );

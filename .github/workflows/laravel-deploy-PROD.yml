@@ -34,7 +34,8 @@ jobs:
           port: ${{ secrets.PORT }}
           debug: true
           script: |
-            cd ~/public_html/api.mamfachowca.mosioneklukasz.pl
+            cd ~/public_html/mamfachowca-api.pl/
+            php artisan down
             git pull origin master
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
@@ -44,3 +45,4 @@ jobs:
             php artisan view:clear
             php artisan cache:clear
             php artisan config:clear
+            php artisan up
