@@ -123,6 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'migrate_key' => env('MIGRATE_KEY'),
+
     'languages' => [
         'en',
         'pl'

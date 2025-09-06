@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::get('/migrate', function () {
     abort_if(app()->environment('production'), 403, 'Forbidden in production!');
-    abort_if(request('key') !== env('MIGRATE_KEY'), 403, 'Invalid key');
+    abort_if(request('key') !== config('app.migrate_key'), 403, 'Invalid key');
 
     // Remove time limit for web request
     set_time_limit(0);
