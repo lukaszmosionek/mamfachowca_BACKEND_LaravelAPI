@@ -13,14 +13,15 @@ Route::get('/', function () {
 });
 
 Route::get('/migrate', function () {
-
     abort_if(app()->environment('production'), 403, 'Forbidden in production!');
     abort_if(request('key') !== env('MIGRATE_KEY'), 403, 'Invalid key');
 
-    Artisan::queue('migrate:fresh', [
-        '--seed' => true, // optional, if you want to run seeders too
-    ]);
+    // Remove time limit for web request
+    set_time_limit(0);
 
-    return "Migrated!";
+    // Run the custom Artisan command
+    Artisan::call('db:fresh-storage');
+
+    return "Database migrated & storage reset!";
 });
 
