@@ -17,7 +17,6 @@ class ServiceResource extends JsonResource
     {
         // Use the requested locale or fallback to app locale or 'en'
         $locale = $request->get('locale', app()->getLocale());
-        // $locale = app()->getLocale();
 
         // Get the translation for that locale
         $translation = $this->translations->firstWhere('language.code', $locale)
@@ -25,19 +24,16 @@ class ServiceResource extends JsonResource
 
         return [
             'id'              => $this->id,
-            // 'user_id'        => $this->user_id,
             'name'            => $translation ? $translation->name : null,
             'description'     => $translation ? $translation->description : null,
             'translations'    => ServiceTranslationResource::collection($this->whenLoaded('translations')),
             'price'           => rtrim(rtrim(number_format($this->price, 2, '.', ''), '0'), '.'), // delete unnecesery .00 from e.g. 12.00 price
             'duration_minutes'=> $this->duration_minutes,
-            'is_favorited'    => $this->is_favorited,
+            'is_favorited'    => $this->favoritedBy()->where('user_id', $request->user_id)->exists(),
             'currency'        => new CurrencyResource($this->whenLoaded('currency')),
             'provider'        => new UserResource($this->whenLoaded('provider')),
             'photos'          => PhotoResource::collection($this->whenLoaded('photos')),
             'deleted_at'          => $this->deleted_at,
-            // 'created_at'     => $this->created_at,
-            // 'updated_at'     => $this->updated_at,
         ];
     }
 }

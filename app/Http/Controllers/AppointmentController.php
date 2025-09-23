@@ -10,10 +10,8 @@ use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\User;
 use App\Notifications\NewAppointmentNotification;
-use App\Notifications\NewMessageNotification;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
@@ -33,7 +31,6 @@ class AppointmentController extends Controller
         return $this->success([
             'appointments' => AppointmentResource::collection($appointments),
             'last_page' => $appointments->lastPage()
-
         ], 'Appointments retrieved successfully');
     }
 
@@ -85,7 +82,6 @@ class AppointmentController extends Controller
 
         $appointment->save();
         return $this->success(null, $message);
-
     }
 
     public function destroy(Appointment $appointment)
