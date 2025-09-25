@@ -12,10 +12,7 @@ class ProviderController extends Controller
 
     public function index()
     {
-        // Pokaż usługi zalogowanego usługodawcy
-        // $services = auth()->user()->services()->get();
         $providers = User::select(['id','name'])->where('role', 'provider')->pluck('name', 'id');
-        // $providers = ServiceResource::collection($providers);
         return $this->success( compact('providers'), 'Providers fetched successfully');
     }
 

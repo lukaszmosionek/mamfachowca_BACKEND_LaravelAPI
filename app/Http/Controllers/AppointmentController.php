@@ -22,11 +22,13 @@ class AppointmentController extends Controller
     {
         $perPage = request('per_page', 10);
 
-        if( auth()->user()->role == Role::CLIENT ){
-            $appointments = auth()->user()->appointmentsAsClient()->with('service', 'provider')->latest()->paginate($perPage);
-        }elseif( auth()->user()->role == Role::PROVIDER OR auth()->user()->role == Role::ADMIN ){
-            $appointments = auth()->user()->appointmentsAsProvider()->with('service', 'client:id,name,role')->latest()->paginate($perPage);
-        }
+        $appointments = match(auth()->user()->role) {
+            Role::CLIENT => auth()->user()->appointmentsAsClient()->with('service', 'provider'),
+            Role::PROVIDER, Role::ADMIN => auth()->user()->appointmentsAsProvider()->with('service', 'client:id,name,role'),
+            default => throw new \Exception('Unauthorized')
+        };
+
+        $appointments = $appointments->latest()->paginate($perPage);
 
         return $this->success([
             'appointments' => AppointmentResource::collection($appointments),

@@ -15,10 +15,6 @@ class ContactController extends Controller
     public function send(SendMailRequest $request)
     {
         Mail::to( config('mail.admin_email') )->send( new \App\Mail\ContactMail($request->all()) );
-
-        // Or store the message in the database or log
-        // \App\Models\ContactMessage::create($validated);
-
         return $this->success('Message received successfully!');
     }
 }
