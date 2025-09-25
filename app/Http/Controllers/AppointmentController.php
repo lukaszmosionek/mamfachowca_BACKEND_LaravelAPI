@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Enum\AppointmentStatus;
-use App\Enum\Role;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
-use App\Models\Service;
-use App\Models\User;
-use App\Notifications\NewAppointmentNotification;
+use App\Services\AppointmentActionService;
+use App\Services\AppointmentService;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -17,18 +14,10 @@ class AppointmentController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    // Klient widzi swoje rezerwacje
-    public function index()
+    public function index(AppointmentService $appointmentService)
     {
         $perPage = request('per_page', 10);
-
-        $appointments = match(auth()->user()->role) {
-            Role::CLIENT => auth()->user()->appointmentsAsClient()->with('service', 'provider'),
-            Role::PROVIDER, Role::ADMIN => auth()->user()->appointmentsAsProvider()->with('service', 'client:id,name,role'),
-            default => throw new \Exception('Unauthorized')
-        };
-
-        $appointments = $appointments->latest()->paginate($perPage);
+        $appointments = $appointmentService->getAppointmentsForUser(auth()->user(), $perPage);
 
         return $this->success([
             'appointments' => AppointmentResource::collection($appointments),
@@ -36,54 +25,39 @@ class AppointmentController extends Controller
         ], 'Appointments retrieved successfully');
     }
 
-    public function store(StoreAppointmentRequest $request) //book service
+    public function store(StoreAppointmentRequest $request, AppointmentService $appointmentService)
     {
-        $service = Service::with(['provider:id,name','provider.availabilities'])->findOrFail($request->service_id);
+        $appointment = $appointmentService->book(
+            auth()->user(),
+            $request->service_id,
+            $request->date,
+            $request->start_time
+        );
 
-        $endTime = $endTime = date('H:i', strtotime(date('Y-m-d') . " {$request->start_time} + {$service->duration_minutes} minutes"));
-
-        // $endTime = $request->validateAvailability($service);
-
-        $client = auth()->user();
-        $provider = User::findorFail($service->provider->id);
-
-        $appointment = Appointment::create([
-            'client_id' => $client->id,
-            'provider_id' => $service->provider->id,
-            'service_id' => $service->id,
-            'date' => $request->date,
-            'start_time' => $request->start_time,
-            'end_time' => $endTime,
-            'status' => AppointmentStatus::Pending,
-        ]);
-
-        $provider->notify(new NewAppointmentNotification($service->provider));
-
-        $appointment = new AppointmentResource($appointment);
-        return $this->success( compact('appointment'), 'Appointment stored successfully', 201);
+        return $this->success([
+            'appointment' => new AppointmentResource($appointment)
+        ], 'Appointment stored successfully', 201);
     }
 
     public function show(Appointment $appointment)
     {
         $this->authorize('view', $appointment);
-        $appointment = AppointmentResource::collection($appointment);
-        return $this->success($appointment->load('service', 'provider', 'client'), 'Appointment fetched successfully');
+
+        $appointment->load(['service', 'provider', 'client']);
+
+        return $this->success([
+            'appointment' => new AppointmentResource($appointment)
+        ], 'Appointment fetched successfully');
     }
 
-    public function handleAction(Appointment $appointment, string $action)
+    public function handleAction(Appointment $appointment, string $action, AppointmentActionService $service)
     {
-        if ($action === 'accept') {
-            $appointment->status = AppointmentStatus::Confirmed;
-            $message = 'Appointment accepted successfully';
-        } elseif ($action === 'decline') {
-            $appointment->status = AppointmentStatus::Cancelled;
-            $message = 'Appointment declined successfully';
-        }else{
-            abort(404, 'Action not found'); // or return an error response
+        try {
+            $message = $service->handle($appointment, $action);
+            return $this->success(null, $message);
+        } catch (\InvalidArgumentException $e) {
+            abort(404, $e->getMessage());
         }
-
-        $appointment->save();
-        return $this->success(null, $message);
     }
 
     public function destroy(Appointment $appointment)

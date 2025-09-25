@@ -32,8 +32,12 @@ class ServiceController extends Controller
     public function show(int $id): JsonResponse
     {
         $service = $this->serviceRepository->findByIdWithRelations($id);
+        if (!$service) {
+            return $this->error('Service not found', 404);
+        }
 
-        $service = new ServiceResource($service);
-        return $this->success(compact('service'), 'Service fetched successfully');
+        return $this->success([
+            'service' => new ServiceResource($service)
+        ], 'Service fetched successfully');
     }
 }
