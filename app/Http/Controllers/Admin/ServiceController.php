@@ -14,60 +14,44 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Repositories\Contracts\ServiceRepositoryInterface;
+use App\Services\ServiceService;
 
 class ServiceController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    public function index(CurrencyConversionService $currency): JsonResponse
+    protected ServiceRepositoryInterface $serviceRepository;
+    protected ServiceService $serviceService;
+
+    public function __construct(ServiceRepositoryInterface $serviceRepository, ServiceService $serviceService)
     {
-        $services = Service::with([
-                'provider:id,name',
-                'photos',
-                'favoritedBy:id',
-                'currency',
-                'translations.language:id,code',
-            ])
-            ->filter()
-            ->latest()
-            ->paginate(10) //end of database query
-            ->through(function($service) use($currency){
-                $service->is_favorited = $service->favoritedBy->pluck('id')->contains( request('user_id') );
-                return $service;
-            })
-            ->withQueryString();
+        $this->serviceRepository = $serviceRepository;
+        $this->serviceService = $serviceService;
+    }
+
+    public function index(): JsonResponse
+    {
+        $services = $this->serviceRepository->getPaginatedServices();
 
         return $this->success([
-                    // 'services' => $services->items(),
                     'services' => ServiceResource::collection($services->items()),
                     'last_page' => $services->lastPage()
                 ],'Services fetched successfully'
         );
     }
 
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
-        $service = Service::with([
-            'provider:id,name',
-            'provider.availabilities',
-            'photos',
-            'translations.language:id,code'
-        ])->findOrFail($id);
-
+        $service = $this->serviceRepository->findByIdWithRelations($id);
         $service = new ServiceResource($service);
         return $this->success(compact('service'), 'Service fetched successfully');
     }
 
-    public function destroy($serviceId){
-
-        $service = Service::withTrashed()->findOrFail($serviceId);
-        if ($service->trashed()) {
-            $service->restore();
-            return response()->json(['message' => 'Service restored successfully.']);
-        } else {
-            $service->delete();
-            return response()->json(['message' => 'Service soft-deleted successfully.']);
-        }
+    public function destroy(int $serviceId): JsonResponse
+    {
+        $message = $this->serviceService->toggleDelete($serviceId);
+        return $this->success($message, 200);
     }
 
 }

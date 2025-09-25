@@ -10,17 +10,28 @@ use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Contracts\ServiceRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 
 class UsersController extends Controller
 {
     use ApiResponse;
 
+    protected UserRepositoryInterface $users;
+    protected ServiceRepositoryInterface $services;
+
+    public function __construct(UserRepositoryInterface $users, ServiceRepositoryInterface $services)
+    {
+        $this->users = $users;
+        $this->services = $services;
+    }
+
     public function index(){
 
-        $user = User::withTrashed()->get();
+        $users = $this->users->allWithTrashed();
 
         return $this->success([
-            'users' => UserResource::collection($user),
+            'users' => UserResource::collection($users),
         ], 'Users fetched successfully');
     }
 
@@ -28,8 +39,8 @@ class UsersController extends Controller
 
         $perPage = request('per_page');
 
-        $user = User::with('availabilities')->findOrFail($userId);
-        $services = $user->services()->with('photos')->paginate($perPage);
+        $user = $this->users->findWithAvailabilities($userId);
+        $services = $this->services->getUserServicesWithPhotos($userId, $perPage);
 
         return $this->success([
             'user' => new UserResource($user),
@@ -38,20 +49,15 @@ class UsersController extends Controller
         ], 'User fetched successfully');
     }
 
-    public function destroy($userId){
+    public function destroy($userId)
+    {
+        try {
+            $user = $this->users->findWithTrashed($userId);
+            $message = $this->users->toggleDelete($user);
 
-        $user = User::withTrashed()->findOrFail($userId);
-
-        if( $user->role == Role::ADMIN ) return $this->error('Admins cannot be deleted', 403);
-
-        if ($user->trashed()) {
-            $user->restore();
-            $message = 'User restored successfully.';
-        } else {
-            $user->delete();
-            $message = 'User soft-deleted successfully';
+            return $this->success($message, 200);
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode() ?: 400);
         }
-
-        return response()->json(['message' => $message]);
     }
 }

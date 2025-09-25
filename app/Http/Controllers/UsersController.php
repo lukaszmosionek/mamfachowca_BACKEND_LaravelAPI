@@ -6,7 +6,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 

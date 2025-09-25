@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Service;
+use App\Models\User;
 use App\Repositories\Contracts\ServiceRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -52,6 +53,27 @@ class ServiceRepository implements ServiceRepositoryInterface
                 return $service;
             })
             ->withQueryString();
+    }
+
+    public function getUserServicesWithPhotos(int $userId, int $perPage = 15): LengthAwarePaginator
+    {
+        $user = User::findOrFail($userId);
+        return $user->services()->with('photos')->paginate($perPage);
+    }
+
+    public function findWithTrashed(int $id): Service
+    {
+        return Service::withTrashed()->findOrFail($id);
+    }
+
+    public function softDelete(Service $service): void
+    {
+        $service->delete();
+    }
+
+    public function restore(Service $service): void
+    {
+        $service->restore();
     }
 
 }
