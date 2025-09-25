@@ -12,6 +12,9 @@ use App\Http\Resources\UserServiceResource;
 use App\Models\Language;
 use App\Models\Photo;
 use App\Models\Service;
+use App\Repositories\Contracts\PhotoRepositoryInterface;
+use App\Repositories\Contracts\UserServiceRepositoryInterface;
+use App\Repositories\UserServiceRepository;
 use App\Services\ImageService;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -23,75 +26,66 @@ class UserServiceController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    public function index()
+    protected UserServiceRepositoryInterface $serviceRepository;
+    protected PhotoRepositoryInterface $photoRepository;
+    protected ImageService $imageService;
+
+    public function __construct(UserServiceRepositoryInterface $serviceRepository, PhotoRepositoryInterface $photoRepository, ImageService $imageService)
     {
-        $services = auth()->user()->services()->with('photos','translations.language')->latest()->paginate(10);
+        $this->serviceRepository = $serviceRepository;
+        $this->photoRepository = $photoRepository;
+        $this->imageService = $imageService;
+    }
+
+    public function index(UserServiceRepository $repository)
+    {
+        $services = $repository->getUserServices(auth()->user());
+
         return $this->success([
             'services' => UserServiceResource::collection( $services->items() ),
             'last_page' => $services->lastPage(),
         ], 'Services fetched successfully');
     }
 
-    public function store(StoreServiceRequest $request, ImageService $imageService, Language $language)
-    {
-        $service = auth()->user()->services()->create($request->all());
+    public function store(StoreServiceRequest $request, UserServiceRepositoryInterface $repository, Language $language) {
+        $service = $repository->createService($request->all());
 
-        if( $request->photos ){
-            foreach ( $request->file('photos') as $photo) {
-                $paths[] = [
-                    'original' => Photo::storeFile($photo['file']),
-                    'original_filename' => Str::limit( $photo['file']->getClientOriginalName(), 255, '')
-                ];
-            }
-            $service->photos()->createMany( $paths );
+        if ($request->has('photos')) {
+            $repository->addPhotos($service, $request->file('photos'));
         }
 
-        $languages = $language::codeIdMap();
-        foreach ( $request->translations as $translation) {
-            $data[] = [
-                'name' => $translation['name'] ?? '',
-                'description' => $translation['description'] ?? '',
-                'language_id' => $languages[$translation['language']['code']] ?? null,
-            ];
+        if ($request->has('translations')) {
+            $repository->addTranslations($service, $request->translations, $language);
         }
-        $service->translations()->createMany($data);
 
-        $service = new UserServiceResource($service);
-        return $this->success(compact('service'), 'Service created successfully', 201);
+        return $this->success([
+            'service' => new UserServiceResource($service)
+        ], 'Service created successfully', 201);
     }
 
     public function show($id): JsonResponse
     {
-        $service = Service::with([
-            'provider:id,name',
-            'provider.availabilities',
-            'photos',
-            'translations.language:id,code'
-        ])->findOrFail($id);
+        $service = $this->serviceRepository->findByIdWithRelations($id);
 
         $service = new ServiceResource($service);
         return $this->success(compact('service'), 'Service fetched successfully');
     }
 
-    public function update(UpdateServiceRequest $request, Service $service, Language $language)
-    {
-        // $this->authorize('update', $service, 'blad tutaj'); //fix that
-        $service->update($request->except('photos', 'translations', 'provider_id'));
+    public function update(UpdateServiceRequest $request, Service $service, UserServiceRepositoryInterface $repository, Language $language) {
+        $this->authorize('update', $service);
 
-        $languages = $language->pluck('id', 'code');
-        foreach ($request->translations as $translation) {
-            $service->translations()
-                ->updateOrCreate(
-                    ['id' => $translation['id']], // or use ['language_id' => $translation['language']['id']]
-                    [
-                        'name' => $translation['name'] ?? '',
-                        'description' => $translation['description'] ?? '',
-                        'language_id' => $languages[$translation['language']['code']] ?? null,
-                    ]
-                );
+        // Update main service fields
+        $service = $repository->updateService(
+            $service,
+            $request->except('photos', 'translations', 'provider_id')
+        );
+
+        // Update translations
+        if ($request->has('translations')) {
+            $repository->updateTranslations($service, $request->translations, $language);
         }
 
-        return $this->success($service, 'Service updated successfully');
+        return $this->success(new UserServiceResource($service), 'Service updated successfully');
     }
 
     public function destroy(Service $service)
@@ -101,31 +95,30 @@ class UserServiceController extends Controller
         return $this->success(null, 'Service deleted successfully', 204);
     }
 
-    public function storePhotos(Service $service, UpdateServicePhotoRequest $request, ImageService $imageService)
+    public function storePhotos(Service $service, UpdateServicePhotoRequest $request): JsonResponse
     {
+        $photoModel = [];
+
         if ($request->hasFile('photos')) {
-            foreach ( $request->file('photos') as $photo) {
-                $paths[] = [
-                    'original' => Photo::storeFile($photo),
-                    'original_filename' => Str::limit( $photo->getClientOriginalName(), 255, '')
-                ];
-            }
-            $photoModel = $service->photos()->createMany( $paths );
+            $photoModel = $this->photoRepository->storeForService(
+                $service,
+                $request->file('photos')
+            );
         }
 
         return $this->success([
-            'photos' => PhotoResource::collection( $photoModel ) ?? []
+            'photos' => PhotoResource::collection(collect($photoModel))
         ], 'Photos uploaded successfully!');
     }
 
-    public function destroyPhoto($id)
+    public function destroyPhoto($id): JsonResponse
     {
-        $photo = Photo::findOrFail($id);
+        $photo = $this->photoRepository->findById($id);
 
-        Storage::disk('public')->delete( Photo::getSizeKeys() );
-        $photo->delete();
+        $this->imageService->deletePhotoFiles($photo);
+        $this->photoRepository->delete($photo);
 
-        return $this->success(null , 'Photo deleted');
+        return $this->success(null, 'Photo deleted');
     }
 
 }

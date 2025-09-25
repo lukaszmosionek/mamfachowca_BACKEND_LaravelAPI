@@ -74,4 +74,13 @@ class ImageService
         return $resizedPath;
     }
 
+    public function deletePhotoFiles(Photo $photo): void
+    {
+        foreach (Photo::getSizeKeys() as $size) {
+            if (!empty($photo->{$size})) {
+                Storage::disk('public')->delete($photo->{$size});
+            }
+        }
+    }
+
 }
