@@ -12,14 +12,38 @@ class Language extends Model
 
     protected static ?int $cachedId = null;
 
-    //relationships
+    protected $table = 'languages'; // adjust if your table name differs
+
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'name',
+        'code',
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'code' => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
     public function currency()
     {
         return $this->hasOne(Currency::class);
     }
-    // end of relationships
 
-    // static methods
+    /*
+    |--------------------------------------------------------------------------
+    | Static methods
+    |--------------------------------------------------------------------------
+    */
     public static function codeIdMap()
     {
         return self::pluck('id', 'code');
@@ -44,5 +68,4 @@ class Language extends Model
 
         return static::$cachedId;
     }
-    // end of static methods
 }

@@ -9,7 +9,32 @@ class ServiceTranslation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'language_id'];
+    protected $table = 'service_translations';
+
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'service_id',
+        'language_id',
+        'name',
+        'description',
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'service_id' => 'integer',
+        'language_id' => 'integer',
+        'name' => 'string',
+        'description' => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
 
     public function service()
     {

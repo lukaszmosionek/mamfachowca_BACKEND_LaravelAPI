@@ -10,11 +10,40 @@ class Service extends Model
 {
     use  HasFactory, SoftDeletes;
 
+    protected $table = 'services';
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
-        'provider_id', 'price', 'duration_minutes',
+        'provider_id',
+        'price',
+        'currency_id',
+        'duration_minutes',
+        'is_processing',
     ];
 
-    //relations
+    protected $casts = [
+        'id' => 'integer',
+        'provider_id' => 'integer',
+        'price' => 'decimal:2',
+        'currency_id' => 'integer',
+        'duration_minutes' => 'integer',
+        'is_processing' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    protected $attributes = [
+        'is_processing' => true, // default 1
+        'currency_id' => 1,      // default currency
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
     public function provider()
     {
         return $this->belongsTo(User::class, 'provider_id');
@@ -23,10 +52,6 @@ class Service extends Model
     {
         return $this->hasMany(Appointment::class);
     }
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
     public function photos()
     {
         return $this->morphMany(Photo::class, 'imageable');
@@ -43,8 +68,12 @@ class Service extends Model
     {
         return $this->hasMany(ServiceTranslation::class);
     }
-    // END relations
 
+    /*
+    |--------------------------------------------------------------------------
+    | others
+    |--------------------------------------------------------------------------
+    */
     public function favoritedByUser($userId)
     {
         return $this->favoritedBy()->where('user_id', $userId);
@@ -68,10 +97,5 @@ class Service extends Model
         });
 
         return $returnQuery;
-
-    //     return $query
-    //         ->when($filters['title'] ?? false, fn($q, $title) => $q->where('title', 'like', "%$title%"))
-    //         ->when($filters['status'] ?? false, fn($q, $status) => $q->where('status', $status))
-    //         ->when($filters['author_id'] ?? false, fn($q, $author_id) => $q->where('author_id', $author_id));
     }
 }

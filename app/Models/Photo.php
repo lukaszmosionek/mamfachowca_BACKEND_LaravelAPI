@@ -12,20 +12,56 @@ class Photo extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = ['original_filename','original', 'thumbnail', 'medium', 'large', 'is_main'];
+    protected $table = 'photos';
 
-    //relations
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'imageable_type',
+        'imageable_id',
+        'original',
+        'thumbnail',
+        'medium',
+        'large',
+        'is_main',
+        'original_filename',
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'imageable_id' => 'integer',
+        'imageable_type' => 'string',
+        'original' => 'string',
+        'thumbnail' => 'string',
+        'medium' => 'string',
+        'large' => 'string',
+        'is_main' => 'boolean',
+        'original_filename' => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
     public function imageable()
     {
         return $this->morphTo();
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Static methods
+    |--------------------------------------------------------------------------
+    */
     public static array $uploadLimits = [
         'max_size' => 10 * 1024 * 1024, // 10MB
     ];
 
     public static array $sizes = [
-        'thumbnail' => ['width' => 150, 'height' => 150], //['width' => 150, 'height' => 150],
+        'thumbnail' => ['width' => 150, 'height' => 150],
         'medium'    => ['width' => 300, 'height' => 300],
         'large'     => ['width' => 800, 'height' => 600],
     ];
@@ -49,8 +85,6 @@ class Photo extends Authenticatable
         // Store file in storage/app/public/photos/...
         $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
         $path = Storage::disk('public')->putFileAs($folder, $file, $fileName);
-
-        // var_dump($path);
 
         if( !config('app.is_symlinks_working') ){
             // Full source and destination paths

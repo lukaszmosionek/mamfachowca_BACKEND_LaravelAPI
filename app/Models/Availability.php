@@ -10,15 +10,41 @@ class Availability extends Model
 {
     use  HasFactory;
 
+    protected $table = 'availabilities';
+
     protected $fillable = [
-        'provider_id', 'day_of_week', 'start_time', 'end_time',
+        'provider_id',
+        'day_of_week',
+        'start_time',
+        'end_time',
+    ];
+
+    public const DAYS = [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
     ];
 
     protected $casts = [
-        'date' => 'date'
+        'id' => 'integer',
+        'provider_id' => 'integer',
+        'day_of_week' => 'string',
+        'start_time' => 'datetime:H:i:s',
+        'end_time' => 'datetime:H:i:s',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    // provider
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
     public function provider()
     {
         return $this->belongsTo(User::class, 'provider_id');

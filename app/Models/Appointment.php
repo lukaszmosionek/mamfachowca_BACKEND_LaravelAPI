@@ -11,17 +11,36 @@ class Appointment extends Model
 {
     use  HasFactory;
 
+    protected $table = 'appointments';
+
     protected $fillable = [
-        'client_id', 'provider_id', 'service_id',
-        'date', 'start_time', 'end_time', 'status',
+        'client_id',
+        'provider_id',
+        'service_id',
+        'date',
+        'start_time',
+        'end_time',
+        'status',
     ];
 
     protected $casts = [
-        'status' => EnumAppointmentStatus::class,
+        'id' => 'integer',
+        'client_id' => 'integer',
+        'provider_id' => 'integer',
+        'service_id' => 'integer',
         'date' => 'date',
-        'start_time' => 'datetime:H:i',
-        'end_time' => 'datetime:H:i',
+        'start_time' => 'datetime:H:i:s', // stored as TIME
+        'end_time' => 'datetime:H:i:s',   // stored as TIME
+        'status' => EnumAppointmentStatus::class,
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
 
     public function client()
     {

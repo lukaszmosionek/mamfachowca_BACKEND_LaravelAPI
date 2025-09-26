@@ -16,12 +16,19 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    protected $table = 'users';
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
+        'role',
         'password',
-        'avatar',
+        'remember_token',
         'lang',
+        'avatar',
     ];
 
     protected $hidden = [
@@ -29,14 +36,20 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'role' => Role::class,
-        ];
-    }
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'email' => 'string',
+        'email_verified_at' => 'datetime',
+        'role' => Role::class,
+        'password' => 'hashed',
+        'remember_token' => 'string',
+        'lang' => 'string',
+        'avatar' => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
 
     public function isProvider(): bool
     {
@@ -48,7 +61,11 @@ class User extends Authenticatable
         return $this->role === Role::CLIENT;
     }
 
-        // === Relations ===
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
 
     public function services()
     {
@@ -74,7 +91,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Service::class, 'favorites');
     }
 
-    //store avatar path
+    /*
+    |--------------------------------------------------------------------------
+    | Others
+    |--------------------------------------------------------------------------
+    */
     public static function storeAvatarFile($file): string
     {
         $folder = 'avatars/'.now()->format('o-\WW');
