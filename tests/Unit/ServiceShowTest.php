@@ -23,7 +23,7 @@ class ServiceShowTest extends TestCase
             ->create();
 
         // Act
-        $response = $this->getJson(route('services.show', $service->id));
+        $response = $this->getJson('/api/services/'.$service->id);
 
         // Assert
         $response->assertStatus(200)
@@ -51,7 +51,7 @@ class ServiceShowTest extends TestCase
 
    public function test_it_returns_404_if_service_not_found()
     {
-        $response = $this->getJson(route('services.show', 99999));
+        $response = $this->getJson('/api/services/99999');
 
         $response->assertStatus(404);
     }

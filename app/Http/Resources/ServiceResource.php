@@ -29,11 +29,15 @@ class ServiceResource extends JsonResource
             'translations'    => ServiceTranslationResource::collection($this->whenLoaded('translations')),
             'price'           => rtrim(rtrim(number_format($this->price, 2, '.', ''), '0'), '.'), // delete unnecesery .00 from e.g. 12.00 price
             'duration_minutes'=> $this->duration_minutes,
-            'is_favorited'    => $this->favoritedBy()->where('user_id', $request->user_id)->exists(),
+            'is_favorited'    => $this->whenLoaded('favoritedBy', function() use($request) {
+                                    return $request->user()
+                                        ? $this->favoritedBy->contains('id', $request->user()->id)
+                                        : false;
+                                }),
             'currency'        => new CurrencyResource($this->whenLoaded('currency')),
             'provider'        => new UserResource($this->whenLoaded('provider')),
             'photos'          => PhotoResource::collection($this->whenLoaded('photos')),
-            'deleted_at'          => $this->deleted_at,
+            'deleted_at'      => $this->deleted_at,
         ];
     }
 }

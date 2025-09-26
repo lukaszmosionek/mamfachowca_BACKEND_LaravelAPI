@@ -1,12 +1,9 @@
 <?php
 
-use App\Enum\AppointmentStatus;
-use App\Enum\Role;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MessageController;
@@ -14,11 +11,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserServiceController;
 use App\Http\Middleware\IsAdminMiddleware;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
@@ -27,12 +22,11 @@ use Illuminate\Support\Facades\Route;
 | Public Routes
 |--------------------------------------------------------------------------
 */
-// Route::prefix('auth')->group(function () {
-    Route::post('register', [AuthController::class, 'register'])->name('register');;
-    Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
-    Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
-// });
+Route::post('register', [AuthController::class, 'register'])->name('register');;
+Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
+Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+
 
 Route::apiResource('services', ServiceController::class)->only('index', 'show');
 Route::apiResource('providers', ProviderController::class)->only('index');
@@ -92,7 +86,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 });
-
 
 /*
 |--------------------------------------------------------------------------

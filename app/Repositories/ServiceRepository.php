@@ -47,12 +47,7 @@ class ServiceRepository implements ServiceRepositoryInterface
                 $query->where('users.id', $userId);
             })
             ->latest()
-            ->paginate($perPage)
-            ->through(function($service){
-                $service->is_favorited = true;
-                return $service;
-            })
-            ->withQueryString();
+            ->paginate($perPage);
     }
 
     public function getUserServicesWithPhotos(int $userId, int $perPage = 15): LengthAwarePaginator

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
 // /log-viewer -> View LOG
+// /telescope -> Laravel Telescope
 
 Route::get('/', function () {
     echo '<a href="/docs/api">API DOCS</a>';
