@@ -44,8 +44,11 @@ class ServiceController extends Controller
     public function show(int $id): JsonResponse
     {
         $service = $this->serviceRepository->findByIdWithRelations($id);
-        $service = new ServiceResource($service);
-        return $this->success(compact('service'), 'Service fetched successfully');
+
+        return $this->success([
+                    'service' => new ServiceResource($service),
+                ], 'Service fetched successfully'
+        );
     }
 
     public function destroy(int $serviceId): JsonResponse

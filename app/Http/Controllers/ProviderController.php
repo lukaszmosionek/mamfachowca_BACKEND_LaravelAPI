@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -21,8 +21,8 @@ class ProviderController extends Controller
     public function index()
     {
         $providers = $this->userRepository->getProviders();
-        return $this->success( compact('providers'), 'Providers fetched successfully');
+        return $this->success([
+            'providers' => UserResource::collection($providers),
+        ], 'Providers fetched successfully');
     }
-
-
 }

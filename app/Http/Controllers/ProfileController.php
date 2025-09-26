@@ -18,7 +18,7 @@ class ProfileController extends Controller
     use ApiResponse;
 
     public function getUser(Request $request){
-        return $this->success( [
+        return $this->success([
             'user' => new UserResource( auth()->user() )
         ], 'User fetched successfully');
     }
@@ -27,15 +27,15 @@ class ProfileController extends Controller
     {
         $user = $userService->updateUser($request->user(), $request->validated());
 
-        return $this->success(compact('user'), 'User updated successfully', 201);
+        return $this->success([
+            'user' => new UserResource($user)
+        ], 'User updated successfully', 201);
     }
 
     public function uploadAvatar(UploadAvatarRequest $request, AvatarService $avatarService)
     {
         $avatarUrl = $avatarService->updateUserAvatar($request->user(), $request->file('avatar'));
 
-        return $this->success([
-            'avatar_url' => $avatarUrl
-        ], 'Avatar Uploaded');
+        return $this->success( compact('avatarUrl'), 'Avatar Uploaded');
     }
 }

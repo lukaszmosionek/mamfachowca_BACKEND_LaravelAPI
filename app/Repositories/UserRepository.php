@@ -14,8 +14,8 @@ class UserRepository implements UserRepositoryInterface
     {
         // Fetch only providers
         return User::select(['id', 'name'])
-            ->where('role', 'provider')
-            ->pluck('name', 'id');
+            ->where('role', Role::PROVIDER)
+            ->get();
     }
 
     public function findByIdWithAvailabilities(int $userId): User

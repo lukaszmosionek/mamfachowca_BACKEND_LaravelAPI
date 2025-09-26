@@ -19,7 +19,7 @@ class UserServiceRepository implements UserServiceRepositoryInterface
                     ->paginate($perPage);
     }
 
-       public function createService(array $data)
+    public function createService(array $data)
     {
         return auth()->user()->services()->create($data);
     }
@@ -42,9 +42,9 @@ class UserServiceRepository implements UserServiceRepositoryInterface
         $data = [];
         foreach ($translations as $translation) {
             $data[] = [
-                'name' => $translation['name'] ?? '',
-                'description' => $translation['description'] ?? '',
-                'language_id' => $languages[$translation['language']['code']] ?? null,
+                'name' => $translation['name'],
+                'description' => $translation['description'],
+                'language_id' => $languages[$translation['language']['code']],
             ];
         }
         $service->translations()->createMany($data);
@@ -62,14 +62,12 @@ class UserServiceRepository implements UserServiceRepositoryInterface
         $languages = $language->pluck('id', 'code')->toArray();
 
         foreach ($translations as $translation) {
-            $service->translations()->updateOrCreate(
-                ['id' => $translation['id'] ?? 0],
-                [
-                    'name' => $translation['name'] ?? '',
-                    'description' => $translation['description'] ?? '',
-                    'language_id' => $languages[$translation['language']['code']] ?? null,
-                ]
-            );
+            $service->translations()->updateOrCreate([
+                'language_id' => $languages[$translation['language']['code']],
+            ], [
+                'name' => $translation['name'],
+                'description' => $translation['description'],
+            ]);
         }
     }
 

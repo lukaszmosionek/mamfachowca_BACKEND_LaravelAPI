@@ -18,9 +18,7 @@ class FavoriteController extends Controller
 
     public function index(ServiceRepositoryInterface $services)
     {
-        $user = auth()->user();
-
-        $services = $services->getFavoritedByUser($user->id);
+        $services = $services->getFavoritedByUser(auth()->user()->id);
 
         return $this->success([
                     'favorites' => FavoritedResource::collection($services->items()),
@@ -31,16 +29,13 @@ class FavoriteController extends Controller
 
     public function toggle(Request $request, int $itemId, FavoriteService $service)
     {
-        $user = $request->user();
-        $result = $service->toggle($user, $itemId);
-
+        $result = $service->toggle(auth()->user(), $itemId);
         return $this->success($result);
     }
 
     public function isFavorited($itemId)
     {
-        $user = auth()->user();
-        $favorited = $user->favorites()->where('item_id', $itemId)->exists();
-        return response()->json(['favorited' => $favorited]);
+        $favorited = auth()->user()->favorites()->where('item_id', $itemId)->exists();
+        return $this->success(['favorited' => $favorited]);
     }
 }

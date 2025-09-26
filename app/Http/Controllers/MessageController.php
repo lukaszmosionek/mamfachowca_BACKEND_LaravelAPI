@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Events\MessageSent;
 use App\Http\Requests\StoreMessageRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Chat;
 use App\Models\User;
 use App\Repositories\Contracts\ChatRepositoryInterface;
@@ -45,7 +46,7 @@ class MessageController extends Controller
 
         return $this->success([
                 'messages' => $messages,
-                'receiver' => $user
+                'receiver' => new UserResource($user)
             ], 'Messages fetched successfully'
         );
     }

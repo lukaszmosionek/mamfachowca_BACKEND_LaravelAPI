@@ -67,8 +67,9 @@ class UserServiceController extends Controller
     {
         $service = $this->serviceRepository->findByIdWithRelations($id);
 
-        $service = new ServiceResource($service);
-        return $this->success(compact('service'), 'Service fetched successfully');
+        return $this->success([
+            'service' => new ServiceResource($service),
+        ], 'Service fetched successfully');
     }
 
     public function update(UpdateServiceRequest $request, Service $service, UserServiceRepositoryInterface $repository, Language $language) {
@@ -85,7 +86,9 @@ class UserServiceController extends Controller
             $repository->updateTranslations($service, $request->translations, $language);
         }
 
-        return $this->success(new UserServiceResource($service), 'Service updated successfully');
+        return $this->success([
+            'service' => new UserServiceResource($service)
+        ], 'Service updated successfully');
     }
 
     public function destroy(Service $service)

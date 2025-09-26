@@ -28,7 +28,10 @@ class ProviderControllerTest extends TestCase
                 'message' => 'Providers fetched successfully',
                 'data' => [
                     'providers' => [
-                        $provider->id => $provider->name
+                        [
+                            'id' => $provider->id,
+                            'name' => $provider->name
+                        ]
                     ]
                 ]
             ]);

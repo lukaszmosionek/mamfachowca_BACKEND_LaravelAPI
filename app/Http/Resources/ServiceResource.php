@@ -35,6 +35,7 @@ class ServiceResource extends JsonResource
                                         : false;
                                 }),
             'currency'        => new CurrencyResource($this->whenLoaded('currency')),
+            'currency_id'     => $this->currency_id,
             'provider'        => new UserResource($this->whenLoaded('provider')),
             'photos'          => PhotoResource::collection($this->whenLoaded('photos')),
             'deleted_at'      => $this->deleted_at,

@@ -7,6 +7,7 @@ use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
 use App\Traits\ApiResponse;
@@ -31,7 +32,7 @@ class AuthController extends Controller
         }
 
         return $this->success([
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => $user->createToken('api_token')->plainTextToken,
             ], 'User registered successfully.', 201);
     }
@@ -45,7 +46,7 @@ class AuthController extends Controller
         }
 
         return $this->success([
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => $user->createToken('api_token')->plainTextToken,
             ], 'User logged in successfully.');
     }
