@@ -15,7 +15,6 @@ class ForceJsonMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         if (
             $request->header('Content-Type') !== 'application/json' ||
             $request->header('Accept') !== 'application/json'

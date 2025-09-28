@@ -63,6 +63,7 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
         $this->authorize('delete', $appointment);
+        abort_if( auth()->id() !== $appointment->client_id, 403, 'You can only delete your own appointments.');
         $appointment->delete();
         return $this->success(null, 'Appointment delete successfully', 204);
     }

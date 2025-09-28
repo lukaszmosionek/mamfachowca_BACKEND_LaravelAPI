@@ -15,14 +15,11 @@ class AvailabilityResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            // 'id' => $this->id,
-            // 'provider_id' => $this->provider_id,
+            'id' => $this->id,
             'day_of_week' => $this->day_of_week,
             'day_of_week_number' => date('N', strtotime($this->day_of_week)),
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
-            // 'created_at' => $this->created_at?->toDateTimeString(),
-            // 'updated_at' => $this->updated_at?->toDateTimeString(),
         ];
     }
 }
