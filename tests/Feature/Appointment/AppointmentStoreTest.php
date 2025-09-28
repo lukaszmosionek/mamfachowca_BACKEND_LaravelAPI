@@ -25,8 +25,6 @@ class AppointmentStoreTest extends TestCase
 
     public function test_client_can_create_appointment_successfully()
     {
-        // $client = User::factory()->client()->create();
-        // $provider = User::factory()->provider()->create();
         $provider = User::factory()->create(['role'=>Role::PROVIDER]);
         $client = User::factory()->create(['role'=>Role::CLIENT]);
         $service = Service::factory()->create([

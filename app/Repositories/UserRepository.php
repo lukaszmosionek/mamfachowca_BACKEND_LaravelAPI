@@ -67,4 +67,9 @@ class UserRepository implements UserRepositoryInterface
         return 'User soft-deleted successfully';
     }
 
+    public function findByEmail(string $email): ?User
+    {
+        return User::where('email', $email)->first();
+    }
+
 }

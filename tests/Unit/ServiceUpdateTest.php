@@ -68,6 +68,8 @@ class ServiceUpdateTest extends TestCase
             'duration_minutes' => 30
         ]);
 
+        dump($response->getContent());
+
         $response->assertStatus(403); // Forbidden
     }
 

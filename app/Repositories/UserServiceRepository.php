@@ -36,9 +36,9 @@ class UserServiceRepository implements UserServiceRepositoryInterface
         $service->photos()->createMany($paths);
     }
 
-    public function addTranslations($service, array $translations, $language)
+    public function addTranslations($service, array $translations)
     {
-        $languages = $language::codeIdMap();
+        $languages = Language::codeIdMap();
         $data = [];
         foreach ($translations as $translation) {
             $data[] = [
@@ -57,9 +57,9 @@ class UserServiceRepository implements UserServiceRepositoryInterface
         return $service;
     }
 
-    public function updateTranslations(Service $service, array $translations, Language $language)
+    public function updateTranslations(Service $service, array $translations)
     {
-        $languages = $language->pluck('id', 'code')->toArray();
+        $languages = Language::pluck('id', 'code')->toArray();
 
         foreach ($translations as $translation) {
             $service->translations()->updateOrCreate([

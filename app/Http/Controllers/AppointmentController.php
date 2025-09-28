@@ -41,7 +41,7 @@ class AppointmentController extends Controller
 
     public function show(Appointment $appointment)
     {
-        $this->authorize('view', $appointment);
+        if( !in_array(auth()->id(), [$appointment->client_id, $appointment->provider_id]) ) return $this->error('You can only view your own appointments.', 403);
 
         $appointment->load(['service', 'provider', 'client']);
 
@@ -62,9 +62,9 @@ class AppointmentController extends Controller
 
     public function destroy(Appointment $appointment)
     {
-        $this->authorize('delete', $appointment);
-        abort_if( auth()->id() !== $appointment->client_id, 403, 'You can only delete your own appointments.');
+        if( auth()->id() !== $appointment->client_id ) return $this->error('You can only delete your own appointments.', 403);
+
         $appointment->delete();
-        return $this->success(null, 'Appointment delete successfully', 204);
+        return $this->success(null, 'Appointment deleted successfully', 204);
     }
 }

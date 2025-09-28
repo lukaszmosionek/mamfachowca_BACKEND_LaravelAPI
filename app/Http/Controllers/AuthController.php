@@ -10,6 +10,8 @@ use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
+use App\Services\PasswordResetService;
+use App\Services\UserService;
 use App\Traits\ApiResponse;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Request;
@@ -21,15 +23,18 @@ class AuthController extends Controller
 {
     use ApiResponse;
 
+    protected UserService $userService;
+    protected PasswordResetService $passwordResetService;
+
+    public function __construct(UserService $userService, PasswordResetService $passwordResetService)
+    {
+        $this->userService = $userService;
+        $this->passwordResetService = $passwordResetService;
+    }
+
     public function register(RegisterRequest $request)
     {
-        $user = User::create( $request->all() + ['lang' => App::getLocale()] );
-        $user->role = $request->role;  //validated in Request that is not ADMIN
-        $user->save();
-
-        if($request->availability){
-            app(CreateAvailabilityAction::class)->execute($user, $request->availability);
-        }
+        $user = $this->userService->register($request->all());
 
         return $this->success([
                 'user' => new UserResource($user),
@@ -39,34 +44,27 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = $this->userService->login($request->email, $request->password);
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return $this->error('Invalid credentials', 401 , ['password' => 'validation.invalid-credentials']);
+        if (!$user) {
+            return $this->error('Invalid credentials', 401, ['password' => 'validation.invalid-credentials']);
         }
 
         return $this->success([
-                'user' => new UserResource($user),
-                'token' => $user->createToken('api_token')->plainTextToken,
-            ], 'User logged in successfully.');
+            'user'  => new UserResource($user),
+            'token' => $user->createToken('api_token')->plainTextToken,
+        ], 'User logged in successfully.');
     }
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        $this->userService->logout($request->user());
         return $this->success(null, 'Logged out');
     }
 
     public function forgotPassword(ForgotPasswordRequest $request)
     {
-        ResetPassword::createUrlUsing(function (User $user, string $token) {
-            return config('paths.frontend_url') . '/reset-password?token=' . $token . '&email=' . urlencode($user->email);
-        });
-
-
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        $status = $this->passwordResetService->sendResetLink($request->email);
 
         return $status === Password::RESET_LINK_SENT
             ? $this->success(null, __($status))
@@ -75,13 +73,8 @@ class AuthController extends Controller
 
     public function resetPassword(ResetPasswordRequest $request)
     {
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password),
-                ])->save();
-            }
+        $status = $this->passwordResetService->resetPassword(
+            $request->only('email', 'password', 'password_confirmation', 'token')
         );
 
         return $status === Password::PASSWORD_RESET

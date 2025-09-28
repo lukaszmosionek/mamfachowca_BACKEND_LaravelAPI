@@ -15,12 +15,7 @@ class UpdateServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $service = $this->route('service'); // message failedAuthorization()
-        return $service && auth()->user()->can('update', $service);  //class ServicePolicy update()
-    }
-    protected function failedAuthorization()
-    {
-        throw new AuthorizationException('You are not allowed to update this service.');
+        return true;
     }
 
     public function rules(): array

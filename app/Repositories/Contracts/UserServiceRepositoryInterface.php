@@ -10,10 +10,10 @@ interface UserServiceRepositoryInterface {
     public function getUserServices($user, $perPage = 10): LengthAwarePaginator;
     public function createService(array $data);
     public function addPhotos($service, array $photos);
-    public function addTranslations($service, array $translations, Language $language);
+    public function addTranslations($service, array $translations);
 
     public function updateService(Service $service, array $data);
-    public function updateTranslations(Service $service, array $translations, Language $language);
+    public function updateTranslations(Service $service, array $translations);
 
     public function findByIdWithRelations(int $id);
 }

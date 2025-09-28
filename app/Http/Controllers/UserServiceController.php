@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Role;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServicePhotoRequest;
 use App\Http\Requests\UpdateServiceRequest;
@@ -47,7 +48,7 @@ class UserServiceController extends Controller
         ], 'Services fetched successfully');
     }
 
-    public function store(StoreServiceRequest $request, UserServiceRepositoryInterface $repository, Language $language) {
+    public function store(StoreServiceRequest $request, UserServiceRepositoryInterface $repository) {
         $service = $repository->createService($request->all());
 
         if ($request->has('photos')) {
@@ -55,7 +56,7 @@ class UserServiceController extends Controller
         }
 
         if ($request->has('translations')) {
-            $repository->addTranslations($service, $request->translations, $language);
+            $repository->addTranslations($service, $request->translations);
         }
 
         return $this->success([
@@ -63,7 +64,7 @@ class UserServiceController extends Controller
         ], 'Service created successfully', 201);
     }
 
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $service = $this->serviceRepository->findByIdWithRelations($id);
 
@@ -72,8 +73,8 @@ class UserServiceController extends Controller
         ], 'Service fetched successfully');
     }
 
-    public function update(UpdateServiceRequest $request, Service $service, UserServiceRepositoryInterface $repository, Language $language) {
-        $this->authorize('update', $service);
+    public function update(UpdateServiceRequest $request, Service $service, UserServiceRepositoryInterface $repository) {
+        if( auth()->user()->role !== Role::ADMIN && auth()->user()->id !== $service->provider_id ) return $this->error('You can only update your own service.', 403);
 
         // Update main service fields
         $service = $repository->updateService(
@@ -83,7 +84,7 @@ class UserServiceController extends Controller
 
         // Update translations
         if ($request->has('translations')) {
-            $repository->updateTranslations($service, $request->translations, $language);
+            $repository->updateTranslations($service, $request->translations);
         }
 
         return $this->success([
@@ -93,7 +94,8 @@ class UserServiceController extends Controller
 
     public function destroy(Service $service)
     {
-        $this->authorize('delete', $service);
+        if( auth()->id() !== $service->provider_id ) return $this->error('You can only delete your own services.', 403);
+
         $service->delete();
         return $this->success(null, 'Service deleted successfully', 204);
     }
@@ -114,14 +116,14 @@ class UserServiceController extends Controller
         ], 'Photos uploaded successfully!');
     }
 
-    public function destroyPhoto($id): JsonResponse
+    public function destroyPhoto(int $id): JsonResponse
     {
         $photo = $this->photoRepository->findById($id);
 
         $this->imageService->deletePhotoFiles($photo);
         $this->photoRepository->delete($photo);
 
-        return $this->success(null, 'Photo deleted');
+        return $this->success(null, 'Photo deleted successfully!');
     }
 
 }
