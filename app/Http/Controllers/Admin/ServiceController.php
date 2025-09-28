@@ -2,17 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Resources\ServiceResource;
-use App\Models\Language;
-use App\Models\Service;
-use App\Services\CurrencyConversionService;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\ServiceRepositoryInterface;
 use App\Services\ServiceService;
@@ -51,9 +44,9 @@ class ServiceController extends Controller
         );
     }
 
-    public function destroy(int $serviceId): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $message = $this->serviceService->toggleDelete($serviceId);
+        $message = $this->serviceService->toggleDelete($id);
         return $this->success($message, 200);
     }
 

@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\NotificationResource;
 use App\Traits\ApiResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
     use ApiResponse;
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         // Return the authenticated user's notifications
         return $this->success([
@@ -21,7 +22,7 @@ class NotificationController extends Controller
         ], 'Notifications fetched successfully');
     }
 
-    public function markAsRead(Request $request, $id)
+    public function markAsRead(Request $request, int $id): JsonResponse
     {
         // Mark a specific notification as read
         $notification = $request->user()->notifications()->findOrFail($id);
@@ -30,7 +31,7 @@ class NotificationController extends Controller
         return $this->success([], 'Notification marked as read');
     }
 
-    public function markAllAsRead(Request $request)
+    public function markAllAsRead(Request $request): JsonResponse
     {
         // Mark all notifications as read
         $request->user()->unreadNotifications->markAsRead();

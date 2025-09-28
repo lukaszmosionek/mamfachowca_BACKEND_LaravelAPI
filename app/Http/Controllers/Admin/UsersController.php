@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enum\Role;
-use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\ServiceRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 
 class UsersController extends Controller
 {
@@ -26,7 +23,8 @@ class UsersController extends Controller
         $this->services = $services;
     }
 
-    public function index(){
+    public function index(): JsonResponse
+    {
 
         $users = $this->users->allWithTrashed();
 
@@ -35,12 +33,13 @@ class UsersController extends Controller
         ], 'Users fetched successfully');
     }
 
-    public function show($userId){
+    public function show($id): JsonResponse
+    {
 
         $perPage = request('per_page');
 
-        $user = $this->users->findWithAvailabilities($userId);
-        $services = $this->services->getUserServicesWithPhotos($userId, $perPage);
+        $user = $this->users->findWithAvailabilities($id);
+        $services = $this->services->getUserServicesWithPhotos($id, $perPage);
 
         return $this->success([
             'user' => new UserResource($user),
@@ -49,10 +48,10 @@ class UsersController extends Controller
         ], 'User fetched successfully');
     }
 
-    public function destroy($userId)
+    public function destroy($id): JsonResponse
     {
         try {
-            $user = $this->users->findWithTrashed($userId);
+            $user = $this->users->findWithTrashed($id);
             $message = $this->users->toggleDelete($user);
 
             return $this->success($message, 200);

@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateAvailabilityAction;
 use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Password;
-use App\Models\User;
 use App\Services\PasswordResetService;
 use App\Services\UserService;
 use App\Traits\ApiResponse;
-use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -32,7 +28,7 @@ class AuthController extends Controller
         $this->passwordResetService = $passwordResetService;
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         $user = $this->userService->register($request->all());
 
@@ -42,7 +38,7 @@ class AuthController extends Controller
             ], 'User registered successfully.', 201);
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         $user = $this->userService->login($request->email, $request->password);
 
@@ -56,13 +52,13 @@ class AuthController extends Controller
         ], 'User logged in successfully.');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $this->userService->logout($request->user());
         return $this->success(null, 'Logged out');
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $status = $this->passwordResetService->sendResetLink($request->email);
 
@@ -71,7 +67,7 @@ class AuthController extends Controller
             : $this->error(__($status), 400, ['email' => __($status)]);
     }
 
-    public function resetPassword(ResetPasswordRequest $request)
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
         $status = $this->passwordResetService->resetPassword(
             $request->only('email', 'password', 'password_confirmation', 'token')

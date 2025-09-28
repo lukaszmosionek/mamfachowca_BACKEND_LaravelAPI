@@ -6,6 +6,7 @@ use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 
 class ProviderController extends Controller
 {
@@ -18,7 +19,7 @@ class ProviderController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
         $providers = $this->userRepository->getProviders();
         return $this->success([

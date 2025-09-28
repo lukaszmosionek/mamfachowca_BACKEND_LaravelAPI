@@ -9,12 +9,13 @@ use App\Services\AppointmentActionService;
 use App\Services\AppointmentService;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 
 class AppointmentController extends Controller
 {
     use AuthorizesRequests, ApiResponse;
 
-    public function index(AppointmentService $appointmentService)
+    public function index(AppointmentService $appointmentService): JsonResponse
     {
         $perPage = request('per_page', 10);
         $appointments = $appointmentService->getAppointmentsForUser(auth()->user(), $perPage);
@@ -25,7 +26,7 @@ class AppointmentController extends Controller
         ], 'Appointments retrieved successfully');
     }
 
-    public function store(StoreAppointmentRequest $request, AppointmentService $appointmentService)
+    public function store(StoreAppointmentRequest $request, AppointmentService $appointmentService): JsonResponse
     {
         $appointment = $appointmentService->book(
             auth()->user(),
@@ -39,7 +40,7 @@ class AppointmentController extends Controller
         ], 'Appointment stored successfully', 201);
     }
 
-    public function show(Appointment $appointment)
+    public function show(Appointment $appointment): JsonResponse
     {
         if( !in_array(auth()->id(), [$appointment->client_id, $appointment->provider_id]) ) return $this->error('You can only view your own appointments.', 403);
 
@@ -50,7 +51,7 @@ class AppointmentController extends Controller
         ], 'Appointment fetched successfully');
     }
 
-    public function handleAction(Appointment $appointment, string $action, AppointmentActionService $service)
+    public function handleAction(Appointment $appointment, string $action, AppointmentActionService $service): JsonResponse
     {
         try {
             $message = $service->handle($appointment, $action);
@@ -60,7 +61,7 @@ class AppointmentController extends Controller
         }
     }
 
-    public function destroy(Appointment $appointment)
+    public function destroy(Appointment $appointment): JsonResponse
     {
         if( auth()->id() !== $appointment->client_id ) return $this->error('You can only delete your own appointments.', 403);
 

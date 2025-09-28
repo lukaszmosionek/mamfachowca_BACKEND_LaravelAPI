@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateUserRequest;
+
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class UsersController extends Controller
 {
@@ -21,12 +20,13 @@ class UsersController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function show($userId){
+    public function show(int $id): JsonResponse
+    {
 
         $perPage = request('per_page');
 
-        $user = $this->userRepository->findByIdWithAvailabilities($userId);
-        $services = $this->userRepository->getUserServices($userId, $perPage);
+        $user = $this->userRepository->findByIdWithAvailabilities($id);
+        $services = $this->userRepository->getUserServices($id, $perPage);
 
         return $this->success([
             'user' => new UserResource($user),

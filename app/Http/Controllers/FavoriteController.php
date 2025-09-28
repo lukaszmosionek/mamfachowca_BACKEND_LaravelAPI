@@ -4,19 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FavoritedResource;
-use App\Http\Resources\ServiceResource;
-use App\Models\Service;
 use App\Repositories\Contracts\ServiceRepositoryInterface;
 use App\Services\FavoriteService;
 use App\Traits\ApiResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class FavoriteController extends Controller
 {
     use ApiResponse;
 
-    public function index(ServiceRepositoryInterface $services)
+    public function index(ServiceRepositoryInterface $services): JsonResponse
     {
         $services = $services->getFavoritedByUser(auth()->user()->id);
 
@@ -27,13 +25,13 @@ class FavoriteController extends Controller
             );
     }
 
-    public function toggle(Request $request, int $itemId, FavoriteService $service)
+    public function toggle(Request $request, int $itemId, FavoriteService $service): JsonResponse
     {
         $result = $service->toggle(auth()->user(), $itemId);
         return $this->success($result);
     }
 
-    public function isFavorited($itemId)
+    public function isFavorited(int $itemId): JsonResponse
     {
         $favorited = auth()->user()->favorites()->where('item_id', $itemId)->exists();
         return $this->success(['favorited' => $favorited]);

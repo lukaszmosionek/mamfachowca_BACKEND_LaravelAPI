@@ -8,10 +8,7 @@ use App\Http\Requests\UpdateServicePhotoRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Resources\PhotoResource;
 use App\Http\Resources\ServiceResource;
-use Illuminate\Support\Str;
 use App\Http\Resources\UserServiceResource;
-use App\Models\Language;
-use App\Models\Photo;
 use App\Models\Service;
 use App\Repositories\Contracts\PhotoRepositoryInterface;
 use App\Repositories\Contracts\UserServiceRepositoryInterface;
@@ -20,8 +17,6 @@ use App\Services\ImageService;
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class UserServiceController extends Controller
 {
@@ -38,7 +33,7 @@ class UserServiceController extends Controller
         $this->imageService = $imageService;
     }
 
-    public function index(UserServiceRepository $repository)
+    public function index(UserServiceRepository $repository): JsonResponse
     {
         $services = $repository->getUserServices(auth()->user());
 
@@ -48,7 +43,8 @@ class UserServiceController extends Controller
         ], 'Services fetched successfully');
     }
 
-    public function store(StoreServiceRequest $request, UserServiceRepositoryInterface $repository) {
+    public function store(StoreServiceRequest $request, UserServiceRepositoryInterface $repository): JsonResponse
+    {
         $service = $repository->createService($request->all());
 
         if ($request->has('photos')) {
@@ -73,7 +69,8 @@ class UserServiceController extends Controller
         ], 'Service fetched successfully');
     }
 
-    public function update(UpdateServiceRequest $request, Service $service, UserServiceRepositoryInterface $repository) {
+    public function update(UpdateServiceRequest $request, Service $service, UserServiceRepositoryInterface $repository): JsonResponse
+    {
         if( auth()->user()->role !== Role::ADMIN && auth()->user()->id !== $service->provider_id ) return $this->error('You can only update your own service.', 403);
 
         // Update main service fields
@@ -92,7 +89,7 @@ class UserServiceController extends Controller
         ], 'Service updated successfully');
     }
 
-    public function destroy(Service $service)
+    public function destroy(Service $service): JsonResponse
     {
         if( auth()->id() !== $service->provider_id ) return $this->error('You can only delete your own services.', 403);
 
