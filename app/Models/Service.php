@@ -87,7 +87,6 @@ class Service extends Model
         if( $provider_id OR $search ) request()->merge(['page' => 1]); // Force page 1
 
         $returnQuery = $query->when($search, function ($q, $search) {
-            // $q->where('name', 'like', "%{$search}%");
             $q->whereHas('translations', function ($q) use ($search) {
                     return $q->where('name', 'like', "%{$search}%")->where('language_id', Language::getCurrentLanguageId() );
             });

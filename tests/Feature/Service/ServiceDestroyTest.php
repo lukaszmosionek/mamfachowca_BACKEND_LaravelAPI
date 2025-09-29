@@ -17,7 +17,7 @@ class ServiceDestroyTest extends TestCase
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
 
-        $service = Service::factory()->create([
+        $service = Service::factory()->withTranslations()->create([
             'provider_id' => $otherUser->id,
         ]);
 
@@ -37,7 +37,7 @@ class ServiceDestroyTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $service = Service::factory()->create([
+        $service = Service::factory()->withTranslations()->create([
             'provider_id' => $user->id,
         ]);
 

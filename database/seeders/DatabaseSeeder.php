@@ -9,13 +9,10 @@ use Illuminate\Database\Seeder;
 use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
-use App\Models\Currency;
 use App\Models\Language;
 use App\Models\Photo;
 use App\Models\ServiceTranslation;
-use App\Notifications\NewMessageNotification;
 use App\Services\MessageService;
-use Exception;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -27,9 +24,19 @@ class DatabaseSeeder extends Seeder
     protected $providers;
     protected $clients;
 
+    protected $count;
+
+    public function  __construct(){
+        $this->count = [
+            'services' => 5,// for each provider
+            'clients' => 30,
+            'providers' => 20,
+            'appointments' => 3,// for each client
+        ];
+    }
+
     public function run(): void
     {
-
         $this->call([
             LanguageSeeder::class,
             CurrencySeeder::class,
@@ -60,7 +67,7 @@ class DatabaseSeeder extends Seeder
                 'role' => Role::PROVIDER,
             ])
         ])->merge(
-            User::factory()->count(3)->create(['role' => Role::PROVIDER])
+            User::factory()->count( $this->count['providers'] )->create(['role' => Role::PROVIDER])
         );
 
         $this->clients = collect([
@@ -71,7 +78,7 @@ class DatabaseSeeder extends Seeder
                 'role' => Role::CLIENT,
             ])
         ])->merge(
-            User::factory()->count(5)->create(['role' => Role::CLIENT])
+            User::factory()->count( $this->count['clients'] )->create(['role' => Role::CLIENT])
         );
     }
 
@@ -86,17 +93,13 @@ class DatabaseSeeder extends Seeder
     }
 
     private function providerSeeder(){
-        $this->providers->each(function ($provider) {
-            $services = Service::factory()->count(30)->create([
+
+        $languages = Language::all();
+
+        $this->providers->each(function ($provider) use ($languages) {
+            $services = Service::factory()->withTranslations()->count( $this->count['services'] )->create([
                 'provider_id' => $provider->id,
-            ])->each(function ($service) {
-                foreach (Language::all() as $language) {
-                    ServiceTranslation::factory()->create([
-                        'service_id' => $service->id,
-                        'language_id' => $language->id,
-                    ]);
-                }
-            });
+            ]);
 
             foreach($services as $service){
                 $service->photos()->createMany( Photo::factory()->count( rand(2, 9) )->make()->toArray() );
@@ -111,7 +114,7 @@ class DatabaseSeeder extends Seeder
 
     private function clientSeeder(){
         $this->clients->each(function ($client) {
-            Appointment::factory()->count(20)->make()->each(function ($appointment) use ($client) {
+            Appointment::factory()->count( $this->count['appointments'] )->make()->each(function ($appointment) use ($client) {
                 $service = Service::inRandomOrder()->first();
 
                 DB::table('favorites')->insert([

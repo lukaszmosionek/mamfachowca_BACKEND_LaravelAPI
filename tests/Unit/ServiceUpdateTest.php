@@ -54,7 +54,7 @@ class ServiceUpdateTest extends TestCase
     {
         $provider1 = User::factory()->create(['role' => Role::PROVIDER]);
         $provider2 = User::factory()->create(['role' => Role::PROVIDER]);
-        $service = Service::factory()->for($provider1, 'provider')->create();
+        $service = Service::factory()->for($provider1, 'provider')->withTranslations()->create();
         $language = Language::factory()->create(['code' => 'en']);
 
         $this->actingAs($provider2);
@@ -76,7 +76,7 @@ class ServiceUpdateTest extends TestCase
     public function test_admin_can_update_every_service()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
-        $service = Service::factory()->create();
+        $service = Service::factory()->withTranslations()->create();
         $language = Language::factory()->create(['code' => 'en']);
 
         $this->actingAs($admin);
@@ -99,7 +99,7 @@ class ServiceUpdateTest extends TestCase
     public function test_unauthorized_user_cannot_update_service()
     {
         $user = User::factory()->create();
-        $service = Service::factory()->create();
+        $service = Service::factory()->withTranslations()->create();
         $language = Language::factory()->create();
 
         $this->actingAs($user);

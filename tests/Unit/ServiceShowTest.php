@@ -17,7 +17,7 @@ class ServiceShowTest extends TestCase
     {
         // Arrange
         $provider = User::factory()->create(['role' => Role::PROVIDER]);
-        $service = Service::factory()
+        $service = Service::factory()->withTranslations()
             ->for($provider, 'provider')
             ->hasPhotos(2)
             ->create();

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\AppointmentStatus;
 use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\User;
@@ -15,15 +16,6 @@ class AppointmentFactory extends Factory
 
     public function definition(): array
     {
-        // Create or get provider
-        $provider = User::factory()->create(['role' => 'provider']);
-
-        // Create or get client
-        $client = User::factory()->create(['role' => 'client']);
-
-        // Create service for the provider
-        $service = Service::factory()->for($provider, 'provider')->create();
-
         // Set date and start time
         $date = Carbon::now()->addDays(rand(1, 10))->toDateString();
         $start = Carbon::now()->setTime(rand(8, 16), 0);
@@ -32,13 +24,13 @@ class AppointmentFactory extends Factory
         $end = $start->copy()->addMinutes($service->duration_minutes ?? 30);
 
         return [
-            'client_id' => $client->id,
-            'provider_id' => $provider->id,
-            'service_id' => $service->id,
+            'client_id' => optional(User::where('role', 'client')->inRandomOrder()->first())->id ?? User::factory()->create(['role' => 'client']),
+            'provider_id' => optional(User::where('role', 'provider')->inRandomOrder()->first())->id ?? User::factory()->create(['role' => 'provider']),
+            'service_id' =>  optional(Service::inRandomOrder()->first())->id ?? Service::factory()->create(),
             'date' => $date,
             'start_time' => $start->format('H:i'),
             'end_time' => $end->format('H:i'),
-            'status' => 'pending',
+            'status' => AppointmentStatus::Pending,
         ];
     }
 }

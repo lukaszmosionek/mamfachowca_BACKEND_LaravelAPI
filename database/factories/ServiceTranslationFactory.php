@@ -20,7 +20,7 @@ class ServiceTranslationFactory extends Factory
         $language = Language::inRandomOrder()->first();
 
         return [
-            'name' => $this->faker->sentence(10).' '.$language->code,
+            'name' => $this->faker->sentence(5).' '.$language->code,
             'description' => $this->faker->sentence(120),
             'language_id' => $language->id
         ];

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Currency;
 use App\Models\Photo;
 use App\Models\Service;
+use App\Models\ServiceTranslation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,11 +26,17 @@ class ServiceFactory extends Factory
 
     }
 
-    public function withTranslation(array $attributes = [])
+    public function withTranslations(array $attributes = [])
     {
-        return $this->has(
-            \App\Models\ServiceTranslation::factory()->state($attributes),
-            'translations'
-        );
+        return $this->afterCreating(function ($service) use ($attributes) {
+            $languages = \App\Models\Language::all();
+
+            foreach ($languages as $language) {
+                \App\Models\ServiceTranslation::factory()->create(array_merge($attributes, [
+                    'service_id'   => $service->id,
+                    'language_id'  => $language->id,
+                ]));
+            }
+        });
     }
 }

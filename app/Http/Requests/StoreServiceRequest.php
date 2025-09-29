@@ -21,6 +21,7 @@ class StoreServiceRequest extends FormRequest
             'translations.*.description' => 'required|string',
             'translations.*.language.code' => 'required|string|min:1|max:4',
             'price' => 'required|numeric|min:0',
+            'currency_id' => 'required|numeric|min:1|exists:currencies,id',
             'duration_minutes' => 'required|integer|min:1',
         ];
     }

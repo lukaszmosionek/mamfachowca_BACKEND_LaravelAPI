@@ -39,6 +39,16 @@ class Availability extends Model
         'updated_at' => 'datetime',
     ];
 
+    public function getStartTimeAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('H:i:s');
+    }
+
+    public function getEndTimeAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('H:i:s');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relationships

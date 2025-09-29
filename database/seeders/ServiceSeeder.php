@@ -11,9 +11,11 @@ class ServiceSeeder extends Seeder
     public function run(): void
     {
         for ( $i = 0; $i < 5; $i++) {
-            $serviceModel = Service::factory()->create();
-            $serviceModel->photos()->create( Photo::factory()->count( rand(2, 9) )->make()->toArray() );
+            $serviceModel = Service::factory()->withTranslations()->create();
 
+            $serviceModel->photos()->createMany(
+                 Photo::factory()->count( rand(2, 9) )->make()->toArray()
+            );
         }
     }
 }
