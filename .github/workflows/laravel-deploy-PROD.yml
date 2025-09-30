@@ -12,18 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # - name: Checkout code
+      #   uses: actions/checkout@v3
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          extensions: mbstring, bcmath, pdo, tokenizer
-          ini-values: post_max_size=256M, upload_max_filesize=256M
+      # - name: Set up PHP
+      #   uses: shivammathur/setup-php@v2
+      #   with:
+      #     php-version: "8.2"
+      #     extensions: mbstring, bcmath, pdo, tokenizer
+      #     ini-values: post_max_size=256M, upload_max_filesize=256M
 
-      - name: Install dependencies
-        run: composer install --no-dev --optimize-autoloader
+      # - name: Install dependencies
+      #   run: composer install --no-dev --optimize-autoloader
 
       - name: Upload to Home.pl via SSH
         uses: appleboy/ssh-action@master
@@ -35,14 +35,21 @@ jobs:
           debug: true
           script: |
             cd ~/public_html/mamfachowca-api.pl/
+
             php artisan down
+
             git pull origin master
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
+
+            # clear first, then cache
+            php artisan config:clear
+            php artisan route:clear
+            php artisan view:clear
+            php artisan cache:clear
+
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
-            php artisan view:clear
-            php artisan cache:clear
-            php artisan config:clear
+
             php artisan up
