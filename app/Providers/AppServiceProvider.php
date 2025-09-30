@@ -3,10 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Service;
-use App\Policies\ServicePolicy;
-use App\Models\Appointment;
-use App\Policies\AppointmentPolicy;
 use App\Repositories\ChatRepository;
 use App\Repositories\Contracts\ChatRepositoryInterface;
 use App\Repositories\Contracts\MessageRepositoryInterface;
@@ -44,7 +40,6 @@ class AppServiceProvider extends ServiceProvider
     }
 
     protected $policies = [
-        Service::class => ServicePolicy::class,
-        Appointment::class => AppointmentPolicy::class,
+        //
     ];
 }

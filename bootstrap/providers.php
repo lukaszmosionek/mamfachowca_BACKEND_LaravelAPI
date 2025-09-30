@@ -1,7 +1,11 @@
 <?php
 
-return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\BroadcastServiceProvider::class,
-    App\Providers\TelescopeServiceProvider::class,
-];
+$providers[] = App\Providers\AppServiceProvider::class;
+$providers[] = App\Providers\BroadcastServiceProvider::class;
+
+// Only load Telescope outside production
+if (!app()->environment('production')) {
+    $providers[] = App\Providers\TelescopeServiceProvider::class;
+}
+
+return $providers;
