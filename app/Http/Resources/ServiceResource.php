@@ -27,7 +27,8 @@ class ServiceResource extends JsonResource
             'name'            => $translation ? $translation->name : null,
             'description'     => $translation ? $translation->description : null,
             'translations'    => ServiceTranslationResource::collection($this->whenLoaded('translations')),
-            'price'           => rtrim(rtrim(number_format($this->price, 2, '.', ''), '0'), '.'), // delete unnecesery .00 from e.g. 12.00 price
+            // 'price'           => rtrim(rtrim(number_format($this->price, 2, '.', ''), '0'), '.'), // delete unnecesery .00 from e.g. 12.00 price
+            'price'           => $this->price,
             'duration_minutes'=> $this->duration_minutes,
             'is_favorited'    => $this->whenLoaded('favoritedBy', function() use($request) {
                                     return $request->user()

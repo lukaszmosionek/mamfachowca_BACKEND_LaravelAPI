@@ -24,6 +24,7 @@ class ServiceController extends Controller
         $services = $this->serviceRepository->getPaginatedServices();
 
         return $this->success([
+            'servicesAA' => $services,
             'services' => ServiceResource::collection($services->items()),
             'last_page' => $services->lastPage(),
         ], 'Services fetched successfully');
