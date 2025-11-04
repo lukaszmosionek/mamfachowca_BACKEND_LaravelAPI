@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique(); // np. USD, PLN, EUR
             $table->string('symbol', 5);  // $ zł €
-            $table->decimal('rate', 15, 6);  // kurs wymiany względem np. USD
+            $table->decimal('rate', 15, 6)->comment('kurs wymiany względem USD np 1zł=0.270960USD, 1EUR=1.152850USD');  // kurs wymiany względem np. USD
             $table->foreignId('language_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
