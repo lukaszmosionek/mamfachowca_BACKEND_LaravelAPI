@@ -1,16 +1,15 @@
 <?php
 
-use App\Models\User;
-use App\Notifications\NewNotification;
-use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\Request;
 
 // /log-viewer -> View LOG
 // /telescope -> Laravel Telescope
 
 Route::get('/', function () {
-    echo '<a href="/docs/api">API DOCS</a>';
+    return redirect('/docs/api');
+    // echo '<a href="/docs/api">API DOCS</a>';
 });
 
 Route::get('/migrate', function () {
@@ -25,4 +24,17 @@ Route::get('/migrate', function () {
 
     return "Database migrated & storage reset!";
 });
+
+Route::middleware(['throttle:1,5']) // 1 request every 5 minutes
+    ->get('/clear-cache', function (Request $request) {
+        abort_unless($request->query('key') === env('CACHE_CLEAR_KEY'), 403, 'Unauthorized. Find clear-cache key in .env file.');
+
+        Artisan::call('app:clear-cache');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Cache cleared via custom command!',
+            'timestamp' => now()->toDateTimeString(),
+        ]);
+    });
 

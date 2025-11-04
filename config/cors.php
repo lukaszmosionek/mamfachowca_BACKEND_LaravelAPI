@@ -17,14 +17,14 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie', 'broadcasting/auth'],
 
-    'allowed_origins' => [
-        env('FRONTEND_URL', 'http://mamfachowca.pl'),
-        env('FRONTEND_URL_2', 'http://www.mamfachowca.pl'),
-        env('FRONTEND_URL_3', 'https://mamfachowca.pl'),
-        env('FRONTEND_URL_4', 'https://www.mamfachowca.pl'),
+    'allowed_origins' => array_filter([
+        env('FRONTEND_URL', 'https://mamfachowca.pl'),
+        env('FRONTEND_URL_2', 'https://www.mamfachowca.pl'),
+        env('FRONTEND_URL_3'),
+        env('FRONTEND_URL_4'),
         env('FRONTEND_URL_5'),
         env('FRONTEND_URL_6'),
-    ], // port Vue
+    ]),
 
     'allowed_methods' => ['*'],
 
