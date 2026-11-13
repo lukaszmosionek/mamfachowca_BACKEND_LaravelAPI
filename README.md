@@ -6,8 +6,8 @@
 
 ## 🌐 Live Application
 
-- 🔗 **Frontend**: [mamfachowca.mosioneklukasz.pl](http://mamfachowca.mosioneklukasz.pl)
-- 🔗 **Backend API**: [API Docs](http://api.mamfachowca.mosioneklukasz.pl/docs/api)
+- 🔗 **Frontend**: [mamfachowca.lukaszmosionek.pl](http://mamfachowca.lukaszmosionek.pl)
+- 🔗 **Backend API**: [API Docs](http://api.mamfachowca.lukaszmosionek.pl/docs/api)
 
 ---
 
