@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
+  <title id="title">Malowanie wnętrz - ilustracja us?ugi</title>
+  <desc id="desc">Przyjazna ilustracja przedstawiaj?ca fachowca wykonuj?cego us?ug?: Malowanie wnętrz.</desc>
+  <defs>
+    <linearGradient id="bg38_2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7F0"/><stop offset="1" stop-color="#F9E3D7"/></linearGradient>
+  </defs>
+  <rect width="960" height="720" rx="36" fill="url(#bg38_2)"/>
+  <circle cx="810" cy="100" r="48" fill="#F3A5A0" opacity=".62"/>
+  <path d="M0 530q190-55 380 0t580 0v190H0z" fill="#F9E3D7"/>
+  <path d="M350 360l128-112 125 112v178H350z" fill="#FFFFFF" opacity=".32" stroke="#554A4A" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M328 370l150-132 146 132" fill="none" stroke="#554A4A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
+  <circle cx="650" cy="350" r="174" fill="#FFFFFF" opacity=".88"/>
+  <circle cx="650" cy="350" r="158" fill="#F9E3D7" opacity=".72"/>
+  <path d="M105 189v20m-10-10h20" stroke="#E8C06F" stroke-width="6" stroke-linecap="round" opacity=".8"/><path d="M815 190v20m-10-10h20" stroke="#E8C06F" stroke-width="6" stroke-linecap="round" opacity=".8"/><path d="M795 484v20m-10-10h20" stroke="#E8C06F" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+  <g transform="rotate(3 650 350)"><rect x="555" y="280" width="170" height="175" rx="8" fill="#F9E3D7" stroke="#554A4A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M575 430q55-90 105-5" fill="#F3A5A0" stroke="#554A4A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M610 275v-40h100v35" fill="none" stroke="#554A4A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M710 250h35v34h-35z" fill="#E8C06F" stroke="#554A4A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M720 284v60" stroke="#554A4A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g transform="translate(230 275)" stroke="#554A4A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-55 138q55-44 110 0l28 138H-83z" fill="#88B8A8"/>
+    <path d="M-42 265l-18 82h35l28-75 28 75h35l-18-82" fill="#554A4A"/>
+    <path d="M-48 146l-55 77m151-77 49 67" fill="none"/>
+    <path d="M-111 223l20 13m190-17 20-8" fill="none"/>
+    <circle cy="62" r="49" fill="#F4C7A1"/>
+    <path d="M-53 53q3-52 53-52t53 52v9h-106z" fill="#F3A5A0"/>
+    <path d="M-60 58h120" fill="none"/>
+    <circle cx="-17" cy="72" r="4" fill="#554A4A" stroke="none"/>
+    <circle cx="17" cy="72" r="4" fill="#554A4A" stroke="none"/>
+    <path d="M-12 94q12 11 24 0" fill="none" stroke-width="6"/>
+  </g>
+  <rect x="44" y="584" width="872" height="92" rx="28" fill="#FFFFFF" opacity=".92"/>
+  <text x="480" y="642" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#554A4A">Malowanie wnętrz</text>
+</svg>

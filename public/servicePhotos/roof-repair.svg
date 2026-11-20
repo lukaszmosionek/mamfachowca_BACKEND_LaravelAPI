@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" role="img" aria-labelledby="title description">
+  <title id="title">Naprawa dachu</title>
+  <desc id="description">Fachowiec w kasku naprawia dach domu w słoneczny dzień.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DDF2F3"/>
+      <stop offset="1" stop-color="#FFF4E5"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D96F57"/>
+      <stop offset="1" stop-color="#B84F46"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="768" fill="url(#sky)"/>
+  <circle cx="850" cy="145" r="58" fill="#FFD47E"/>
+  <path d="M0 568c160-58 263 18 417-4s249-54 607 8v196H0z" fill="#DCECD7"/>
+  <path d="M0 634c159-43 295 27 467-2s335-31 557 10v126H0z" fill="#C5E0C1"/>
+
+  <g fill="#FFF9F0">
+    <path d="M145 190c0-25 20-45 45-45 8-34 38-59 74-59 40 0 72 31 75 70 27 2 48 24 48 51H145z"/>
+  </g>
+  <g fill="#FFFFFF" opacity=".8">
+    <path d="M670 220c0-18 15-33 33-33 6-25 28-43 54-43 29 0 52 22 54 50 20 1 35 18 35 37H670z"/>
+  </g>
+
+  <path d="M165 365 512 172l347 193v318H165z" fill="#F4D6B5"/>
+  <path d="M196 398h118v112H196z" fill="#B8DFE4"/>
+  <path d="M710 398h118v112H710z" fill="#B8DFE4"/>
+  <path d="M442 500h141v183H442z" fill="#789681"/>
+  <circle cx="556" cy="592" r="7" fill="#F8D47E"/>
+  <path d="M148 365 512 126l374 239-32 64-342-219-330 219z" fill="url(#roof)"/>
+
+  <g fill="none" stroke="#F3A080" stroke-linecap="round" stroke-width="8" opacity=".8">
+    <path d="m229 375 283-184 300 184"/>
+    <path d="m270 397 242-158 263 158"/>
+    <path d="m318 416 194-128 215 128"/>
+  </g>
+  <g fill="none" stroke="#9D413C" stroke-linecap="round" stroke-width="6" opacity=".75">
+    <path d="m332 244 92 55"/>
+    <path d="m436 178 122 73"/>
+    <path d="m568 179 122 75"/>
+    <path d="m690 258 115 70"/>
+  </g>
+  <path d="m475 276 58-38 69 43-57 39z" fill="#F7BD73" stroke="#9D413C" stroke-width="8" stroke-linejoin="round"/>
+  <path d="m495 273 35-23 42 27-35 24z" fill="#FFE4A8"/>
+
+  <g fill="none" stroke="#E8E3D7" stroke-linecap="round" stroke-width="16">
+    <path d="m816 377-56 314"/>
+    <path d="m875 402-56 301"/>
+  </g>
+  <g fill="none" stroke="#A98768" stroke-linecap="round" stroke-width="9">
+    <path d="m804 443 58 10"/>
+    <path d="m796 488 58 10"/>
+    <path d="m788 533 58 10"/>
+    <path d="m780 578 58 10"/>
+    <path d="m772 623 58 10"/>
+    <path d="m765 666 58 10"/>
+  </g>
+
+  <g stroke="#455B58" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m596 305-31 72 37 15 43-69" fill="#527A70" stroke-width="12"/>
+    <path d="m643 305 37 67-34 21-48-61" fill="#527A70" stroke-width="12"/>
+    <path d="m583 384 42-1" fill="none" stroke-width="13"/>
+    <path d="m638 388 43 2" fill="none" stroke-width="13"/>
+    <path d="m609 229 72 31-31 66-70-34z" fill="#5FA58F" stroke-width="12"/>
+    <path d="m614 245-38 38 20 22 45-33" fill="#5FA58F" stroke-width="12"/>
+    <path d="m665 251 27 27-16 20-38-24" fill="#5FA58F" stroke-width="12"/>
+    <path d="m668 261 23-39" fill="none" stroke-width="9"/>
+    <path d="m683 219 30-7" fill="none" stroke-width="8"/>
+    <path d="m713 211 9 10-20 26-9-9z" fill="#D9E5E3" stroke-width="6"/>
+    <circle cx="636" cy="196" r="30" fill="#E8B895" stroke-width="8"/>
+    <path d="M600 192c4-37 63-48 77-11l-5 14-67-2z" fill="#F3C95E" stroke-width="8"/>
+    <path d="M603 186c19-20 54-23 73-3" fill="none" stroke="#455B58" stroke-width="8"/>
+    <path d="m626 201 1 2m20-2 1 2" fill="none" stroke-width="5"/>
+    <path d="M628 212q8 8 17 0" fill="none" stroke-width="4"/>
+  </g>
+
+  <g fill="#71977A">
+    <circle cx="122" cy="629" r="39"/>
+    <circle cx="168" cy="616" r="53"/>
+    <circle cx="904" cy="637" r="48"/>
+    <circle cx="952" cy="622" r="37"/>
+  </g>
+  <g fill="#F4C86A">
+    <circle cx="112" cy="629" r="6"/>
+    <circle cx="162" cy="601" r="6"/>
+    <circle cx="917" cy="631" r="6"/>
+    <circle cx="947" cy="612" r="6"/>
+  </g>
+</svg>

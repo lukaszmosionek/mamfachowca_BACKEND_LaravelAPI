@@ -6,11 +6,10 @@ use App\Models\Language;
 use App\Models\User;
 use App\Models\Service;
 use App\Models\ServiceTranslation;
-use App\Services\GoogleImageSearchService;
 use App\Services\ImageService;
-use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use RuntimeException;
 
 class GoogleServiceSeeder extends Seeder
 {
@@ -28,13 +27,17 @@ class GoogleServiceSeeder extends Seeder
         $file = File::get(resource_path('js/services.json'));
         $services = json_decode($file, true);
 
-        dump("Json File Error: ".json_last_error_msg());
-
         $randomProvider = User::where('role', 'provider')->inRandomOrder()->first();
 
-        foreach ($services as $index => $service) {
-            if( !isset($service['photos']) ) continue;
-
+        foreach ($services as $service) {
+            $photos = array_values(array_filter(
+                $service['photos'] ?? [],
+                static fn ($photo) => is_string($photo)
+                    && strtolower(pathinfo($photo, PATHINFO_EXTENSION)) === 'svg'
+            ));
+            if (!$photos) {
+                continue;
+            }
 
             $serviceModel = Service::factory()->create([
                 'provider_id' => $randomProvider->id,
@@ -49,29 +52,18 @@ class GoogleServiceSeeder extends Seeder
                 ]);
             }
 
-            if( isset($service['photos']) ) {
-                $photos = $service['photos'];
-                $isLocalPhoto = true;
-            }else{
-                $photos = (new GoogleImageSearchService)->searchImages( $service['name_en'], rand(2,5) );
-                $isLocalPhoto = false;
-            }
-
-            if( !$photos ) continue;
-
             $paths = [];
-            foreach($photos as $index => $photo){
-                if( $isLocalPhoto ) $photo = config('app.url').'/'.$photo;
-                    dump($photo);
-                    try{
-                        $paths[$index] = ( new ImageService() )->storeImageFromUrl($photo);
-                        $paths[$index]['is_main'] =  $index === 0 ? true : false;
-                    }catch(\Exception $e){
-                        dump($e);
-                    }
+            foreach ($photos as $index => $photo) {
+                $sourcePath = public_path($photo);
+                if (!File::exists($sourcePath)) {
+                    throw new RuntimeException("Service SVG does not exist: {$photo}");
+                }
+
+                $paths[$index] = (new ImageService())->storeSvgContents(File::get($sourcePath), basename($sourcePath));
+                $paths[$index]['is_main'] = $index === 0;
             }
 
-            if($paths) $serviceModel->photos()->createMany($paths);
+            $serviceModel->photos()->createMany($paths);
             // die();
             // if($index === 5) die();
         }

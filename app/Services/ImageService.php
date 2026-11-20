@@ -9,6 +9,65 @@ use App\Models\Photo;
 
 class ImageService
 {
+    public function storeSvgContents(string $svgContents, string $originalFilename): array
+    {
+        if ($svgContents === '' || strlen($svgContents) > Photo::$uploadLimits['max_size']) {
+            throw new \InvalidArgumentException('SVG contents are empty or exceed the maximum allowed size.');
+        }
+
+        $document = new \DOMDocument();
+        $previousLibxmlErrorSetting = libxml_use_internal_errors(true);
+        try {
+            $isValidSvg = $document->loadXML($svgContents, LIBXML_NONET | LIBXML_NOBLANKS);
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previousLibxmlErrorSetting);
+        }
+
+        $root = $document->documentElement;
+        if (
+            !$isValidSvg
+            || !$root
+            || $root->localName !== 'svg'
+            || $root->namespaceURI !== 'http://www.w3.org/2000/svg'
+        ) {
+            throw new \InvalidArgumentException('Contents must be a static, valid SVG document.');
+        }
+
+        foreach ($document->getElementsByTagName('*') as $element) {
+            if (in_array(strtolower($element->localName), ['script', 'foreignobject', 'style', 'image', 'iframe', 'object'], true)) {
+                throw new \InvalidArgumentException('SVG contents cannot include active or external elements.');
+            }
+
+            foreach ($element->attributes as $attribute) {
+                $attributeName = strtolower($attribute->localName);
+                if (
+                    strpos($attributeName, 'on') === 0
+                    || $attributeName === 'style'
+                    || $attributeName === 'src'
+                    || ($attributeName === 'href' && strpos($attribute->value, '#') !== 0)
+                ) {
+                    throw new \InvalidArgumentException('SVG contents cannot include active or external attributes.');
+                }
+            }
+        }
+
+        $folder = 'photos/' . now()->format('o-\WW');
+        $filename = Str::random(10) . '-' . Str::slug(pathinfo($originalFilename, PATHINFO_FILENAME)) . '.svg';
+        $path = $folder . '/' . $filename;
+
+        Storage::disk('public')->makeDirectory($folder);
+        if (!Storage::disk('public')->put($path, $svgContents)) {
+            throw new \RuntimeException('Failed to store generated SVG image.');
+        }
+
+        $paths = array_fill_keys(Photo::getSizeKeys(), $path);
+        $paths['original'] = $path;
+        $paths['original_filename'] = Str::limit($originalFilename, 255, '');
+
+        return $paths;
+    }
+
     public function storeImageFromUrl(string $url)//: Photo
     {
         ini_set('memory_limit', '512M');

@@ -9,8 +9,6 @@ use Illuminate\Database\Seeder;
 use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Availability;
-use App\Models\Language;
-use App\Models\Photo;
 use App\Models\ServiceTranslation;
 use App\Services\MessageService;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +26,6 @@ class DatabaseSeeder extends Seeder
 
     public function  __construct(){
         $this->count = [
-            'services' => 5,// for each provider
             'clients' => 30,
             'providers' => 20,
             'appointments' => 3,// for each client
@@ -44,8 +41,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->createUsers();
+        $this->call(GoogleServiceSeeder::class);
         $this->sendMessages();
-        $this->providerSeeder();
+        $this->providerAvailabilitySeeder();
         $this->clientSeeder();
         // Usługi dla każdego provider'a
     }
@@ -92,22 +90,17 @@ class DatabaseSeeder extends Seeder
         }
     }
 
-    private function providerSeeder(){
+    private function providerAvailabilitySeeder()
+    {
+        $this->providers->each(function ($provider) {
+            foreach (config('constants.days') as $day) {
+                if (rand(1, 5) === 1) {
+                    continue;
+                }
 
-        $languages = Language::all();
-
-        $this->providers->each(function ($provider) use ($languages) {
-            $services = Service::factory()->withTranslations()->count( $this->count['services'] )->create([
-                'provider_id' => $provider->id,
-            ]);
-
-            foreach($services as $service){
-                $service->photos()->createMany( Photo::factory()->count( rand(2, 9) )->make()->toArray() );
-            }
-
-            foreach( config('constants.days') as $day ){
-                if( rand(1,5) == 1 ) continue;
-                Availability::factory()->for($provider, 'provider')->create( ['day_of_week' => $day] );
+                Availability::factory()->for($provider, 'provider')->create([
+                    'day_of_week' => $day,
+                ]);
             }
         });
     }
